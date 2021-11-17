@@ -541,7 +541,7 @@
                     document.getElementById("sumiPadMacData").innerHTML = sumiPadMacData;
                     document.getElementById("sumTabletAndroidData").innerHTML = sumTabletAndroidData;
 
-
+                    console.log(res.depositData);
                     $('#table').DataTable({
                         data: res.depositData,
                         lengthChange: false,
@@ -575,10 +575,10 @@
                                 data: "name"
                             },
                             {
-                                data: "from_bank"
+                                data: "bank_short"
                             },
                             {
-                                data: "from_bank",
+                                data: "bank_short",
                                 render: function(data) {
                                     if (data == "  K") {
                                         return ' <td><img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="user-image" class="me-1" height="30"> <br> <p class="mt-1">' + data + '</p></td>';
@@ -598,9 +598,6 @@
                             }
                         ],
                     });
-
-
-
 
                     $('#table2').DataTable({
                         data: res.withdrawData,

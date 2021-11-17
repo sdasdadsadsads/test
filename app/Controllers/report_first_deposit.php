@@ -31,6 +31,10 @@ class report_first_deposit extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_first_deposit/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -59,6 +63,10 @@ class report_first_deposit extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_first_deposit/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

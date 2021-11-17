@@ -33,6 +33,10 @@ class report_deposit_decimal extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_statement_decimal/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -65,6 +69,10 @@ class report_deposit_decimal extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_statement_decimal/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

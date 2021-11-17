@@ -39,16 +39,14 @@
         background-color: #d8dcdf;
         border-color: #cfdde9;
     }
+
     .bg-dangerlight3 {
-    background-color: #462279 !important;
-    color: #ffca6f !important;
-    border-right: 10px solid #ffd700 !important;
-}
+        background-color: #462279 !important;
+        color: #ffca6f !important;
+        border-right: 10px solid #ffd700 !important;
+    }
 </style>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-  />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <!-- ============================================================== -->
 <!-- Start Page Content here -->
 <!-- ============================================================== -->
@@ -186,21 +184,21 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                    <?php if (!empty($bankweb)) { ?>
-                                        <?php foreach ($bankweb as $key => $value) { ?>
-                                            <div class="col-12 col-md-6 col-lg-2 mr-2 pr-2">
-                                                <div class="card border-primary border-2 mb-3">
-                                                    <div class="card-body text-center py-2" style="border-bottom: 10px solid #ffd700;">
-                                                        <img src="<?php echo base_url() ?>/assets/images/Bank_show/<?= $value['bank_short'] ?>.png" alt="user-image" class="me-1 mt-1" height="30">
-                                                        <p class="m-0 p-0 mt-2">ชื่อบัญชี <span class="text-danger"><?= $value['name'] ?></span></p>
-                                                        <p class="m-0 p-0">เลขที่บัญชี <span class="text-danger"><?= $value['account'] ?></span></p>
-                                                        <p class="m-0 p-0">ยอดเงินคงเหลือ <span class="text-danger"><?= number_format($value['balance'], 2) ?></span></p>
+                                        <?php if (!empty($bankweb)) { ?>
+                                            <?php foreach ($bankweb as $key => $value) { ?>
+                                                <div class="col-12 col-md-6 col-lg-2 mr-2 pr-2">
+                                                    <div class="card border-primary border-2 mb-3">
+                                                        <div class="card-body text-center py-2" style="border-bottom: 10px solid #ffd700;">
+                                                            <img src="<?php echo base_url() ?>/assets/images/Bank_show/<?= $value['bank_short'] ?>.png" alt="user-image" class="me-1 mt-1" height="30">
+                                                            <p class="m-0 p-0 mt-2">ชื่อบัญชี <span class="text-danger"><?= $value['name'] ?></span></p>
+                                                            <p class="m-0 p-0">เลขที่บัญชี <span class="text-danger"><?= $value['account'] ?></span></p>
+                                                            <p class="m-0 p-0">ยอดเงินคงเหลือ <span class="text-danger"><?= number_format($value['balance'], 2) ?></span></p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php } ?>
+                                            <?php } ?>
                                         <?php   } else { ?>
-                                     
+
                                         <?php   } ?>
                                     </div>
 
@@ -533,8 +531,8 @@
 
 
                 <script>
-                      var csrfName = '<?= csrf_token() ?>';
-                      var csrfHash = '<?= csrf_hash() ?>';
+                    var csrfName = '<?= csrf_token() ?>';
+                    var csrfHash = '<?= csrf_hash() ?>';
                     $("a#withdraw_total").on('click', function() {
                         window.location = "<?= base_url('withdraw/show') ?>";
                     });
@@ -559,7 +557,8 @@
                     });
                     const data_id = [];
                     setInterval(update_withdraw, 10000);
-                    function update_withdraw(){
+
+                    function update_withdraw() {
                         var base_url = '<?php echo base_url() ?>';
                         $.ajax({
                             url: '<?php echo base_url('withdraw/check_withdrawal') ?>',
@@ -567,92 +566,91 @@
                             dataType: 'json'
                         }).done(async function(res) {
                             var re = JSON.parse(res);
-                            // console.log(re);
-                            // console.log(data_id[0]);
-                            if(re.status == true){
-                             for (let i = 0; i < re.data.length; i++) {
-                                // console.log(data_id[0]);
-                                if(re.data[i].id > data_id[0]){
-                                await data_id.shift();
-                                await data_id.push(re.data[i].id);
-                                var table = document.getElementById("insertRow");
-                                var row = table.insertRow(0);
-                                var cell1 = row.insertCell(0);
-                                var cell2 = row.insertCell(1);
-                                var cell3 = row.insertCell(2);
-                                var cell4 = row.insertCell(3);
-                                var cell5 = row.insertCell(4);
-                                var cell6 = row.insertCell(5);
-                                var cell7 = row.insertCell(6);
-                                var cell8 = row.insertCell(7);
-                                var cell9 = row.insertCell(8);
-                                var cell10 = row.insertCell(9);
-                                var cell11 = row.insertCell(10);
-                                row.setAttribute('class', 'animate__animated animate__fadeInLeft bg-light' );
-                                row.setAttribute('id', 'New'+re.data[i].id);
-                                cell1.setAttribute('class', 'bg-dangerlight3');
-                                cell4.setAttribute('class', 'bg-success text-white');
-                                cell1.innerHTML = 'New';
-                                cell2.innerHTML = '<img src="' + base_url + "/assets/images/Bank_show/"+re.data[i].user_bank_short+'.png"  alt="user-image" class="me-1 mt-1" height="30"> <br> <p class="mt-2 text-blue">'+re.data[i].account + '</p>';
-                                cell3.innerHTML = re.data[i].user_username;
-                                cell4.innerHTML = re.data[i].amount;
-                                cell5.innerHTML = '<h5 class="p-2 text-right" id="admin_check_name_' + re.data[i].id + '"></h5>';
-                                cell6.innerHTML = '<h5 class="p-2 text-right" id="admin_cf_name_' + re.data[i].id + '"></h5>';
-                                cell7.innerHTML = formateDate(re.data[i].time);
-                                cell8.innerHTML ='<h5 class="p-2 text-right" id="admin_cf_Time' + re.data[i].id + '"></h5>';;
-                                cell9.innerHTML = '-';
-                                myAction(re.data[i].id);
-                                if (re.data[i].status == 1) {
-                                    cell10.innerHTML = '<h3 id="waitauto1' + re.data[i].id + '"> <span class = "badge bg-warning text-white mdi mdi-clock"> wait </span></h3><h3 id="showresult1' + re.data[i].id + '"></h3>';
+                            if (re.status == true) {
+                                for (let i = 0; i < re.data.length; i++) {
+                                    if (re.data[i].id > data_id[0]) {
+                                        await data_id.shift();
+                                        await data_id.push(re.data[i].id);
+                                        var table = document.getElementById("insertRow");
+                                        var row = table.insertRow(0);
+                                        var cell1 = row.insertCell(0);
+                                        var cell2 = row.insertCell(1);
+                                        var cell3 = row.insertCell(2);
+                                        var cell4 = row.insertCell(3);
+                                        var cell5 = row.insertCell(4);
+                                        var cell6 = row.insertCell(5);
+                                        var cell7 = row.insertCell(6);
+                                        var cell8 = row.insertCell(7);
+                                        var cell9 = row.insertCell(8);
+                                        var cell10 = row.insertCell(9);
+                                        var cell11 = row.insertCell(10);
+                                        row.setAttribute('class', 'animate__animated animate__fadeInLeft bg-light');
+                                        row.setAttribute('id', 'New' + re.data[i].id);
+                                        cell1.setAttribute('class', 'bg-dangerlight3');
+                                        cell4.setAttribute('class', 'bg-success text-white');
+                                        cell1.innerHTML = 'New';
+                                        cell2.innerHTML = '<img src="' + base_url + "/assets/images/Bank_show/" + re.data[i].user_bank_short + '.png"  alt="user-image" class="me-1 mt-1" height="30"> <br> <p class="mt-2 text-blue">' + re.data[i].account + '</p>';
+                                        cell3.innerHTML = re.data[i].user_username;
+                                        cell4.innerHTML = re.data[i].amount;
+                                        cell5.innerHTML = '<h5 class="p-2 text-right" id="admin_check_name_' + re.data[i].id + '"></h5>';
+                                        cell6.innerHTML = '<h5 class="p-2 text-right" id="admin_cf_name_' + re.data[i].id + '"></h5>';
+                                        cell7.innerHTML = formateDate(re.data[i].time);
+                                        cell8.innerHTML = '<h5 class="p-2 text-right" id="admin_cf_Time' + re.data[i].id + '"></h5>';;
+                                        cell9.innerHTML = '-';
+                                        myAction(re.data[i].id);
+                                        if (re.data[i].status == 1) {
+                                            cell10.innerHTML = '<h3 id="waitauto2' + re.data[i].id + '"> <span class = "badge bg-warning text-white mdi mdi-clock"> wait </span></h3><h3 id="showresult1' + re.data[i].id + '"></h3>';
+                                        }
+                                        if (re.data[i].status == 1) {
+                                            cell11.innerHTML = '<td class="text-center"><div id="withdraw_status' + re.data[i].id + '"> ' +
+                                                ' <button type="button" class="btn btn-success waves-effect waves-light" onClick="accept_withdraw(' + re.data[i].id + ')" title="เช็กรายการ"><i class="mdi mdi-check-bold"></i> </button>' +
+                                                ' <button type="button" class="btn btn-danger waves-effect waves-light" title="ยกเลิก" onClick="admin_reject(' + re.data[i].id + ')"><i class="mdi mdi-close-thick"></i></button>' +
+                                                ' <button type="button" class="btn btn-danger waves-effect waves-light" title="ลบ" onClick="remove_withdraw(' + re.data[i].id + ')"><i class="mdi mdi-delete-forever"></i></button> </div></td>';
+                                        }
+                                    } else {
+                                        console.log('เเสดงเเล้ว');
+                                    }
                                 }
-                                if (re.data[i].status == 1) {
-                                    cell11.innerHTML = '<td class="text-center"><div id="withdraw_status' + re.data[i].id + '"> ' +
-                                ' <button type="button" class="btn btn-success waves-effect waves-light" onClick="accept_withdraw(' + re.data[i].id + ')" title="เช็กรายการ"><i class="mdi mdi-check-bold"></i> </button>' +
-                                ' <button type="button" class="btn btn-danger waves-effect waves-light" title="ยกเลิก" onClick="admin_reject(' + re.data[i].id + ')"><i class="mdi mdi-close-thick"></i></button>' +
-                                ' <button type="button" class="btn btn-danger waves-effect waves-light" title="ลบ" onClick="remove_withdraw(' + re.data[i].id + ')"><i class="mdi mdi-delete-forever"></i></button> </div></td>';
-                                }               
-                            }  else{
-                                console.log('เเสดงเเล้ว');
-                            }  
-                                }           
                             }
                         });
                     }
-                    function myAction(withdraw_id) {
-                        setInterval(function(){ 
-                                   $.ajax({
-                                        url: '<?php echo base_url('withdraw/check_status') ?>',
-                                        type: 'POST',
-                                        dataType: 'json',
-                                        data: {withdraw_id: withdraw_id},
-                                      }).done(function(res) {
-                                    var re = JSON.parse(res);
-                                    // console.log(re);
-                                    if (re.status == true) {
-                                         if(re.data[0].status == 2){
-                                            $('#admin_check_name_'+ withdraw_id).html('<h5 class="p-2 text-right">'+re.data[0].admin_cf+'</h5>');
-                                            $('#admin_cf_name_'+ withdraw_id).html('<h5 class="p-2 text-right">'+re.data[0].admin_cf+'</h5>');
-                                            $('#admin_cf_Time'+ withdraw_id).html('<h5 class="p-2 text-right">'+formateDate(re.data[0].admin_cfTime)+'</h5>');
-                                            $('#waitauto1'+ withdraw_id).html('<h3> <span class = "badge bg-success text-white mdi mdi-checkbox-marked-circle"> success </span></h3>');
-                                            $('#withdraw_status' + withdraw_id).html('<div id="withdraw_status' + withdraw_id + '"> ' +
-                                             '<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button> </div>');
-                                         }else if(re.data[0].status == 6){
-                                            $('#waitauto1'+ withdraw_id).html('<h3 id="waitauto' + withdraw_id + '"> <span class = "badge bg-warning text-white mdi mdi-alarm-multiple"> wait auto </span></h3><h4 id="showresult' + withdraw_id + '"></h3>');
-                                            $('#withdraw_status' + withdraw_id).html('<td class="text-center"><div id="withdraw_status' + data.id + '">  <div><button type="button" class="btn btn-secondary1 waves-effect waves-light" id="timewait_' + data.id + '" style="margin-right:2px;"></button>' +
-                                                            ' <hh id="rewithdraw_' + data.id + '"></hh>' +
-                                                            ' <dd id="showrefresh' + data.id + '"></dd>' +
-                                                            ' </div></div></td>');
-                                         }else if(re.data[0].status == 7){
-                                            $('#waitauto1'+ withdraw_id).html('<h3><span class = "badge bg-danger text-white mdi mdi-alert-circle"> error </span></h3>');
-                                            $('#withdraw_status' + withdraw_id).html('<td class="text-center"><div id="withdraw_status' + withdraw_id + '">    <button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')"><i class="mdi mdi-refresh"></i> </button> </div></td>');    
-                                         }
-                                    } else {
 
+                    function myAction(withdraw_id) {
+                        setInterval(function() {
+                            $.ajax({
+                                url: '<?php echo base_url('withdraw/check_status') ?>',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    withdraw_id: withdraw_id
+                                },
+                            }).done(function(res) {
+                                var re = JSON.parse(res);
+                                if (re.status == true) {
+                                    if (re.data[0].status == 2) {
+                                        $('#admin_check_name_' + withdraw_id).html('<h5 class="p-2 text-right">' + re.data[0].admin_cf + '</h5>');
+                                        $('#admin_cf_name_' + withdraw_id).html('<h5 class="p-2 text-right">' + re.data[0].admin_cf + '</h5>');
+                                        $('#admin_cf_Time' + withdraw_id).html('<h5 class="p-2 text-right">' + formateDate(re.data[0].admin_cfTime) + '</h5>');
+                                        $('#waitauto1' + withdraw_id).html('<h3> <span class = "badge bg-success text-white mdi mdi-checkbox-marked-circle"> success </span></h3>');
+                                        $('#withdraw_status' + withdraw_id).html('<div id="withdraw_status' + withdraw_id + '"> ' +
+                                            '<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button> </div>');
+                                    } else if (re.data[0].status == 6) {
+                                        $('#waitauto1' + withdraw_id).html('<h3 id="waitauto' + withdraw_id + '"> <span class = "badge bg-warning text-white mdi mdi-alarm-multiple"> wait auto </span></h3><h4 id="showresult' + withdraw_id + '"></h3>');
+                                        $('#withdraw_status' + withdraw_id).html('<div id="withdraw_status' +withdraw_id + '">  <div><button type="button" class="btn btn-secondary1 waves-effect waves-light" id="timewait_' +withdraw_id + '" style="margin-right:2px;"></button>' +
+                                         '<hh id="rewithdraw_' + withdraw_id + '"></hh><dd id="showrefresh' +withdraw_id + '"></dd></div></div></td>');
+                                          pending_withdrawal(withdraw_id, re.data[0].admin_cfTime);
+                                    } else if (re.data[0].status == 7) {
+                                        $('#waitauto1' + withdraw_id).html('<h3><span class = "badge bg-danger text-white mdi mdi-alert-circle"> error </span></h3>');
+                                        $('#withdraw_status' + withdraw_id).html('<td class="text-center"><div id="withdraw_status' + withdraw_id + '">    <button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')"><i class="mdi mdi-refresh"></i> </button> </div></td>');
                                     }
-                                });
+                                } else {
+
+                                }
+                            });
                         }, 3000);
 
-                        }
+                    }
+
                     function return_button_default(id) {
                         let statu_value = '<button type="button" class="btn btn-success waves-effect waves-light" onClick="accept_withdraw(' + id + ')" title="เช็กรายการ" ><i class="mdi mdi-check-bold"></i> </button> ' +
                             '<button type="button" class="btn btn-danger waves-effect waves-light" onClick="admin_reject(' + id + ')" ><i class="mdi mdi-close-thick"></i></button> ' +
@@ -678,8 +676,6 @@
                             },
                         }).done(function(res) {
                             var re = JSON.parse(res);
-                            console.log(re.status);
-                            console.log(re.msg);
                             if (re.status == true) {
                                 var html = '';
                                 var htmll = '';
@@ -873,16 +869,18 @@
                                                                             var date = new Date();
                                                                             var time = date.getTime();
                                                                             var timewait = time - re.data.admin_cfTime * 1000;
-                                                                            var minutes = Math.floor((timewait % (1000 * 60 * 60)) / (1000 * 60));
+                                                                            var minutes = Math.floor((timewait % (1000 * 60 * 60)) / (1000 * 60));  
                                                                             var seconds = Math.floor((timewait % (1000 * 60)) / 1000);
+                                                                            $('#waitauto1' + withdraw_id).hide();
                                                                             $('#timewaitR' + withdraw_id).html(('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2));
+                                                                            $('#showresult1' + withdraw_id).html('<h3 id="waitauto' + withdraw_id + '"> <span class = "badge bg-warning text-white mdi mdi-alarm-multiple"> wait auto </span></h3><h4 id="showresult' + withdraw_id + '"></h4>');
                                                                             if (minutes >= 3) {
                                                                                 $('#rewithdrawR' + withdraw_id).html('<button type="button" class="btn btn-warning waves-effect waves-light" onClick="reback_withdraw_modal(' + withdraw_id + ')"><i class="mdi mdi-refresh"></i></button>');
                                                                             }
                                                                         }, 1000);
                                                                     } else if (re.data.status == 2) {
                                                                         $('#timewaitR' + withdraw_id).hide();
-                                                                        $('#waitauto1' + withdraw_id).hide(); 
+                                                                        $('#waitauto1' + withdraw_id).hide();
                                                                         $('#admin_cf_name_' + withdraw_id).html(re.data.admin_cf);
                                                                         $('#admin_check_name_' + withdraw_id).html(re.data.admin_cf);
                                                                         $('#showresult1' + withdraw_id).html('<span class = "badge bg-success text-white mdi mdi-checkbox-marked-circle"> success </span>');
@@ -1256,14 +1254,14 @@
                             .done(function(body) {
                                 const res = JSON.parse(body);
                                 console.log(res);
-                                if(res.withdrawData.length !== 0){
+                                if (res.withdrawData.length !== 0) {
                                     data_id.shift();
                                     data_id.push(res.withdrawData[0].id);
-                                }else{
+                                } else {
                                     data_id.shift();
                                     data_id.push(res.lastId[0].id);
                                 }
-                                
+
                                 var date11 = document.getElementById('date1').value;
                                 var date22 = document.getElementById('date2').value;
 
@@ -1321,7 +1319,6 @@
                                     } else {
                                         var withdraw = res.withdrawData;
                                     }
-                                    
                                     $('#table').DataTable({
                                         data: withdraw,
                                         // pageLength: 20,
@@ -1515,55 +1512,11 @@
                                                     } else if (data.status == 4) {
                                                         return '<td class="text-center"><div id="withdraw_status' + data.id + '"> <button type="button" class="btn btn-success waves-effect waves-light" title="" ><i class="mdi mdi-check-bold"></i> </button> </div></td>';
                                                     } else if (data.status == 6) {
+                                                        pending_withdrawal(data.id, data.admin_cfTime);
                                                         return '<td class="text-center"><div id="withdraw_status' + data.id + '">  <div><button type="button" class="btn btn-secondary1 waves-effect waves-light" id="timewait_' + data.id + '" style="margin-right:2px;"></button>' +
                                                             ' <hh id="rewithdraw_' + data.id + '"></hh>' +
                                                             ' <dd id="showrefresh' + data.id + '"></dd>' +
                                                             ' </div></div></td>';
-
-                                                        setInterval(function() {
-                                                            var date = new Date();
-                                                            var time = date.getTime();
-                                                            var timewait = time - <?= $value['admin_cfTime'] * 1000 ?>;
-                                                            var minutes = Math.floor((timewait % (1000 * 60 * 60)) / (1000 * 60));
-                                                            var seconds = Math.floor((timewait % (1000 * 60)) / 1000);
-                                                            var id = <?= $value['id'] ?>;
-                                                            $('#timewait_' + id).html(('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2));
-                                                            if (minutes >= 3) {
-                                                                $('#rewithdraw_' + id).html('<button type="button" class="btn btn-warning waves-effect waves-light" onClick="reback_withdraw_modal(' + id + ')"><i class="mdi mdi-refresh"></i></button>');
-                                                            }
-                                                        }, 1000);
-                                                        var chek = setInterval(function() {
-                                                            var withdraw_id = <?= $value['id'] ?>;
-                                                            $.ajax({
-                                                                url: '<?php echo base_url('withdraw/checkStatusWithdraw') ?>',
-                                                                type: 'POST',
-                                                                dataType: 'json',
-                                                                data: {
-                                                                    withdraw_id: withdraw_id
-                                                                },
-                                                            }).done(function(res) {
-                                                                var re = JSON.parse(res);
-                                                                if (re.status == true) {
-                                                                    console.log(re.data.status);
-                                                                    if (re.data.status == 2 || re.data.status == 7) {
-                                                                        $('#timewait_' + withdraw_id).hide();
-                                                                        $('#rewithdraw_' + withdraw_id).hide();
-                                                                        $('#waitauto' + withdraw_id).hide();
-                                                                        if (re.data.status == 7) {
-                                                                            $('#showresult' + withdraw_id).html('<span class = "badge bg-danger text-white"> error </span>');
-                                                                            $('#showrefresh' + withdraw_id).html('<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button>');
-                                                                        } else if (re.data.status == 2) {
-                                                                            $('#showresult' + withdraw_id).html('<span class = "badge bg-success text-white"> success </span>');
-                                                                            $('#showrefresh' + withdraw_id).html('<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button>');
-                                                                        }
-                                                                        clearInterval(chek);
-                                                                    }
-                                                                } else {
-                                                                    // get status มาไม่ได้
-                                                                }
-                                                            })
-                                                        }, 2000);
-
                                                     } else if (data.status == 7) {
                                                         return '<td class="text-center"><div id="withdraw_status' + data.id + '">    <button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + data.id + ')"><i class="mdi mdi-refresh"></i> </button> </div></td>';
                                                     }
@@ -1607,6 +1560,52 @@
                                 });
                                 document.getElementById("myCheck").click();
                             });
+                    }
+
+                    function pending_withdrawal(id, admin_cfTime) {
+
+                        setInterval(function() {
+                            var date = new Date();
+                            var time = date.getTime();
+                            var timewait = time - admin_cfTime * 1000;
+                            var minutes = Math.floor((timewait % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((timewait % (1000 * 60)) / 1000);
+                            $('#timewait_' + id).html(('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2));
+                            if (minutes >= 3) {
+                                $('#rewithdraw_' + id).html('<button type="button" class="btn btn-warning waves-effect waves-light" onClick="reback_withdraw_modal(' + id + ')"><i class="mdi mdi-refresh"></i></button>');
+                            }
+                        }, 1000);
+                        var chek = setInterval(function() {
+                            var withdraw_id = id;
+                            $.ajax({
+                                url: '<?php echo base_url('withdraw/checkStatusWithdraw') ?>',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: {
+                                    withdraw_id: withdraw_id
+                                },
+                            }).done(function(res) {
+                                var re = JSON.parse(res);
+                                if (re.status == true) {
+                                    console.log(re.data.status);
+                                    if (re.data.status == 2 || re.data.status == 7) {
+                                        $('#timewait_' + withdraw_id).hide();
+                                        $('#rewithdraw_' + withdraw_id).hide();
+                                        $('#waitauto' + withdraw_id).hide();
+                                        if (re.data.status == 7) {
+                                            $('#showresult' + withdraw_id).html('<span class = "badge bg-danger text-white"> error </span>');
+                                            $('#showrefresh' + withdraw_id).html('<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button>');
+                                        } else if (re.data.status == 2) {
+                                            $('#showresult' + withdraw_id).html('<span class = "badge bg-success text-white"> success </span>');
+                                            $('#showrefresh' + withdraw_id).html('<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button>');
+                                        }
+                                        clearInterval(chek);
+                                    }
+                                } else {
+                                    // get status มาไม่ได้
+                                }
+                            })
+                        }, 2000);
                     }
                 </script>
 

@@ -192,13 +192,13 @@ class bank_auto extends ResourceController
             ];
             $client = service('curlrequest', $this->url);
 
-            $posts_data = $client->post( 'bank/changeStatusProcesslist',
-                [ 
+            $posts_data = $client->post('bank/changeStatusProcesslist',
+                [
                     "headers" => [
-                    "Accept" => "application/json",
-                    "jwt_token" => session()->get('JWT_TOKEN')
-                ],
-                'form_params' => $data
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ],
+                    'form_params' => $data
                 ]
             );
             $body = $posts_data->getBody();

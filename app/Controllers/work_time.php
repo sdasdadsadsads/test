@@ -16,7 +16,8 @@ class work_time extends ResourceController
 
             $posts_data = $client->get("admin_rounds/show", [
                 "headers" => [
-                    "Accept" => "application/json"
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
                 ]
             ]);
 
@@ -53,6 +54,10 @@ class work_time extends ResourceController
                 $client = service('curlrequest', $this->url);
 
                 $posts_data = $client->post('admin_rounds/cre_rounds', [
+                    "headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
                     'form_params' =>
                     $data
                 ]);
@@ -94,6 +99,10 @@ class work_time extends ResourceController
                 $client = service('curlrequest', $this->url);
 
                 $posts_data = $client->post('admin_rounds/rounds_getid', [
+                    "headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
                     'form_params' =>
                     $data
                 ]);
@@ -130,6 +139,10 @@ class work_time extends ResourceController
                 $client = service('curlrequest', $this->url);
 
                 $posts_data = $client->post('admin_rounds/update_rounds', [
+                    "headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
                     'form_params' =>
                     $data
                 ]);

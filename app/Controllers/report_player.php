@@ -15,7 +15,12 @@ class report_player extends ResourceController
         try {
             $client = service('curlrequest', $this->url);
 
-            $posts_data = $client->get('caching/bankCategory');
+            $posts_data = $client->get('caching/bankCategory', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
 
             $body = $posts_data->getBody();
             $body = json_decode($body, true); // แปลง JSON เป็น Array
@@ -49,12 +54,21 @@ class report_player extends ResourceController
 
             $client = service('curlrequest', $this->url);
             $posts_data = $client->post('Report_player/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $user_data_input
             ]);
             $userData = $posts_data->getBody();
 
-            $posts_data = $client->get('caching/bankCategory');
+            $posts_data = $client->get('caching/bankCategory', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
             $bankData = $posts_data->getBody();
             foreach (json_decode($bankData)->data as $value) {
                 array_push($bankName, $value->bank_th);
@@ -93,6 +107,10 @@ class report_player extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_statement/filter_id', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -121,6 +139,10 @@ class report_player extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_withdraw/filter_id', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -150,6 +172,10 @@ class report_player extends ResourceController
                 $client = service('curlrequest', $this->url);
 
                 $posts_data = $client->post('manage/users/user_get', [
+                    "headers" => [
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ],
                     'form_params' =>
                     $data
                 ]);
@@ -198,6 +224,10 @@ class report_player extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('manage/users/edit', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -208,7 +238,12 @@ class report_player extends ResourceController
             $bankId = array();
             $bankShortName = array();
 
-            $posts_data = $client->get('caching/bankCategory');
+            $posts_data = $client->get('caching/bankCategory', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
             $bankData = $posts_data->getBody();
             foreach (json_decode($bankData)->data as $value) {
                 array_push($bankName, $value->bank_th);
@@ -259,6 +294,10 @@ class report_player extends ResourceController
                 $client = service('curlrequest', $this->url);
 
                 $posts_data = $client->post('admin/manage/users/resetPass', [
+                    "headers" => [
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ],
                     'form_params' =>
                     $data
                 ]);

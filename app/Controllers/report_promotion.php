@@ -20,7 +20,8 @@ class report_promotion extends ResourceController
 
             $posts_data = $client->get("caching/promoCategory", [
                 "headers" => [
-                    "Accept" => "application/json"
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
                 ]
             ]);
 
@@ -58,6 +59,10 @@ class report_promotion extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_promotion/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -83,12 +88,20 @@ class report_promotion extends ResourceController
             switch($isDelBonus){
                 case 1:
                     $posts_data = $client->post('promotions/cancelPromoDelBonus', [ 
+                        "headers" => [
+                            "Accept" => "application/json",
+                            "jwt_token" => session()->get('JWT_TOKEN')
+                        ],
                         'form_params' =>
                         $data
                     ]);
                     break;
                 default:
                     $posts_data = $client->post('promotions/cancelPromotion', [
+                        "headers" => [
+                            "Accept" => "application/json",
+                            "jwt_token" => session()->get('JWT_TOKEN')
+                        ],
                         'form_params' =>
                         $data
                     ]);
@@ -122,6 +135,10 @@ class report_promotion extends ResourceController
             $client = service('curlrequest',);
 
             $posts_data = $client->post('Report_promotion/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

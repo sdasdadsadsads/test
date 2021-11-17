@@ -13,7 +13,12 @@ class report_pointandspin extends ResourceController
         try {
             $client = service('curlrequest', $this->url);
             $infomation = [];
-            $posts_data = $client->get('Report_PointAndSpin/show');
+            $posts_data = $client->get('Report_PointAndSpin/show', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
 
             $body = $posts_data->getBody();
             $body = json_decode($body, true); // แปลง JSON เป็น Array
@@ -38,6 +43,10 @@ class report_pointandspin extends ResourceController
             $client = service('curlrequest', $this->url);
             $infomation = [];
             $posts_data = $client->post('Report_PointAndSpin/show_id', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -67,6 +76,10 @@ class report_pointandspin extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_PointAndSpin/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

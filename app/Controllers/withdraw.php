@@ -17,7 +17,12 @@ class withdraw extends ResourceController
         try {
             $client = service('curlrequest', $this->url);
 
-            $posts_data = $client->get('withdraw/getWithdrawList');
+            $posts_data = $client->get('withdraw/getWithdrawList', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
 
             $body = $posts_data->getBody();
             $body = json_decode($body, true);
@@ -44,6 +49,10 @@ class withdraw extends ResourceController
         $client = service('curlrequest', $this->url);
 
         $posts_data = $client->post('withdraw/filtersWithdraw', [
+            "headers" => [
+                "Accept" => "application/json",
+                "jwt_token" => session()->get('JWT_TOKEN')
+            ],
             'form_params' =>
             $data
         ]);
@@ -66,6 +75,10 @@ class withdraw extends ResourceController
         $client = service('curlrequest', $this->url);
 
         $posts_data = $client->post('withdraw/filtersWithdraw', [
+            "headers" => [
+                "Accept" => "application/json",
+                "jwt_token" => session()->get('JWT_TOKEN')
+            ],
             'form_params' =>
             $data
         ]);
@@ -89,6 +102,10 @@ class withdraw extends ResourceController
         $client = service('curlrequest', $this->url);
 
         $posts_data = $client->post('withdraw/filtersWithdraw', [
+            "headers" => [
+                "Accept" => "application/json",
+                "jwt_token" => session()->get('JWT_TOKEN')
+            ],
             'form_params' =>
             $data
         ]);
@@ -112,6 +129,10 @@ class withdraw extends ResourceController
         $client = service('curlrequest', $this->url);
 
         $posts_data = $client->post('withdraw/filtersWithdraw', [
+            "headers" => [
+                "Accept" => "application/json",
+                "jwt_token" => session()->get('JWT_TOKEN')
+            ],
             'form_params' =>
             $data
         ]);
@@ -137,6 +158,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/see_withdraw', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -153,7 +178,12 @@ class withdraw extends ResourceController
     {
         try {
             $client = service('curlrequest', $this->url);
-            $posts_data = $client->get('withdraw/get_balanace');
+            $posts_data = $client->get('withdraw/get_balanace', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
             $body = $posts_data->getBody();
             echo json_encode($body);
             return;
@@ -179,6 +209,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/get_bankweb', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -208,6 +242,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/confirm_withdraw_auto', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -233,6 +271,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/cancel_wd_check', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -259,6 +301,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/cancel_withdraw', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -284,6 +330,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/remove_withdraw', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -310,6 +360,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/reback_withdraw', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -334,6 +388,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/checkStatusWithdraw', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -357,6 +415,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/filtersWithdraw', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -385,6 +447,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_withdraw/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -414,6 +480,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_withdraw/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -489,7 +559,12 @@ class withdraw extends ResourceController
 
             $client = service('curlrequest', $this->url);
 
-            $posts_data = $client->get('withdraw/check_withdrawal');
+            $posts_data = $client->get('withdraw/check_withdrawal', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ]
+            ]);
 
             $body = $posts_data->getBody();
             echo json_encode($body);
@@ -510,6 +585,10 @@ class withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('withdraw/check_status', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

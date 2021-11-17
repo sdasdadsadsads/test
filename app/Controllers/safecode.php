@@ -20,6 +20,10 @@ class safecode extends ResourceController
 			$client = service('curlrequest', $this->url);
 
 			$posts_data = $client->post('admin_safecode/show', [
+				"headers" => [
+					"Accept" => "application/json",
+					"jwt_token" => session()->get('JWT_TOKEN')
+				],
 				'form_params' =>
 				$data
 			]);
@@ -63,6 +67,10 @@ class safecode extends ResourceController
 			if ($id) {
 				$client = service('curlrequest', $this->url);
 				$posts_data = $client->post('admin_safecode/save_safecode', [
+					"headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
 					'form_params' =>
 					$data
 				]);
@@ -116,6 +124,10 @@ class safecode extends ResourceController
 				$client = service('curlrequest', $this->url);
 
 				$posts_data = $client->post('admin_safecode/delete_safecode', [
+					"headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
 					'form_params' =>
 					$data
 				]);
@@ -168,6 +180,10 @@ class safecode extends ResourceController
 				$client = service('curlrequest', $this->url);
 
 				$posts_data = $client->post('admin_safecode/open_statussafe', [
+					"headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
 					'form_params' =>
 					$data
 				]);
@@ -219,6 +235,10 @@ class safecode extends ResourceController
 				$client = service('curlrequest', $this->url);
 
 				$posts_data = $client->post('admin_safecode/close_statussafe', [
+					"headers" => [
+						"Accept" => "application/json",
+						"jwt_token" => session()->get('JWT_TOKEN')
+					],
 					'form_params' =>
 					$data
 				]);

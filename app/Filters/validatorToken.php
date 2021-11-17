@@ -29,7 +29,7 @@ class validatorToken implements FilterInterface
                 return redirect()->to(base_url('/'));
             }
         } catch (Exception $err) {
-            print_r($err);
+            // print_r($err);
         }
     }
 

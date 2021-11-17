@@ -17,7 +17,8 @@ class withdraw_setting extends ResourceController
 
             $posts_data = $client->get("withdraw_setting/show", [
                 "headers" => [
-                    "Accept" => "application/json"
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
                 ]
             ]);
 
@@ -64,6 +65,10 @@ class withdraw_setting extends ResourceController
                 $client = service('curlrequest', $this->url);
 
                 $posts_data = $client->post('withdraw_setting/setWD', [
+                    "headers" => [
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ],
                     'form_params' =>
                     $data
                 ]);

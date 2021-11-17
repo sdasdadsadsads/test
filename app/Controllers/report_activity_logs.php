@@ -16,7 +16,12 @@ class report_activity_logs extends ResourceController
       
             try{
                 $client = service('curlrequest', $this->url);
-                $posts_data = $client->get('caching/menuAll');
+                $posts_data = $client->get('caching/menuAll', [
+                    "headers" => [
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ]
+                ]);
                 $body = $posts_data->getBody();
                 $data = [
                     'data' => json_decode($body)
@@ -45,6 +50,10 @@ class report_activity_logs extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_logs_activity/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -76,6 +85,10 @@ class report_activity_logs extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_logs_activity/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

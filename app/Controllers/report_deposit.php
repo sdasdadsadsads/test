@@ -32,6 +32,10 @@ class report_deposit extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_statement/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -62,6 +66,10 @@ class report_deposit extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_statement/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);

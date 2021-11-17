@@ -14,13 +14,8 @@ class report_withdraw extends ResourceController
 {
     public function index()
     {
-        try {
-            return view('Page/admin/report_withdraw.php');
-        } catch (Exception $e) {
-            $session = session();
-            $session->setFlashdata('error', 'เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่');
-            return redirect()->to(base_url('dashboard/show'));
-        }
+
+        return view('Page/admin/report_withdraw.php');
     }
 
     public function filter()
@@ -38,6 +33,10 @@ class report_withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_withdraw/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -66,6 +65,10 @@ class report_withdraw extends ResourceController
             $client = service('curlrequest', $this->url);
 
             $posts_data = $client->post('Report_withdraw/filter', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
                 'form_params' =>
                 $data
             ]);
@@ -138,6 +141,4 @@ class report_withdraw extends ResourceController
             return redirect()->to(base_url('report_withdraw/show'));
         }
     }
-
-
 }
