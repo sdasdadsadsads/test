@@ -23,7 +23,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $baseURL = 'https://be.12iwinr.com/';
+	public $baseURL = 'http://192.168.224.51/12iwinr-backend-production/';
 
 	/**
 	 * --------------------------------------------------------------------------

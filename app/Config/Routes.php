@@ -253,6 +253,7 @@ $routes->group('check_player', function ($routes) {
 	$routes->post('filter', 'check_player::filter',  ['filter' => 'auth']);
 	$routes->post('ref_deposit', 'check_player::ref_deposit',  ['filter' => 'auth']);
 });
+
 $routes->group('bank_statement', function ($routes) {
 	$routes->get('show', 'bank_statement::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,6,12']);
 	$routes->post('create_Statement', 'bank_statement::create_Statement',  ['filter' => 'auth']);
@@ -266,6 +267,14 @@ $routes->group('broadcast', function ($routes) {
 	$routes->get('show', 'broadcast::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,13,46']);
 	$routes->post('add_broadcast', 'broadcast::add_broadcast',  ['filter' => 'auth']);
 	$routes->post('edit_broadcast', 'broadcast::edit_broadcast',  ['filter' => 'auth']);
+});
+
+
+
+$routes->group('forced_withdraw', function ($routes) {
+	$routes->get('show', 'forced_withdraw::index',  ['filter' => 'auth', 'filter' => 'isPermission:1,4,5']);
+	$routes->post('filter', 'forced_withdraw::filter',  ['filter' => 'auth']);
+	$routes->post('ref_deposit', 'forced_withdraw::ref_deposit',  ['filter' => 'auth']);
 });
 
 /*

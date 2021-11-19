@@ -5,7 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
 
-class check_player extends ResourceController
+class forced_withdraw extends ResourceController
 
 
 {
@@ -20,7 +20,7 @@ class check_player extends ResourceController
 
     public function index()
     {
-        return view('Page/admin/check_player.php');
+        return view('Page/admin/forced_withdraw.php');
     }
 
     public function filter()
