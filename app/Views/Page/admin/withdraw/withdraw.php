@@ -497,10 +497,11 @@
                                 },
                             }).done(function(res) {
                                 var re = JSON.parse(res);
+                                console.log(re.data);
                                 if (re.status == true) {
                                     if (re.data[0].status == 2) {
-                                        $('#inspector' + withdraw_id).html('<h5 class="p-2 text-right">' + re.data[0].admin_cf + '</h5>');
-                                        $('#confirmer' + withdraw_id).html('<h5 class="p-2 text-right">' + re.data[0].admin_cf + '</h5>');
+                                        $('#inspector' + withdraw_id).html('<h5 class="p-2 text-right">' + re.data[0].admin_cf_name + '</h5>');
+                                        $('#confirmer' + withdraw_id).html('<h5 class="p-2 text-right">' + re.data[0].admin_cf_name + '</h5>');
                                         $('#confirm_time' + withdraw_id).html('<h5 class="p-2 text-right">' + formateDate(re.data[0].admin_cfTime) + '</h5>');
                                         $('#in_progress' + withdraw_id).hide();
                                         $('#result' + withdraw_id).html('<h3> <span class = "badge bg-success text-white mdi mdi-checkbox-marked-circle"> success </span></h3>');
@@ -765,7 +766,7 @@
                                                                     } else if (re.data.status == 7) {
                                                                         $('#timewaitR' + withdraw_id).hide();
                                                                         $('#waitauto1' + withdraw_id).hide();
-                                                                        $('#showresult1' + withdraw_id).html('<h3><span class = "badge bg-danger text-white"> error </span></h3>');
+                                                                        $('#showresult1' + withdraw_id).html('<h3><span class = "badge bg-danger text-white  mdi mdi-alert-circle"> error </span></h3>');
                                                                         $('#showrefreshR' + withdraw_id).html('<button type="button" class="btn btn-warning waves-effect waves-light" title="" onClick="reback_withdraw_modal(' + withdraw_id + ')" ><i class="mdi mdi-refresh"></i> </button>');
                                                                         clearInterval(chek);
                                                                     }
