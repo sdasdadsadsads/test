@@ -38,7 +38,7 @@ $session = session();
             </div>
 
 
-            <div class="row">
+            <div class="row" id='container-sale'>
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
@@ -63,7 +63,22 @@ $session = session();
                                 </thead>
 
                                 <tbody>
-
+                                    <?php if (isset($saleData)) : ?>
+                                        <?php $step = 1; ?>
+                                        <?php foreach ($saleData as $element) : ?>
+                                            <tr>
+                                                <th><?php echo $step; ?></th>
+                                                <th><?php echo $element['username']; ?></th>
+                                                <th><?php echo $element['fullName']; ?></th>
+                                                <th><?php echo $element['tel_sale']; ?></th>
+                                                <th><?php echo $element['num_of_users']; ?></th>
+                                                <th><?php echo gmdate("d/m/Y  i:m:s", $element['last_login']); ?></th>
+                                                <th><?php echo $element['last_ip']; ?></th>
+                                                <th><?php echo gmdate("d/m/Y  i:m:s", $element['created_at']); ?></th>
+                                                <th>-</th>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
 
                                 </tbody>
                             </table>
@@ -73,8 +88,37 @@ $session = session();
             </div>
 
 
+            <div class="row" id="container-register" style="display: none;">
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-12">
+                                    <div class="tab-content b-0 mb-0 pt-0">
+                                        <div class="tab-pane active" id="finish">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="text-center">
+                                                        <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
+                                                        <h3 class="mt-0">สมัครสมาชิกสำเร็จ !</h3>
+                                                        <hr>
+                                                        <h4 class="w-80 mb-2 mx-auto">Username : <a id="username1" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">Password : <a id="password1" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">ชื่อ - สกุล : <a id="fullName1" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">line Id : <a id="lineId1" class="text-blue"></a></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
 
 
             <div class="col-xl-12">
@@ -92,13 +136,14 @@ $session = session();
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">ชื่อ</label>
-                                                <input type="text" id="edit_name" class="form-control" name="name" placeholder="ชื่อ">
+                                                <input type="text" id="fullName" class="form-control" name="fullName" placeholder="ชื่อ">
+
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">เบอร์โทรศัพท์</label>
-                                                <input type="number" id="edit_tel" class="form-control" name="tel" placeholder="Tel">
+                                                <input type="number" id="nun_tel" class="form-control" name="nun_tel" placeholder="Tel">
                                             </div>
                                         </div>
                                     </div>
@@ -106,28 +151,27 @@ $session = session();
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">Username</label>
-                                                <input type="text" name="username" placeholder="Username" class="form-control" placeholder="Username">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id='username' name='username' placeholder="username" aria-label="username" aria-describedby="basic-addon2">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">.sale@12iwinr</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">รหัสผ่าน</label>
-                                                <input type="text" id="inputSuccess5" name="password" placeholder="Password" class="form-control">
+                                                <input type="text" id="password" name="password" placeholder="Password" class="form-control">
                                             </div>
                                         </div>
                                     </div>
-                                    <script>
-                                        <?php if (isset($MENU_CLASS_ADMIN) && isset($PERMISSION_CLASS_ADMIN)) : ?>
-                                            const MENU_CLASS_ADMIN = <?php echo json_encode($MENU_CLASS_ADMIN); ?>;
-                                            const PERMISSION_CLASS_ADMIN = <?php echo json_encode($PERMISSION_CLASS_ADMIN); ?>;
-                                        <?php endif; ?>
-                                    </script>
                                     <?php
                                     ?>
                                 </div>
                             </form>
                             <div class="modal-footer">
-                                <button type="button" onClick="cre_admin()" class="btn btn-success waves-effect" type="button">บันทึก</button>
+                                <button type="button" onclick="create_sale()" class="btn btn-success waves-effect" type="button">บันทึก</button>
                                 <button type="button" class="btn btn-danger waves-effect" data-bs-dismiss="modal">ปิด</button>
                             </div>
 
@@ -170,37 +214,6 @@ $session = session();
                                                 <input type="text" id="username2" name="username" placeholder="Username" class="form-control" placeholder="Username">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="field-1" class="form-label">รอบทำงาน</label>
-                                                <?php if (isset($rounds)) { ?>
-                                                    <select id="rounds2" name="rounds" class="form-select">
-                                                        <?php foreach ($rounds as $r => $re) { ?>
-                                                            <option value="<?php echo $re['id']; ?>"><?php echo $re['rounds_desc'] . ' ' . $re['time_start'] . '-' . $re['time_end']; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                <?php    } else { ?>
-                                                    <input type="text" id="" disabled class="form-control" value='ไม่สามารถเชื่อมต่อ Server ได้' placeholder="">
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="field-1" class="form-label">office</label>
-                                                <?php if (isset($office)) { ?>
-                                                    <select id="office2" name="office" class="form-select">
-                                                        <?php foreach ($office as $offices) { ?>
-                                                            <option value="<?php echo $offices['id']; ?>"><?php echo $offices['office_name']; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                <?php    } else { ?>
-                                                    <input type="text" id="" disabled class="form-control" value='ไม่สามารถเชื่อมต่อ Server ได้' placeholder="">
-                                                <?php } ?>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </form>
@@ -237,58 +250,6 @@ $session = session();
                                 <form action="" id="f_edit_permissions">
                                     <?= csrf_field() ?>
                                     <input type="hidden" value="" name="admin_id" id="edit_permissions_admin_id">
-                                    <div class="tab-content">
-                                        <div class="tab-pane show active" id="addManage">
-                                            <div class="row">
-                                                <?php if (isset($menu)) { ?>
-                                                    <?php
-                                                    foreach ($menu as $me) : ?>
-                                                        <div class="col-md-6" id="container-menu-<?php echo $me['id']; ?>-update">
-                                                            <div class="card mb-0">
-                                                                <div class="card-header" id="heading1">
-                                                                    <h5 class="m-0 position-relative">
-                                                                        <a class="custom-accordion-title text-reset collapsed d-block">
-                                                                            <div class="form-check mb-2 form-check-blue">
-                                                                                <input class="form-check-input mt-1" style="cursor: pointer;" type="checkbox" name="menu[]" <?= $me['id'] == 0 ? 'hidden=""' : '' ?> id="permis_menu<?= $me['id'] ?>" value="<?= $me['id'] ?>" onChange="permis_menuChange('permis_menu<?= $me['id'] ?>')">
-                                                                                <label class="form-check-label mt-1" style="cursor: pointer;" for="permis_menu<?= $me['id'] ?>">&nbsp; <?= $me['nameTH'] ?></label>
-                                                                            </div>
-                                                                        </a>
-                                                                    </h5>
-                                                                </div>
-
-                                                                <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-bs-parent="#custom-accordion-one">
-
-                                                                    <div class="card-body">
-                                                                        <?php
-                                                                        foreach ($permissions as $key => $value) :
-                                                                            if ($value['menu_id'] == $me['id']) :
-                                                                        ?>
-                                                                                <div class="form-check mb-2 form-check-info" id="container-permission-<?php echo $value['id']; ?>-update">
-                                                                                    <input class="form-check-input permis_menu<?= $me['id'] ?>" style="cursor:pointer;" type="checkbox" name="permissions[]" id="permis_<?= $value['id'] ?>" value="<?= $value['id'] ?>">
-                                                                                    <label class="form-check-label" style="cursor:pointer;" for="permis_<?= $value['id'] ?>"><?= $value['nameTH'] ?></label>
-                                                                                </div>
-
-                                                                        <?php
-                                                                            endif;
-                                                                        endforeach;
-                                                                        ?>
-                                                                    </div>
-
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    <?php
-                                                    endforeach;
-                                                    ?>
-                                                <?php    } else { ?>
-                                                    <h3 class="text-danger">กรุณากดรีเซ็ตใหม่</h3>
-                                                <?php } ?>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
                                 </form>
                             </div>
 
@@ -321,30 +282,11 @@ $session = session();
                                     <?= csrf_field() ?>
                                     <input type="hidden" value="" name="admin_id" id="edit_rounds_amdin_id">
                                     <!-- <input type="hidden" value="" name="rounds_amdin_id" id="rounds_amdin_id"> -->
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="mb-3">
-                                                <label for="field-2" class="form-label">รอบงาน</label>
-                                                <?php if (isset($rounds)) { ?>
-                                                    <select id="edit_rounds" name="edit_rounds" class="form-select">
-                                                        <?php foreach ($rounds as $r => $re) { ?>
-                                                            <option id="<?php echo $re['id']; ?>" name="rounds" value="<?php echo $re['id']; ?>"><?php echo $re['rounds_desc'] . ' ' . $re['time_start'] . '-' . $re['time_end']; ?></option>
-                                                        <?php } ?>
-                                                    </select>
-                                                <?php    } else { ?>
-                                                    <input type="text" id="" disabled class="form-control" value='ไม่สามารถเชื่อมต่อ Server ได้' placeholder="">
-                                                <?php } ?>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </form>
-
                                 <div class="modal-footer">
                                     <button type="button" onClick="edit_round()" class="btn btn-success waves-effect">บันทึก</button>
                                     <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">ปิด</button>
                                 </div>
-
                             </div>
                         </div> <!-- container -->
                     </div> <!-- content -->
@@ -398,5 +340,75 @@ $session = session();
                         </div> <!-- content -->
                     </div>
 
+                    <script>
+                        function dialogbox_warning(msg) {
+                            Swal.fire({
+                                icon: "warning",
+                                title: msg,
+                                showConfirmButton: false,
+                            });
+                        }
+
+                        function dialogbox_error(msg) {
+                            Swal.fire({
+                                icon: "error",
+                                title: msg,
+                                showConfirmButton: false,
+                            });
+                        }
+
+                        function create_sale() {
+                            let username = document.getElementById('username').value;
+                            let password = document.getElementById('password').value;
+                            let fullName = document.getElementById('fullName').value;
+                            let nun_tel = document.getElementById('nun_tel').value;
+
+
+                            if (username == '') {
+                                dialogbox_warning('username ห้ามว่าง')
+                            }
+                            if (password == '') {
+                                dialogbox_warning('password ห้ามว่าง')
+                            }
+                            if (fullName == '') {
+                                dialogbox_warning('ชื่อ ห้ามว่าง')
+                            }
+                            if (nun_tel == '') {
+                                dialogbox_warning('เบอร์โทรศัพท์ ห้ามว่าง')
+                            }
+
+                            $.ajax({
+                                    url: '<?php echo base_url('sale/registration') ?>',
+                                    type: "POST",
+                                    data: JSON.stringify({
+                                        username: username,
+                                        password: password,
+                                        fullName: fullName,
+                                        num_phone: nun_tel
+                                    }),
+                                    dataType: "JSON",
+                                    enctype: 'multipart/form-data',
+                                    processData: false,
+                                    contentType: false,
+                                    cache: false,
+                                })
+                                .done(function(re) {
+                                    console.log(re);
+                                    // const res = JSON.parse(re);
+                                    // if (res.code == 1) {
+                                    //     dialogbox_success(res.msg);
+                                    //     window.setTimeout(function() {
+                                    //         location.reload()
+                                    //     }, 500)
+                                    // } else {
+                                    //     dialogbox_error(res.msg);
+                                    // }
+                                })
+                                .fail(function(err) {
+                                    console.log(err);
+                                    dialogbox_error('เกิดข้อผิดพลาดในการส่งข้อมูล');
+                                });
+                        }
+                    </script>
 
                     <?php $this->endSection(); ?>
