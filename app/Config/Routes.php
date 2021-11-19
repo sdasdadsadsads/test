@@ -69,6 +69,10 @@ $routes->group('admin', function ($routes) {
 	$routes->get('reset2FT/(:segment)', 'admin::reset2FT/$1',  ['filter' => 'auth']);
 });
 
+$routes->group('manage_sale', function ($routes) {
+	$routes->get('/', 'manage_sale::index',  ['filter' => 'auth']);
+});
+
 
 $routes->group('report_player', function ($routes) {
 
@@ -239,7 +243,7 @@ $routes->group('withdraw', function ($routes) {
 	$routes->post('filter', 'withdraw::filter',  ['filter' => 'auth']);
 	$routes->post('csv', 'withdraw::csv',  ['filter' => 'auth']);
 	$routes->get('check_withdrawal', 'withdraw::check_withdrawal',  ['filter' => 'auth']);
-	$routes->post('check_status', 'withdraw::check_status',  ['filter' => 'auth']); 
+	$routes->post('check_status', 'withdraw::check_status',  ['filter' => 'auth']);
 });
 
 

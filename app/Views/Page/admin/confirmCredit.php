@@ -281,52 +281,56 @@
                                         </tr>
                                     </thead>
                                     <tbody id="ShowDatafilterByType">
-                                        <?php if (!empty($state_unconfirmed)) { ?>
-                                            <?php foreach ($state_unconfirmed as $unconfirmed) { ?>
-                                                <tr>
-                                                    <td style="width: 36px;">
-                                                        <?php if ($unconfirmed['from_bank'] == '  K') { ?>
-                                                            <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
-                                                        <? } else { ?>
-                                                            <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $unconfirmed['from_bank']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
-                                                        <?php } ?>
+                                        <?php if (isset($state_unconfirmed)) { ?>
+                                            <?php if (is_array($state_unconfirmed)) { ?>
 
-                                                    </td>
-                                                    <td>
-                                                        <h4 class="m-0 fw-normal"><?= $unconfirmed['note']; ?></h4>
-                                                        <h5 class="m-0 fw-normal mt-1"><?= $unconfirmed['name']; ?> [
-                                                            <?= $unconfirmed['from_bank']; ?> ]</h5>
-                                                        <p class="mb-0 text-muted mt-1">รับรายการมาแล้ว
-                                                            <?= round((time() - $unconfirmed['auto_update']))  / 86400 % 7; ?>
-                                                            วัน
-                                                            <?= round((time() - $unconfirmed['auto_update'])) / 3600 % 24; ?>
-                                                            ชั่วโมง
-                                                            <?= round((time() - $unconfirmed['auto_update']) / 60 % 60); ?>
-                                                            นาที</p>
-                                                        <h4 class="m-0 fw-normal mt-1">เวลาธนาคาร
-                                                            <?= date('d-m-y h:i', $unconfirmed['auto_update']) ?></h4>
-                                                        <?php if ($unconfirmed['cause'] != null) { ?>
-                                                            <p class="mb-0 text-muted mt-1"><label class="text-danger">**สาเหตุ :
-                                                                    <?= $unconfirmed['cause'] ?></label></p>
-                                                        <?php } ?>
-                                                    </td>
 
-                                                    <td>
-                                                        <span class="text-info" style="font-size: 1.0em;"> <span class="text-primary" style="font-size: 1.0em;"><b style="font-size: 1.2em;">DPS<?= $unconfirmed['id'] ?></b></span>
-                                                        </span>
-                                                    </td>
+                                                <?php foreach ($state_unconfirmed as $unconfirmed) { ?>
+                                                    <tr>
+                                                        <td style="width: 36px;">
+                                                            <?php if ($unconfirmed['from_bank'] == '  K') { ?>
+                                                                <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
+                                                            <? } else { ?>
+                                                                <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $unconfirmed['from_bank']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
+                                                            <?php } ?>
 
-                                                    <td>
-                                                        <span class="badge bg-info" style="font-size: 1.0em;">+<?= $unconfirmed['deposit']; ?></span>
-                                                    </td>
+                                                        </td>
+                                                        <td>
+                                                            <h4 class="m-0 fw-normal"><?= $unconfirmed['note']; ?></h4>
+                                                            <h5 class="m-0 fw-normal mt-1"><?= $unconfirmed['name']; ?> [
+                                                                <?= $unconfirmed['from_bank']; ?> ]</h5>
+                                                            <p class="mb-0 text-muted mt-1">รับรายการมาแล้ว
+                                                                <?= round((time() - $unconfirmed['auto_update']))  / 86400 % 7; ?>
+                                                                วัน
+                                                                <?= round((time() - $unconfirmed['auto_update'])) / 3600 % 24; ?>
+                                                                ชั่วโมง
+                                                                <?= round((time() - $unconfirmed['auto_update']) / 60 % 60); ?>
+                                                                นาที</p>
+                                                            <h4 class="m-0 fw-normal mt-1">เวลาธนาคาร
+                                                                <?= date('d-m-y h:i', $unconfirmed['auto_update']) ?></h4>
+                                                            <?php if ($unconfirmed['cause'] != null) { ?>
+                                                                <p class="mb-0 text-muted mt-1"><label class="text-danger">**สาเหตุ :
+                                                                        <?= $unconfirmed['cause'] ?></label></p>
+                                                            <?php } ?>
+                                                        </td>
 
-                                                    <td><b style="font-size: 1.2em;"><?= $unconfirmed['from_name']; ?> </b></td>
+                                                        <td>
+                                                            <span class="text-info" style="font-size: 1.0em;"> <span class="text-primary" style="font-size: 1.0em;"><b style="font-size: 1.2em;">DPS<?= $unconfirmed['id'] ?></b></span>
+                                                            </span>
+                                                        </td>
 
-                                                    <td>
-                                                        <a href="javascript: void(0);" class="btn btn-success" onclick="add_user('<?= $unconfirmed['user_id'] ?>','<?= $unconfirmed['id'] ?>','<?= number_format($unconfirmed['deposit'], 2) ?>')"><i class="mdi mdi-plus"></i>เติม</a>
-                                                        <a href="javascript: void(0);" class="btn btn-danger" onclick="hideDepositUnconfirmed('<?= $unconfirmed['id'] ?>','5','<?= $unconfirmed['id'] ?>')"><i class="mdi mdi-close-circle"></i> ซ่อน</a>
-                                                    </td>
-                                                </tr>
+                                                        <td>
+                                                            <span class="badge bg-info" style="font-size: 1.0em;">+<?= $unconfirmed['deposit']; ?></span>
+                                                        </td>
+
+                                                        <td><b style="font-size: 1.2em;"><?= $unconfirmed['from_name']; ?> </b></td>
+
+                                                        <td>
+                                                            <a href="javascript: void(0);" class="btn btn-success" onclick="add_user('<?= $unconfirmed['user_id'] ?>','<?= $unconfirmed['id'] ?>','<?= number_format($unconfirmed['deposit'], 2) ?>')"><i class="mdi mdi-plus"></i>เติม</a>
+                                                            <a href="javascript: void(0);" class="btn btn-danger" onclick="hideDepositUnconfirmed('<?= $unconfirmed['id'] ?>','5','<?= $unconfirmed['id'] ?>')"><i class="mdi mdi-close-circle"></i> ซ่อน</a>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                             <?php }
                                         } else { ?>
                                             <tr>
@@ -411,41 +415,44 @@
                             <div class="table-responsive">
                                 <table class="table table-striped table-nowrap table-hover table-centered m-0">
                                     <tbody>
-                                        <?php if (!empty($state_confirmed)) { ?>
-                                            <?php foreach ($state_confirmed as $confirmed) { ?>
-                                                <tr>
-                                                    <td style="width: 36px;">
-                                                        <?php if ($confirmed['from_bank'] == '  K') { ?>
-                                                            <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
-                                                        <? } else { ?>
-                                                            <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $confirmed['from_bank']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
-                                                        <?php } ?>
-                                                    </td>
+                                        <?php if (isset($state_confirmed)) { ?>
+                                            <?php if (is_array($state_confirmed)) { ?>
 
-                                                    <td>
-                                                        <h4 class="m-0 fw-normal">DPS<?= $confirmed['id'] ?></h4>
-                                                        <h5 class="m-0 fw-normal mt-1"><?= $confirmed['name']; ?> [
-                                                            <?= $confirmed['from_bank']; ?> ]</h5>
-                                                        <p class="mb-0 fw-normal mt-1 badge bg-success">
-                                                            <label><?= $confirmed['agent_username']; ?> ฝาก
-                                                                <?= $confirmed['deposit']; ?> บาท </label>
-                                                        </p>
-                                                        <h5 class="m-0 fw-normal mt-1">เครดิตก่อนเติม <b>
-                                                                <?= $confirmed['credit_before']; ?> </b></h5>
-                                                        <h5 class="m-0 fw-normal mt-1">เวลาเติมสำเร็จ
-                                                            <b><?= date('d-m-y h:i:s', $confirmed['auto_update']) ?></b>
-                                                        </h5>
-                                                    </td>
-                                                    <td>
-                                                        <h5 class="m-0 fw-normal mt-4" style="padding-top: 0.7rem;">
-                                                            เครดิตหลังเติม <b><?= $confirmed['credit_after']; ?></b></h5>
-                                                    </td>
-                                                    <td>
-                                                        <h6 class="m-0 fw-normal mt-1">
-                                                            <?= date('d-m-y h:i:s', $confirmed['auto_update']) ?></h6>
-                                                        <span class="badge bg-info" style="font-size: 1.0em; margin-top: 5rem;"><?= $confirmed['admin_name']; ?></span>
-                                                    </td>
-                                                </tr>
+                                                <?php foreach ($state_confirmed as $confirmed) { ?>
+                                                    <tr>
+                                                        <td style="width: 36px;">
+                                                            <?php if ($confirmed['from_bank'] == '  K') { ?>
+                                                                <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
+                                                            <? } else { ?>
+                                                                <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $confirmed['from_bank']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
+                                                            <?php } ?>
+                                                        </td>
+
+                                                        <td>
+                                                            <h4 class="m-0 fw-normal">DPS<?= $confirmed['id'] ?></h4>
+                                                            <h5 class="m-0 fw-normal mt-1"><?= $confirmed['name']; ?> [
+                                                                <?= $confirmed['from_bank']; ?> ]</h5>
+                                                            <p class="mb-0 fw-normal mt-1 badge bg-success">
+                                                                <label><?= $confirmed['agent_username']; ?> ฝาก
+                                                                    <?= $confirmed['deposit']; ?> บาท </label>
+                                                            </p>
+                                                            <h5 class="m-0 fw-normal mt-1">เครดิตก่อนเติม <b>
+                                                                    <?= $confirmed['credit_before']; ?> </b></h5>
+                                                            <h5 class="m-0 fw-normal mt-1">เวลาเติมสำเร็จ
+                                                                <b><?= date('d-m-y h:i:s', $confirmed['auto_update']) ?></b>
+                                                            </h5>
+                                                        </td>
+                                                        <td>
+                                                            <h5 class="m-0 fw-normal mt-4" style="padding-top: 0.7rem;">
+                                                                เครดิตหลังเติม <b><?= $confirmed['credit_after']; ?></b></h5>
+                                                        </td>
+                                                        <td>
+                                                            <h6 class="m-0 fw-normal mt-1">
+                                                                <?= date('d-m-y h:i:s', $confirmed['auto_update']) ?></h6>
+                                                            <span class="badge bg-info" style="font-size: 1.0em; margin-top: 5rem;"><?= $confirmed['admin_name']; ?></span>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
                                             <?php }
                                         } else { ?>
                                             <tr>

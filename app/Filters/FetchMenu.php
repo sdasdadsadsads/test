@@ -22,13 +22,15 @@ class FetchMenu implements FilterInterface
                     $posts_data = $client->get('caching/menuAvailable');
                     $body = $posts_data->getBody();
                     $body = json_decode($body, true); // แปลง JSON เป็น Array
-                    cache()->save('menuAvailable', $body['data'], 10);
+                    cache()->save('menuAvailable', $body['data'], 300);
                 } else {
                     break;
                 }
                 // global $MENU_DATA;
             }
         } catch (Exception $e) {
+            echo "การเชื่อมต่อ MAIN SERVER ล้มเหลว";
+            die;
         }
     }
 

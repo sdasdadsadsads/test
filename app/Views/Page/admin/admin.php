@@ -267,8 +267,10 @@ $session = session();
                                         </div>
                                     </div>
                                     <script>
-                                        const MENU_CLASS_ADMIN = <?php echo json_encode($MENU_CLASS_ADMIN); ?>;
-                                        const PERMISSION_CLASS_ADMIN = <?php echo json_encode($PERMISSION_CLASS_ADMIN); ?>;
+                                        <?php if (isset($MENU_CLASS_ADMIN) && isset($PERMISSION_CLASS_ADMIN)) : ?>
+                                            const MENU_CLASS_ADMIN = <?php echo json_encode($MENU_CLASS_ADMIN); ?>;
+                                            const PERMISSION_CLASS_ADMIN = <?php echo json_encode($PERMISSION_CLASS_ADMIN); ?>;
+                                        <?php endif; ?>
                                     </script>
                                     <?php
                                     ?>

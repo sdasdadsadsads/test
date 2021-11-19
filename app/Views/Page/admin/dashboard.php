@@ -541,7 +541,7 @@
                     document.getElementById("sumiPadMacData").innerHTML = sumiPadMacData;
                     document.getElementById("sumTabletAndroidData").innerHTML = sumTabletAndroidData;
 
-                    console.log(res.depositData);
+                    
                     $('#table').DataTable({
                         data: res.depositData,
                         lengthChange: false,

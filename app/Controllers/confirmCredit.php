@@ -179,12 +179,26 @@ class confirmCredit extends ResourceController
 			// die;
 			return view('Page/admin/confirmCredit.php', $data);
 		} catch (Exception $e) {
+			print_r($e);
+			die;
+			$data = array(
+				'state_unconfirmed' => [],
+				'state_confirmed' => [],
+				'state_countToday' => [],
+				'state_stickPromotionToday' => [],
+				'state_repeatToday' => [],
+				'state_undefindUsersToday' => [],
+				'state_countAll' => [],
+				'state_stickPromotionAll' => [],
+				'state_repeatAll' => [],
+				'state_undefindUsersAll' => []
+			);
 			// $session = session();
 			// print_r($e);
 			// die;
 			// $session->setFlashdata('error', 'เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่');
 			// return redirect()->to(base_url('dashboard/show'));
-			return view('Page/admin/confirmCredit.php');
+			return view('Page/admin/confirmCredit.php', $data);
 		}
 	}
 
@@ -281,7 +295,6 @@ class confirmCredit extends ResourceController
 			$body = json_decode($body, true); // แปลง JSON เป็น Array
 			echo json_encode($body);
 		} catch (Exception $err) {
-			
 		}
 	}
 

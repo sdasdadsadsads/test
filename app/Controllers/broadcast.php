@@ -38,7 +38,7 @@ class broadcast extends ResourceController
                 return view('Page/admin/broadcast.php', $body);
             }
         } catch (Exception $e) {
-            $body = json_decode($body, true);
+            // $body = json_decode($body, true);
             $session = session();
             $session->setFlashdata('error', 'เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่');
             $body["BroadcastData"] = [];
