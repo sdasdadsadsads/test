@@ -18,6 +18,7 @@ class auth extends ResourceController
 			'baseURI' => getenv('API_URL')
 		];
 	}
+	
 	public function index()
 	{
 		return view('Page/admin/loginAdmin.php');

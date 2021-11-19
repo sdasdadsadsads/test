@@ -9,6 +9,16 @@ class editProblem extends ResourceController
 
 
 {
+
+	private $url;
+
+	public function __construct()
+	{
+		$this->url = [
+			'baseURI' => getenv('API_URL')
+		];
+	}
+	
 	public function index()
 	{
 		return view('Page/admin/edit_problem.php');

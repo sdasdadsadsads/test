@@ -11,6 +11,17 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class report_activity_logs extends ResourceController
 {
+
+    private $url;
+
+	public function __construct()
+	{
+		$this->url = [
+			'baseURI' => getenv('API_URL')
+		];
+	}
+
+    
     public function index()
     {
       
