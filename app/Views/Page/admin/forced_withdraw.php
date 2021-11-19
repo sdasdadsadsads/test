@@ -54,7 +54,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <h4 class="page-title">ตรวจสอบรายการเล่น</h4>
+                        <h4 class="page-title">บังคับถอนเงิน</h4>
                     </div>
                 </div>
             </div>
@@ -119,9 +119,6 @@
                                                 <div class="mb-3 col-12 col-md-4 col-lg-2" id="credit">
 
                                                 </div>
-                                                <div class="mb-3 col-12 col-md-4 col-lg-2" id="REF">
-
-                                                </div>
                                                 <div class="mb-3 col-12 col-md-4 col-lg-2" id="promoName">
 
                                                 </div>
@@ -173,7 +170,6 @@
                                                         <th id="ccc">เครดิตหลังเติม</th>
                                                         <th>เวลา</th>
                                                         <th>หมา่ยเหตู</th>
-                                                        <th>Ref</th>
                                                     </tr>
                                                 </thead>
 
@@ -280,7 +276,7 @@
                     };
 
                     $.ajax({
-                            url: '<?php echo base_url('check_player/filter') ?>',
+                            url: '<?php echo base_url('forced_withdraw/filter') ?>',
                             type: "POST",
                             data: dataJson,
                             dataType: "json",
@@ -310,11 +306,7 @@
 
                                 let isPassTurnover = false;
                                 if (body.Turnover.status == true) {
-                                    document.getElementById("REF").innerHTML =
-                                        `  <label class="form-label"  >REF ล่าสุด</label> <input type="text" id="" value="` +
-                                        body.deposit.statement[0].ref_deposit_amb +
-                                        `" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                    `;
+                                   
 
                                     document.getElementById('Turnover').innerHTML = "";
                                     for (let i = 0; i < body.Turnover.turnoverToDo.length; i++) {
@@ -444,16 +436,6 @@
                                                     }
 
 
-                                                }
-                                            },
-                                            {
-                                                data: "ref_deposit_amb",
-                                                render: function(data) {
-                                                    if (data == null) {
-                                                        return '<td> - </td>'
-                                                    } else {
-                                                        return '<a href="#" onclick="ref_deposit(`' + data + '`)" >' + data + '</a>'
-                                                    }
                                                 }
                                             },
 
@@ -651,115 +633,7 @@
                 }
 
 
-
-                function ref_deposit(ref) {
-
-                    $("#loader").show();
-                    var dataJson2 = {
-                        [csrfName]: csrfHash, // adding csrf here
-                        username: $("#username").val(),
-                        ref: ref
-                    };
-
-                    $.ajax({
-                            url: '<?php echo base_url('check_player/ref_deposit') ?>',
-                            type: "POST",
-                            data: dataJson2,
-                            dataType: "JSON",
-                        })
-                        .done(function(body) {
-
-
-                            // console.log(body.code);
-                            if (body.code == 1) {
-
-                                let isPassTurnover = false
-                                $("#loader").hide();
-
-
-                                if (body.Turnover.status == true) {
-                                    document.getElementById("REF").innerHTML =
-                                        `  <label class="form-label"  >REF ล่าสุด</label> <input type="text" id="" value="` +
-                                        ref +
-                                        `" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                    `;
-
-                                    document.getElementById('Turnover').innerHTML = "";
-                                    for (let i = 0; i < body.Turnover.turnoverToDo.length; i++) {
-                                        if (body.Turnover.turnoverToDo[i][5] <= body.Turnover.turnoverToDo[i][2]) isPassTurnover = true;
-                                        document.getElementById('Turnover').innerHTML += `
-                                <tr>
-                                <td>${body.Turnover.turnoverToDo[i][0]}</td>
-                                <td>${body.Turnover.turnoverToDo[i][4]}</td>
-                                <td>${body.Turnover.turnoverToDo[i][5]}</td>
-                                <td>${body.Turnover.turnoverToDo[i][2]}</td>
-                                <td>${body.Turnover.turnoverToDo[i][3]}</td>
-                                </tr>
-                                `;
-                                    }
-
-
-
-                                } else if (body.Turnover.status == false) {
-                                    document.getElementById("REF").innerHTML =
-                                        `  <label class="form-label"  >REF ล่าสุด</label> <input type="text" id="" value="" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                    `;
-                                }
-                                if (body.Turnover.promotion != undefined) {
-                                    if (body.Turnover.promotion.promoStatus == 1) isPassTurnover = true;
-
-                                    document.getElementById("promoName").innerHTML =
-                                        `  <label class="form-label"  >โปรโมชั่น</label> <input type="text" id="" value="` +
-                                        body.Turnover.promotion.promoName +
-                                        `" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                    `;
-                                    document.getElementById("promoStatus").innerHTML =
-                                        `  <label class="form-label">สถานะโปรโมชั่น</label> <input type="text" id="" value="` +
-                                        `${isPassTurnover === true ? 'ผ่านโปรโมชั่น' : 'ติดโปรโมชั่น'}` +
-                                        `" class="form-control ${isPassTurnover === true ? 'text-success':'text-danger'}" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                        `;
-                                } else {
-                                    document.getElementById("promoName").innerHTML =
-                                        `  <label class="form-label"  >โปรโมชั่น</label> <input type="text" id="" value="` +
-                                        '-' +
-                                        `" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                    `;
-
-                                    document.getElementById("promoStatus").innerHTML =
-                                        `  <label class="form-label"  >สถานะโปรโมชั่น</label> <input type="text" id="" value="` +
-                                        `-` +
-                                        `" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                        `
-                                }
-
-
-
-
-                            } else if (body.code == undefined) {
-                                const res = JSON.parse(body);
-                                Swal.fire({
-                                    icon: "error",
-                                    title: res.msg,
-                                    showConfirmButton: false,
-                                });
-
-                                $("#loader").hide();
-
-                            }
-
-
-                        })
-                        .fail(function(err) {
-                            // console.log(err);
-                            Swal.fire({
-                                icon: "error",
-                                title: "เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาแจ้งเจ้าหน้าที่",
-                                showConfirmButton: false,
-                            });
-
-                            $("#loader").hide();
-                        });
-                }
+ห
             </script>
 
             <?php $this->endSection(); ?>

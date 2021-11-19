@@ -169,44 +169,5 @@ class forced_withdraw extends ResourceController
     }
 
 
-    public function ref_deposit()
-    {
-        try {
-
-            $client = service('curlrequest', $this->url);
-
-
-
-
-            $data_Turnover = [
-                'username' =>  $this->request->getPost('username'),
-                'ref' =>  $this->request->getPost('ref'),
-
-            ];
-
-            $posts_data = $client->post('promotions/checkTurnover', [
-                "headers" => [
-                    "Accept" => "application/json",
-                    "jwt_token" => session()->get('JWT_TOKEN')
-                ],
-                'form_params' =>
-                $data_Turnover
-            ]);
-
-            $body = $posts_data->getBody();
-            $Turnover = json_decode($body, true);
-
-            $data_to_respone = [
-                'Turnover' => $Turnover,
-                'code' => 1
-            ];
-
-            echo json_encode($data_to_respone);
-            return;
-        } catch (Exception $e) {
-            $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
-            echo json_encode($re);
-            return;
-        }
-    }
+   
 }
