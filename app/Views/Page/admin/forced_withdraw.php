@@ -46,7 +46,10 @@
     }
 </style>
 
-
+<input type="hidden" value="" name="account" id="account">
+<input type="hidden" value="" name="agent_username" id="agent_username">
+<input type="hidden" value="" name="id" id="id">
+<input type="hidden" value="" name="usernames" id="usernames">
 
 <div class="content-page">
     <div class="content">
@@ -110,6 +113,7 @@
                                     </h5>
                                 </div>
                                 <div id="checkuser" class="collapse">
+
                                     <div class="card-body">
                                         <div class="col-12 col-md-12 col-lg-12">
                                             <div class="row">
@@ -125,10 +129,19 @@
                                                 <div class="mb-3 col-12 col-md-4 col-lg-2" id="promoStatus">
 
                                                 </div>
+
+
+
+
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="d-flex justify-content-center" id="withdraws">
+
+                                    </div>
                                     <div class="card-body">
+
                                         <div class="table-responsive border">
                                             <table class="table table-bordered mb-0">
                                                 <thead class="bg-info text-white">
@@ -283,7 +296,8 @@
                         })
                         .done(function(body) {
                             if (body.code == 1) {
-
+                                console.log(body.detail_withdraw.data[0].amount);
+                                console.log(body.userData);
                                 $("#loader").hide();
 
                                 document.getElementById("checkuser").className = "collapse show";
@@ -304,9 +318,37 @@
                                     `" class="form-control text-dark " placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
                                     `;
 
+
+                                if (body.detail_withdraw.status == true && body.getCredit.status == true) {
+                                    if (body.getCredit.credit >= body.detail_withdraw.data[0].amount) {
+                                        document.getElementById("withdraws").innerHTML =
+                                            `  <button onclick="withdraw()" id="withdraws" class="btn btn-danger waves-effect waves-light text-light width-lg shadowbtn mt-4" style=" z-index: 0;">ยืนยันการถอน</button>`;
+                                    } else {
+                                        document.getElementById("withdraws").innerHTML =
+                                            `   <button onclick="withdraw()" id="withdraws" class="btn btn-secondary waves-effect waves-light text-light width-lg shadowbtn mt-4" style=" z-index: 0;" disabled>ยืนยันการถอน</button>`;
+                                    }
+
+                                } else {
+                                    document.getElementById("withdraws").innerHTML =
+                                        ` <button onclick="withdraw()" id="withdraws" class="btn btn-secondary waves-effect waves-light text-light width-lg shadowbtn mt-4" style=" z-index: 0;" disabled>ยืนยันการถอน</button>`;
+                                }
+
+                                if (body.userData.status == true) {
+
+                                    document.getElementById("account").value = body.userData.userData.account;
+                                    document.getElementById("agent_username").value = body.userData.userData.agent_username;
+                                    document.getElementById("id").value = body.userData.userData.id;
+                                    document.getElementById("usernames").value = body.userData.userData.username;
+
+                                } else {
+
+
+                                }
+
+
                                 let isPassTurnover = false;
                                 if (body.Turnover.status == true) {
-                                   
+
 
                                     document.getElementById('Turnover').innerHTML = "";
                                     for (let i = 0; i < body.Turnover.turnoverToDo.length; i++) {
@@ -632,8 +674,81 @@
                         });
                 }
 
+                async function dialog_confirm(msg) {
+                    try {
+                        let data = await Swal.fire({
+                            title: 'Are you sure?',
+                            text: msg,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'ยืนยันการถอน',
+                            cancelButtonText: 'ยกเลิก'
+                        })
+                        return data.isConfirmed;
+                    } catch (err) {
+                        return false
+                    }
+                }
 
-ห
+                async function withdraw() {
+
+                
+                    document.getElementById("withdraws").disabled = true
+                    let dialog = await dialog_confirm('คุณต้องการทำรายการถอนใช่หรือไม่ !!');
+                    if (dialog === false) {
+                        document.getElementById("withdraws").disabled = false
+                        return;
+                    }
+
+                    var dataJson2 = {
+                        [csrfName]: csrfHash, // adding csrf here
+                        username: $("#usernames").val(),
+                        account: $("#account").val(),
+                        agent_username: $("#agent_username").val(),
+                        id: $("#id").val(),
+                    };
+                    $.ajax({
+                            url: '<?php echo base_url('forced_withdraw/withdraw') ?>',
+                            type: "POST",
+                            data: dataJson2,
+                            dataType: "JSON",
+                        })
+                        .done(function(re) {
+                            document.getElementById("withdraws").disabled = false
+                            const res = JSON.parse(re);
+
+                            if (res.code == 1) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: res.msg,
+                                    showConfirmButton: false,
+                                });
+                                window.setTimeout(function() {
+                                    location.reload()
+                                }, 1500)
+                            } else {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: res.msg,
+                                    showConfirmButton: false,
+                                });
+                            }
+                        })
+                        .fail(function(err) {
+                            console.log(err);
+                            Swal.fire({
+                                icon: "error",
+                                title: "เกิดข้อผิดพลาดในการส่งข้อมูล",
+                                showConfirmButton: false,
+                            });
+                            window.setTimeout(function() {
+                                location.reload()
+                            }, 1500)
+                        });
+
+                }
             </script>
 
             <?php $this->endSection(); ?>

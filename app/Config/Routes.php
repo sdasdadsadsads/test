@@ -273,9 +273,9 @@ $routes->group('broadcast', function ($routes) {
 
 
 $routes->group('forced_withdraw', function ($routes) {
-	$routes->get('show', 'forced_withdraw::index',  ['filter' => 'auth', 'filter' => 'isPermission:1,4,5']);
+	$routes->get('show', 'forced_withdraw::index',  ['filter' => 'auth', 'filter' => 'isPermission:1,3']);
 	$routes->post('filter', 'forced_withdraw::filter',  ['filter' => 'auth']);
-	$routes->post('ref_deposit', 'forced_withdraw::ref_deposit',  ['filter' => 'auth']);
+	$routes->post('withdraw', 'forced_withdraw::withdraw',  ['filter' => 'auth']);
 });
 
 /*
