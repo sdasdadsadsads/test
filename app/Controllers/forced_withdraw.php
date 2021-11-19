@@ -145,10 +145,31 @@ class forced_withdraw extends ResourceController
                     $body3 = $posts_data3->getBody();
                     $getCredit = json_decode($body3, true);
 
+
+                    $posts_data4 = $client->get('caching/detailWithdraw');
+
+                    $body4 = $posts_data4->getBody();
+                    $detail_withdraw = json_decode($body4, true);
+
+
+                    $posts_data5 = $client->post('players/getUserbyusername', [
+                        "headers" => [
+                            "Accept" => "application/json",
+                            "jwt_token" => session()->get('JWT_TOKEN')
+                        ],
+                        'form_params' =>
+                        $data_deposit
+                    ]);
+
+                    $body5 = $posts_data5->getBody();
+                    $userData = json_decode($body5, true);
+
                     $data_to_respone = [
                         'deposit' => $obj,
                         'Turnover' => $Turnover,
                         'getCredit' => $getCredit,
+                        'detail_withdraw' => $detail_withdraw,
+                        'userData' => $userData,
                         'code' => 1
                     ];
 
@@ -169,5 +190,45 @@ class forced_withdraw extends ResourceController
     }
 
 
-   
+    public function withdraw()
+	{
+
+		try {
+
+			$session = session();
+
+			$data = [
+				'userId' =>  $this->request->getPost('id'),
+				'userOfGame' =>  $this->request->getPost('agent_username'),
+				'account' =>  $this->request->getPost('account'),
+				'username' =>  $this->request->getPost('username'),
+                'admin_id'  =>  $session->get("id"),
+			];
+			$client = service('curlrequest', $this->url);
+
+			$posts_data = $client->post('withdraw/', [
+				'form_params' =>
+				$data
+			]);
+
+			$body = $posts_data->getBody();
+			$obj = json_decode($body);
+			$message = $obj->{'msg'};
+
+			if ($obj->{'status'} == true) {
+				$re = '{"code": 1 , "msg": " ' . $message . '"}';
+				echo json_encode($re);
+				return;
+			} else {
+				$re = '{"code": 0 , "msg":"' . $message  .  '"}';
+				echo json_encode($re);
+				return;
+			}
+		} catch (Exception $e) {
+			$re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
+			echo json_encode($re);
+			return;
+		}
+	}
+
 }
