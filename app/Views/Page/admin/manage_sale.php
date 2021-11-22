@@ -17,8 +17,7 @@
         cursor: pointer;
     }
 </style>
-
-
+<script></script>
 <?php
 $session = session();
 ?>
@@ -71,11 +70,28 @@ $session = session();
                                                 <th><?php echo $element['username']; ?></th>
                                                 <th><?php echo $element['fullName']; ?></th>
                                                 <th><?php echo $element['tel_sale']; ?></th>
-                                                <th><?php echo $element['num_of_users']; ?></th>
-                                                <th><?php echo gmdate("d/m/Y  i:m:s", $element['last_login']); ?></th>
-                                                <th><?php echo $element['last_ip']; ?></th>
+                                                <th><?php echo $element['num_of_invite']; ?></th>
+                                                <?php if ($element['last_login'] === null) : ?>
+                                                    <th>-</th>
+                                                <?php else : ?>
+                                                    <th><?php echo gmdate("d/m/Y  i:m:s", $element['last_login']); ?></th>
+                                                <?php endif; ?>
+
+                                                <?php if ($element['last_login'] === null) : ?>
+                                                    <th>-</th>
+                                                <?php else : ?>
+                                                    <th><?php echo $element['last_ip']; ?></th>
+                                                <?php endif; ?>
                                                 <th><?php echo gmdate("d/m/Y  i:m:s", $element['created_at']); ?></th>
-                                                <th>-</th>
+                                                <th>
+                                                    <button onClick="show_link('<?php echo $element['token_register']; ?>')" data-bs-toggle="modal" data-bs-target="#link-register" class="btn btn-info btn-sm waves-effect" title="สิทธิ์"> Link </button>
+
+                                                    <?php if ($element['status'] === 1) : ?>
+                                                        <button onClick="" class="btn btn-success btn-sm waves-effect" title="ปิด"><i class="fa fa-check"></i></button>
+                                                    <?php else : ?>
+                                                        <button onClick="" class="btn btn-danger btn-sm waves-effect" title="เปิด"><i class="fas fa-window-close"></i></button>
+                                                    <?php endif; ?>
+                                                </th>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
@@ -102,10 +118,10 @@ $session = session();
                                                         <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
                                                         <h3 class="mt-0">สมัครสมาชิกสำเร็จ !</h3>
                                                         <hr>
-                                                        <h4 class="w-80 mb-2 mx-auto">Username : <a id="username1" class="text-blue"></a></h4>
-                                                        <h4 class="w-80 mb-2 mx-auto">Password : <a id="password1" class="text-blue"></a></h4>
-                                                        <h4 class="w-80 mb-2 mx-auto">ชื่อ - สกุล : <a id="fullName1" class="text-blue"></a></h4>
-                                                        <h4 class="w-80 mb-2 mx-auto">line Id : <a id="lineId1" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">Username : <a id="username-success" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">Password : <a id="password-success" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">ชื่อ - สกุล : <a id="fullName-success" class="text-blue"></a></h4>
+                                                        <h4 class="w-80 mb-2 mx-auto">เบอร์โทรศัพท์ : <a id="tel-success" class="text-blue"></a></h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,7 +153,6 @@ $session = session();
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">ชื่อ</label>
                                                 <input type="text" id="fullName" class="form-control" name="fullName" placeholder="ชื่อ">
-
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -166,12 +181,64 @@ $session = session();
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="field-1" class="form-label">เลือกประเภท Team</label>
+                                                <div class="input-group">
+                                                    <select class="form-select" aria-label="Default select example" name="team" id="team">
+                                                        <?php if (isset($teamSaleAll)) : ?>
+                                                            <?php foreach ($teamSaleAll as $element) : ?>
+                                                                <option value="<?php echo $element['id']; ?>">
+                                                                    <?php echo $element['team_name']; ?>
+                                                                </option>
+                                                            <?php endforeach; ?>
+                                                        <?php else : ?>
+                                                            <option value="">การเชื่อมต่อล้มเหลว</option>
+                                                        <?php endif; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php
                                     ?>
                                 </div>
                             </form>
                             <div class="modal-footer">
                                 <button type="button" onclick="create_sale()" class="btn btn-success waves-effect" type="button">บันทึก</button>
+                                <button type="button" class="btn btn-danger waves-effect" data-bs-dismiss="modal">ปิด</button>
+                            </div>
+
+                        </div>
+                    </div> <!-- container -->
+                </div> <!-- content -->
+            </div>
+
+
+            <div class="col-xl-12">
+                <div id="link-register" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog modal-lg modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-light">
+                                <h4 class="modal-title">Link Sale</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 m-2 mt-2">
+                                    <div class="mb">
+                                        <div id='img_qrcode' class="d-flex justify-content-center m-2" height="350px" width="100%" style="object-fit: cover;"> </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 m-2 mt-2">
+                                    <div class="mb">
+                                        <label for="field-1" class="form-label">Link Register</label>
+                                        <input type="text" id="text-qrcode" class="form-control form-control-lg bg-light" name="fullName" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
                                 <button type="button" class="btn btn-danger waves-effect" data-bs-dismiss="modal">ปิด</button>
                             </div>
 
@@ -339,8 +406,10 @@ $session = session();
                             </div> <!-- container -->
                         </div> <!-- content -->
                     </div>
-
+                    <script src="./assets/qrcodejs/qrcode.js" defer></script>
                     <script>
+                        const url_frontend = "<?php echo getenv('frontend'); ?>"
+
                         function dialogbox_warning(msg) {
                             Swal.fire({
                                 icon: "warning",
@@ -357,12 +426,25 @@ $session = session();
                             });
                         }
 
+                        function show_link(token) {
+                            document.getElementById('img_qrcode').innerHTML = '';
+                            var QR_CODE = new QRCode("img_qrcode", {
+                                width: 450,
+                                height: 320,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H,
+                            })
+                            QR_CODE.makeCode(url_frontend + "form_regisPhoneNo?token=" + token);
+                            document.getElementById('text-qrcode').value = url_frontend + "form_regisPhoneNo?token=" + token;
+                        }
+
                         function create_sale() {
                             let username = document.getElementById('username').value;
                             let password = document.getElementById('password').value;
                             let fullName = document.getElementById('fullName').value;
                             let nun_tel = document.getElementById('nun_tel').value;
-
+                            let team = document.getElementById('team').value;
 
                             if (username == '') {
                                 dialogbox_warning('username ห้ามว่าง')
@@ -377,37 +459,42 @@ $session = session();
                                 dialogbox_warning('เบอร์โทรศัพท์ ห้ามว่าง')
                             }
 
-                            $.ajax({
-                                    url: '<?php echo base_url('sale/registration') ?>',
-                                    type: "POST",
-                                    data: JSON.stringify({
-                                        username: username,
-                                        password: password,
-                                        fullName: fullName,
-                                        num_phone: nun_tel
-                                    }),
-                                    dataType: "JSON",
-                                    enctype: 'multipart/form-data',
-                                    processData: false,
-                                    contentType: false,
-                                    cache: false,
-                                })
-                                .done(function(re) {
-                                    console.log(re);
-                                    // const res = JSON.parse(re);
-                                    // if (res.code == 1) {
-                                    //     dialogbox_success(res.msg);
-                                    //     window.setTimeout(function() {
-                                    //         location.reload()
-                                    //     }, 500)
-                                    // } else {
-                                    //     dialogbox_error(res.msg);
-                                    // }
-                                })
-                                .fail(function(err) {
-                                    console.log(err);
-                                    dialogbox_error('เกิดข้อผิดพลาดในการส่งข้อมูล');
-                                });
+                            try {
+                                $.ajax({
+                                        url: '<?php echo base_url('manage_sale/registration') ?>',
+                                        type: "POST",
+                                        data: {
+                                            [csrfName]: csrfHash,
+                                            username: username,
+                                            password: password,
+                                            fullName: fullName,
+                                            num_phone: nun_tel,
+                                            team: team
+                                        },
+                                        dataType: "JSON",
+                                    })
+                                    .done(function(res) {
+                                        if (res.status == true) {
+                                            document.getElementById('container-sale').style.display = 'none';
+                                            document.getElementById('container-register').style.display = 'block';
+                                            document.getElementById('fullName-success').innerHTML = fullName;
+                                            document.getElementById('username-success').innerHTML = username;
+                                            document.getElementById('password-success').innerHTML = password;
+                                            document.getElementById('tel-success').innerHTML = nun_tel;
+                                            $("#m_creAdmin").modal('hide')
+                                        } else {
+                                            dialogbox_error(res.msg);
+                                        }
+                                    })
+                                    .fail(function(err) {
+                                        console.log(err);
+                                        dialogbox_error('เกิดข้อผิดพลาดในการส่งข้อมูล');
+                                    });
+                            } catch (err) {
+                                console.log(err);
+                            }
+
+
                         }
                     </script>
 

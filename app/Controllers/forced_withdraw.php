@@ -98,16 +98,12 @@ class forced_withdraw extends ResourceController
                 // 
             }
 
-            if (isset($obj) === false) {
-                $re = '{"msg":"ไม่สามารถติดต่อไปยัง Server ได้"}';
-                echo json_encode($re);
-                return;
-            }
-            if (isset($obj['status']) === false) {
-                $re = '{"msg":"' . $obj['msg'] . '"}';
-                echo json_encode($re);
-                return;
-            } else {
+            if (isset($obj)) {
+                if ($obj['status'] === false) {
+                    $re = '{"msg":"' . $obj['msg'] . '"}';
+                    echo json_encode($re);
+                    return;
+                }
                 if (isset($obj["statement"][0]['ref_deposit_amb']) || isset($obj["statement"][0]['ref'])) {
                     if (isset($obj["statement"][0]['ref_deposit_amb'])) {
                         $obj["statement"][0]['ref_deposit_amb'] = $obj["statement"][0]['ref_deposit_amb'];
@@ -180,9 +176,12 @@ class forced_withdraw extends ResourceController
                     echo json_encode($re);
                     return;
                 }
+            } else {
+                $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด โปรดลองอีกครั้ง"}';
+                echo json_encode($re);
+                return;
             }
         } catch (Exception $e) {
-            print_r($e);
             $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
             echo json_encode($re);
             return;
@@ -191,44 +190,42 @@ class forced_withdraw extends ResourceController
 
 
     public function withdraw()
-	{
+    {
+        try {
 
-		try {
+            $session = session();
 
-			$session = session();
-
-			$data = [
-				'userId' =>  $this->request->getPost('id'),
-				'userOfGame' =>  $this->request->getPost('agent_username'),
-				'account' =>  $this->request->getPost('account'),
-				'username' =>  $this->request->getPost('username'),
+            $data = [
+                'userId' =>  $this->request->getPost('id'),
+                'userOfGame' =>  $this->request->getPost('agent_username'),
+                'account' =>  $this->request->getPost('account'),
+                'username' =>  $this->request->getPost('username'),
                 'admin_id'  =>  $session->get("id"),
-			];
-			$client = service('curlrequest', $this->url);
+            ];
+            $client = service('curlrequest', $this->url);
 
-			$posts_data = $client->post('withdraw/', [
-				'form_params' =>
-				$data
-			]);
+            $posts_data = $client->post('withdraw/', [
+                'form_params' =>
+                $data
+            ]);
 
-			$body = $posts_data->getBody();
-			$obj = json_decode($body);
-			$message = $obj->{'msg'};
+            $body = $posts_data->getBody();
+            $obj = json_decode($body);
+            $message = $obj->{'msg'};
 
-			if ($obj->{'status'} == true) {
-				$re = '{"code": 1 , "msg": " ' . $message . '"}';
-				echo json_encode($re);
-				return;
-			} else {
-				$re = '{"code": 0 , "msg":"' . $message  .  '"}';
-				echo json_encode($re);
-				return;
-			}
-		} catch (Exception $e) {
-			$re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
-			echo json_encode($re);
-			return;
-		}
-	}
-
+            if ($obj->{'status'} == true) {
+                $re = '{"code": 1 , "msg": " ' . $message . '"}';
+                echo json_encode($re);
+                return;
+            } else {
+                $re = '{"code": 0 , "msg":"' . $message  .  '"}';
+                echo json_encode($re);
+                return;
+            }
+        } catch (Exception $e) {
+            $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
+            echo json_encode($re);
+            return;
+        }
+    }
 }

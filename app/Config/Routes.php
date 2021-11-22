@@ -71,7 +71,7 @@ $routes->group('admin', function ($routes) {
 
 $routes->group('manage_sale', function ($routes) {
 	$routes->get('/', 'manage_sale::index',  ['filter' => 'auth']);
-	$routes->get('/registration', 'manage_sale::registration',  ['filter' => 'auth']);
+	$routes->post('registration', 'manage_sale::registration',  ['filter' => 'auth']);
 });
 
 

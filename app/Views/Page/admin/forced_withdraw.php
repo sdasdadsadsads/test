@@ -182,7 +182,7 @@
                                                         <th>โบนัส</th>
                                                         <th id="ccc">เครดิตหลังเติม</th>
                                                         <th>เวลา</th>
-                                                        <th>หมา่ยเหตู</th>
+                                                        <th>หมายเหตุ</th>
                                                     </tr>
                                                 </thead>
 
@@ -295,9 +295,10 @@
                             dataType: "json",
                         })
                         .done(function(body) {
+                            console.log(body)
                             if (body.code == 1) {
-                                console.log(body.detail_withdraw.data[0].amount);
-                                console.log(body.userData);
+                                // console.log(body.detail_withdraw.data[0].amount);
+                                // console.log(body.userData);
                                 $("#loader").hide();
 
                                 document.getElementById("checkuser").className = "collapse show";
@@ -389,7 +390,7 @@
                                         `;
                                     }
 
-                                    // console.log(res);
+                                 
                                     $('#table').DataTable({
                                         data: body.deposit.statement,
                                         pageLength: 20,
@@ -489,10 +490,8 @@
                                     element.classList.remove("bg-infolight");
 
                                 } else if (body.Turnover.status == false) {
-                                    document.getElementById("REF").innerHTML =
-                                        `  <label class="form-label"  >REF ล่าสุด</label> <input type="text" id="" value="" class="form-control text-dark" placeholder="" disabled style="width: 100%!important; outline: none!important; border: none; border-bottom: 1px solid #ced4da; height: 32px;"> 
-                                    `;
-
+                                  
+                                                        
                                     $('#table').DataTable({
                                         data: body.deposit.statement,
                                         pageLength: 20,
@@ -520,6 +519,12 @@
                                                 render: function(data) {
 
                                                     var base_url = '<?php echo base_url() ?>';
+                                                    if (data == null || data == '') {
+                                                        return ' <td><p>-</p></td>'
+                                                    }
+                                                    if (data === "  K") {
+                                                        return `<td> <img src='${base_url}/assets/images/Bank_show/KBANK.png'  alt="user-image" class="me-1" height="30"> <br> <p class="mt-1">KBANK</p></td>`
+                                                    }
                                                     return ' <td> <img src="' + base_url + "/assets/images/Bank_show/" + data + '.png"  alt="user-image" class="me-1" height="30"> <br> <p class="mt-1">' + data + '</p></td>'
 
                                                 }
@@ -566,13 +571,18 @@
                                                 }
                                             },
                                             {
-                                                data: "ref_deposit_amb",
+                                                data: "cause",
                                                 render: function(data) {
+                                                    if (data == null) {
+                                                        return '<td> - </td>'
+                                                    } else {
+                                                        return '<td> ' + data + '</td>'
+                                                    }
 
-                                                    return '<a href="" onclick="ref_deposit("' + data + '")" >' + data + '</a>'
 
                                                 }
                                             },
+
                                         ],
                                     });
                                     var element = document.getElementById("ccc");

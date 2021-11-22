@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
 use Exception;
+use PDO;
 
 class manage_sale extends ResourceController
 
@@ -21,16 +22,40 @@ class manage_sale extends ResourceController
     public function index()
     {
         try {
-            $response = $this->curlrequest->get("sale/listSaleData", [
-                "headers" => [
-                    "Accept" => "application/json",
-                    "jwt_token" => session()->get('JWT_TOKEN')
-                ]
-            ]);
-            $response = $response->getBody();
-            $response = json_decode($response, true); //  แปลง JSON เป็น Array
+            $infomation = array();
+
+            // fetch List Sale Data
+            try{
+                $response = $this->curlrequest->get("sale/listSaleData", [
+                    "headers" => [
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ]
+                ]);
+                $response = $response->getBody();
+                $response = json_decode($response, true); //  แปลง JSON เป็น Array
+                $infomation['saleData'] = $response['saleData'];
+            }catch(Exception $err){
+                //
+            }
+
+            // fetch team sale category 
+            try{
+                $response = $this->curlrequest->get("caching/teamSaleAll", [
+                    "headers" => [
+                        "Accept" => "application/json",
+                        "jwt_token" => session()->get('JWT_TOKEN')
+                    ]
+                ]);
+                $response = $response->getBody();
+                $response = json_decode($response, true); //  แปลง JSON เป็น Array
+                $infomation['teamSaleAll'] = $response['data'];
+            }catch(Exception $err){
+                //
+            }
+
             if ($response['status'] === true) {
-                return view('Page/admin/manage_sale.php', $response);
+                return view('Page/admin/manage_sale.php', $infomation);
             }
             return view('Page/admin/manage_sale.php');
         } catch (Exception $e) {
@@ -44,9 +69,10 @@ class manage_sale extends ResourceController
         try {
             $data = [
                 'username' => $this->request->getVar('username'),
-                'password' => $this->request->getVar('username'),
-                'fullName' =>  $this->request->getVar('promotion_id'),
-                'num_phone' =>  $this->request->getVar('deposit'),
+                'password' => $this->request->getVar('password'),
+                'fullName' =>  $this->request->getVar('fullName'),
+                'num_phone' =>  $this->request->getVar('num_phone'),
+                'teamId' =>  $this->request->getVar('team'),
                 'ipAddress' =>  $this->request->getIPAddress(),
             ];
             $response = $this->curlrequest->post("sale/insert", [
