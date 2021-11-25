@@ -73,8 +73,10 @@ class forced_withdraw extends ResourceController
                             }
                         }
                         if (isset($deposit['statement'])) {
-                            foreach ($deposit['statement'] as $element) {
-                                array_push($data['statement'], $element);
+                            if (is_array($deposit['statement'])) {
+                                foreach ($deposit['statement'] as $element) {
+                                    array_push($data['statement'], $element);
+                                }
                             }
                         }
                         $size = count($data['statement']);

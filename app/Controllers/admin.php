@@ -7,7 +7,6 @@ use Exception;
 
 class admin extends ResourceController
 
-
 {
 
 	private $url;
@@ -79,14 +78,6 @@ class admin extends ResourceController
 	{
 		try {
 			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (session()->get('class') <= 1) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
 
 
 			$data = [
@@ -101,7 +92,7 @@ class admin extends ResourceController
 				'id'  =>  $session->get("id"),
 			];
 
-			if ($this->request->getPost('username') && $this->request->getPost('password') && $this->request->getPost('menu') && $this->request->getPost('permissions')) {
+			if ($this->request->getPost('username') && $this->request->getPost('password') && $this->request->getPost('menu') ) {
 				$client = service('curlrequest', $this->url);
 
 				$posts_data = $client->post('admin_manage/create', [
@@ -212,15 +203,6 @@ class admin extends ResourceController
 	{
 		try {
 			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (session()->get('class') <= 1) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
-
 
 			$data = [
 				'admin_id' =>  $this->request->getPost('admin_id'),
@@ -230,7 +212,7 @@ class admin extends ResourceController
 				'username'  =>  $session->get("username"),
 			];
 
-			if ($this->request->getPost('admin_id') && $this->request->getPost('menu') && $this->request->getPost('permissions')) {
+			if ($this->request->getPost('admin_id') && $this->request->getPost('menu') ) {
 				$client = service('curlrequest', $this->url);
 
 				$posts_data = $client->post('admin_manage/edit_permissions', [
@@ -272,14 +254,6 @@ class admin extends ResourceController
 	{
 		try {
 			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (session()->get('class') <= 1) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
 
 			$data = [
 				'id' =>  $this->request->getPost('id'),
@@ -383,13 +357,7 @@ class admin extends ResourceController
 	{
 		try {
 			$session = session();
-			$permission = ($session->get("permissions"));
 
-			if (session()->get('class') <= 1) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
 
 			if ($this->request->getPost('admin_id') && $this->request->getPost('password')) {
 

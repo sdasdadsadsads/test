@@ -49,112 +49,6 @@ class withdraw extends ResourceController
         }
     }
 
-    public function pending_confirmation()
-    {
-        $data = [
-            'status' =>  [1],
-            'IPAddress'  =>  $this->request->getIPAddress(),
-        ];
-        $client = service('curlrequest', $this->url);
-
-        $posts_data = $client->post('withdraw/filtersWithdraw', [
-            "headers" => [
-                "Accept" => "application/json",
-                "jwt_token" => session()->get('JWT_TOKEN')
-            ],
-            'form_params' =>
-            $data
-        ]);
-
-        $body = $posts_data->getBody();
-        $body = json_decode($body, true);
-        $data = array(
-            'withdraw' => $body['data'],
-            'bankweb' => $body['bankweb']
-        );
-        return view('Page/admin/withdraw/filter_withdraw.php', $data);
-    }
-
-    public function lists_error()
-    {
-        $data = [
-            'status' =>  [7],
-            'IPAddress'  =>  $this->request->getIPAddress(),
-        ];
-        $client = service('curlrequest', $this->url);
-
-        $posts_data = $client->post('withdraw/filtersWithdraw', [
-            "headers" => [
-                "Accept" => "application/json",
-                "jwt_token" => session()->get('JWT_TOKEN')
-            ],
-            'form_params' =>
-            $data
-        ]);
-
-        $body = $posts_data->getBody();
-        $body = json_decode($body, true);
-        $data = array(
-            'withdraw' => $body['data'],
-            'bankweb' => $body['bankweb']
-        );
-        return view('Page/admin/withdraw/filter_withdraw.php', $data);
-    }
-
-    public function lists_cancel()
-    {
-       
-        $data = [
-            'status' =>  [3, -3],
-            'IPAddress'  =>  $this->request->getIPAddress(),
-        ];
-        $client = service('curlrequest', $this->url);
-
-        $posts_data = $client->post('withdraw/filtersWithdraw', [
-            "headers" => [
-                "Accept" => "application/json",
-                "jwt_token" => session()->get('JWT_TOKEN')
-            ],
-            'form_params' =>
-            $data
-        ]);
-
-        $body = $posts_data->getBody();
-        $body = json_decode($body, true);
-        $data = array(
-            'withdraw' => $body['data'],
-            'bankweb' => $body['bankweb']
-        );
-        return view('Page/admin/withdraw/filter_withdraw.php', $data);
-    }
-
-    public function transfer_queue()
-    {
-        
-        $data = [
-            'status' =>  [6],
-            'IPAddress'  =>  $this->request->getIPAddress(),
-        ];
-        $client = service('curlrequest', $this->url);
-
-        $posts_data = $client->post('withdraw/filtersWithdraw', [
-            "headers" => [
-                "Accept" => "application/json",
-                "jwt_token" => session()->get('JWT_TOKEN')
-            ],
-            'form_params' =>
-            $data
-        ]);
-
-        $body = $posts_data->getBody();
-        $body = json_decode($body, true);
-        $data = array(
-            'withdraw' => $body['data'],
-            'bankweb' => $body['bankweb']
-        );
-        return view('Page/admin/withdraw/filter_withdraw.php', $data);
-    }
-
     public function see_withdraw()
     {
         try {
@@ -552,13 +446,13 @@ class withdraw extends ResourceController
 
                 $session = session();
                 $session->setFlashdata('error', 'ข้อมูลไม่มีในระบบ');
-                return redirect()->to(base_url('report_withdraw/show'));
+                return redirect()->to(base_url('withdraw/show'));
             }
         } catch (Exception $e) {
 
             $session = session();
             $session->setFlashdata('error', 'เกิดข้อผิดพลาด');
-            return redirect()->to(base_url('report_withdraw/show'));
+            return redirect()->to(base_url('withdraw/show'));
         }
     }
 
@@ -583,6 +477,7 @@ class withdraw extends ResourceController
             return;
         }
     }
+
     function check_status(){
         try {
             $session = session();

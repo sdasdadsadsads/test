@@ -38,6 +38,7 @@ class bank_statement extends ResourceController
     }
     public function statement_list($id)
     {
+    try {
         if ($id != '') {
             $data = [
                 "bank_id" => $id,
@@ -59,6 +60,9 @@ class bank_statement extends ResourceController
                 return view('Page/admin/statement_list.php', $data);
             }
         }
+    } catch (Exception $e) {
+        echo json_encode(false);
+    }
         //    return view('Page/admin/bank_statement.php');
 
     }
@@ -69,12 +73,13 @@ class bank_statement extends ResourceController
             $client = service('curlrequest', $this->url);
             $data = [
                 "bank_id" => $this->request->getPost('data')[0]['value'],
-                "statuss" =>  $this->request->getPost('data')[1]['value'],
+                "statuss" =>  $this->request->getPost('data')[1]['value'],  
                 "type" =>  $this->request->getPost('data')[2]['value'],
-                "state_date" =>  $this->request->getPost('data')[3]['value'],
-                "state_time" =>  $this->request->getPost('data')[4]['value'],
-                "amount" =>  $this->request->getPost('data')[5]['value'],
-                "note" =>  $this->request->getPost('data')[6]['value'],
+                "BankName" =>  $this->request->getPost('data')[3]['value'],
+                "state_date" =>  $this->request->getPost('data')[4]['value'],
+                "state_time" =>  $this->request->getPost('data')[5]['value'],
+                "amount" =>  $this->request->getPost('data')[6]['value'],
+                "note" =>  $this->request->getPost('data')[7]['value'],
                 'admin_id'  =>  session()->get("id"),
 
             ];

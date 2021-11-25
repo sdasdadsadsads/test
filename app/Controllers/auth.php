@@ -18,7 +18,7 @@ class auth extends ResourceController
 			'baseURI' => getenv('API_URL')
 		];
 	}
-	
+
 	public function index()
 	{
 		return view('Page/admin/loginAdmin.php');
@@ -64,7 +64,6 @@ class auth extends ResourceController
 							'scan2FT' =>  $obj->{'scan2FT'},
 							'qrCode' =>  $obj->{'qrCode'},
 						]);
-
 						echo json_encode($body);
 					}
 				} else if ($obj->{'isLogin'} == false) {
@@ -79,8 +78,6 @@ class auth extends ResourceController
 				return;
 			}
 		} catch (Exception $e) {
-			print_r($e);
-			die;
 			$re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
 			echo json_encode($re);
 			return;
@@ -134,6 +131,8 @@ class auth extends ResourceController
 					'safecode' => $obj->{'safecode'},
 					'status_login' => $obj->{'status_login'},
 					'rounds' => $obj->{'rounds'},
+					'at_work_start_time' => $obj->{'at_work_start_time'},
+					'at_work_end_time' => $obj->{'at_work_end_time'},
 					'menu' => $obj->{'menu'},
 					'permissions' => $obj->{'permissions'},
 					'token' => $obj->{'token'},

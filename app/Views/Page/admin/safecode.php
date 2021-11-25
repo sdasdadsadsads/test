@@ -194,7 +194,7 @@ if (($session->get("permissions")) != null) {
                                                 <th>Safe code </th>
                                                 <th>Safe Time</th>
                                                 <th>Safe code</th>
-                                                <th>Logout</th>
+                                                <th>ลบ Safecode</th>
                                             </tr>
                                         </thead>
 
@@ -236,7 +236,7 @@ if (($session->get("permissions")) != null) {
                                                             <?php } ?>
                                                         </td>
                                                         <td class="text-center">
-                                                            <button class="btn btn-info btn-sm" onClick="confrim_delete(<?= $a['id'] ?>)">Logout</button>
+                                                            <button class="btn btn-danger btn-sm" onClick="confrim_delete(<?= $a['id'] ?>)">delete</button>
                                                         </td>
 
                                                     </tr>

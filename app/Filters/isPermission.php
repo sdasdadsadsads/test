@@ -11,7 +11,9 @@ class isPermission implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $view = \Config\Services::renderer();
+        if (!session()->has('id')) {
+            return redirect()->to(base_url('/'));
+        }
         if (!(session()->get('class') >= $arguments[0])) { // class Menu
             return redirect()->to(base_url('permission_denied'));
         }

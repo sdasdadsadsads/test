@@ -188,8 +188,7 @@ class confirmCredit extends ResourceController
 			// die;
 			return view('Page/admin/confirmCredit.php', $data);
 		} catch (Exception $e) {
-			print_r($e);
-			die;
+			
 			$data = array(
 				'state_unconfirmed' => [],
 				'state_confirmed' => [],
@@ -202,11 +201,7 @@ class confirmCredit extends ResourceController
 				'state_repeatAll' => [],
 				'state_undefindUsersAll' => []
 			);
-			// $session = session();
-			// print_r($e);
-			// die;
-			// $session->setFlashdata('error', 'เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่');
-			// return redirect()->to(base_url('dashboard/show'));
+		
 			return view('Page/admin/confirmCredit.php', $data);
 		}
 	}
@@ -335,6 +330,7 @@ class confirmCredit extends ResourceController
 			echo json_encode(false);
 		}
 	}
+	
 	public function getusername()
 	{
 

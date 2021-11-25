@@ -25,7 +25,7 @@ class manage_sale extends ResourceController
             $infomation = array();
 
             // fetch List Sale Data
-            try{
+            try {
                 $response = $this->curlrequest->get("sale/listSaleData", [
                     "headers" => [
                         "Accept" => "application/json",
@@ -35,22 +35,7 @@ class manage_sale extends ResourceController
                 $response = $response->getBody();
                 $response = json_decode($response, true); //  แปลง JSON เป็น Array
                 $infomation['saleData'] = $response['saleData'];
-            }catch(Exception $err){
-                //
-            }
-
-            // fetch team sale category 
-            try{
-                $response = $this->curlrequest->get("caching/teamSaleAll", [
-                    "headers" => [
-                        "Accept" => "application/json",
-                        "jwt_token" => session()->get('JWT_TOKEN')
-                    ]
-                ]);
-                $response = $response->getBody();
-                $response = json_decode($response, true); //  แปลง JSON เป็น Array
-                $infomation['teamSaleAll'] = $response['data'];
-            }catch(Exception $err){
+            } catch (Exception $err) {
                 //
             }
 
@@ -72,7 +57,6 @@ class manage_sale extends ResourceController
                 'password' => $this->request->getVar('password'),
                 'fullName' =>  $this->request->getVar('fullName'),
                 'num_phone' =>  $this->request->getVar('num_phone'),
-                'teamId' =>  $this->request->getVar('team'),
                 'ipAddress' =>  $this->request->getIPAddress(),
             ];
             $response = $this->curlrequest->post("sale/insert", [

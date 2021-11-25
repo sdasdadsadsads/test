@@ -72,13 +72,15 @@ class check_player extends ResourceController
                                 array_push($data['statement'], $element);
                             }
                         }
+                       
                         if (isset($deposit['statement'])) {
-                            foreach ($deposit['statement'] as $element) {
-                                array_push($data['statement'], $element);
+                            if(is_array(($deposit['statement']))){
+                                foreach ($deposit['statement'] as $element) {
+                                    array_push($data['statement'], $element);
+                                }
                             }
                         }
                         $size = count($data['statement']);
-
                         for ($step = 0; $step < ($size - 1); $step++) {
                             for ($i = $step; $i < ($size - 1); $i++) {
                                 if ($data['statement'][$step]['created_at'] < $data['statement'][$i + 1]['created_at']) {
@@ -95,70 +97,72 @@ class check_player extends ResourceController
                     }
                 }
             } catch (Exception $err) {
-                // 
+                //
             }
+            if (isset($obj)) {
+                if (($obj['status']) === false) {
+                    $re = '{"msg":"' . $obj['msg'] . '"}';
+                    echo json_encode($re);
+                    return;
+                } else {
+                    // print_r($obj);
+                    // die;
+                    if (isset($obj["statement"][0]['ref_deposit_amb']) || isset($obj["statement"][0]['ref'])) {
+                        if (isset($obj["statement"][0]['ref_deposit_amb'])) {
+                            $obj["statement"][0]['ref_deposit_amb'] = $obj["statement"][0]['ref_deposit_amb'];
+                        } else {
+                            $obj["statement"][0]['ref_deposit_amb'] = $obj["statement"][0]['ref'];
+                        }
+                        $data_Turnover = [
+                            'username' =>  $this->request->getPost('username'),
+                            'ref' =>  $obj["statement"][0]['ref_deposit_amb'],
 
-            if (isset($obj) === false) {
+                        ];
+
+                        $posts_data2 = $client->post('promotions/checkTurnover', [
+                            "headers" => [
+                                "Accept" => "application/json",
+                                "jwt_token" => session()->get('JWT_TOKEN')
+                            ],
+                            'form_params' =>
+                            $data_Turnover
+                        ]);
+
+                        $body2 = $posts_data2->getBody();
+                        $Turnover = json_decode($body2, true);
+
+
+                        $posts_data3 = $client->post('players/getCredit', [
+                            "headers" => [
+                                "Accept" => "application/json",
+                                "jwt_token" => session()->get('JWT_TOKEN')
+                            ],
+                            'form_params' =>
+                            $data_deposit
+                        ]);
+
+                        $body3 = $posts_data3->getBody();
+                        $getCredit = json_decode($body3, true);
+
+                        $data_to_respone = [
+                            'deposit' => $obj,
+                            'Turnover' => $Turnover,
+                            'getCredit' => $getCredit,
+                            'code' => 1
+                        ];
+
+                        echo json_encode($data_to_respone);
+                        return;
+                    } else {
+                        $re = '{"msg":"ไม่พบรายการ ref "}';
+                        echo json_encode($re);
+                        return;
+                    }
+                }
+            } else {
                 $re = '{"msg":"ไม่สามารถติดต่อไปยัง Server ได้"}';
                 echo json_encode($re);
                 return;
-            }
-            if (isset($obj['status']) === false) {
-                $re = '{"msg":"' . $obj['msg'] . '"}';
-                echo json_encode($re);
-                return;
-            } else {
-                if (isset($obj["statement"][0]['ref_deposit_amb']) || isset($obj["statement"][0]['ref'])) {
-                    if (isset($obj["statement"][0]['ref_deposit_amb'])) {
-                        $obj["statement"][0]['ref_deposit_amb'] = $obj["statement"][0]['ref_deposit_amb'];
-                    } else {
-                        $obj["statement"][0]['ref_deposit_amb'] = $obj["statement"][0]['ref'];
-                    }
-                    $data_Turnover = [
-                        'username' =>  $this->request->getPost('username'),
-                        'ref' =>  $obj["statement"][0]['ref_deposit_amb'],
-
-                    ];
-
-                    $posts_data2 = $client->post('promotions/checkTurnover', [
-                        "headers" => [
-                            "Accept" => "application/json",
-                            "jwt_token" => session()->get('JWT_TOKEN')
-                        ],
-                        'form_params' =>
-                        $data_Turnover
-                    ]);
-
-                    $body2 = $posts_data2->getBody();
-                    $Turnover = json_decode($body2, true);
-
-
-                    $posts_data3 = $client->post('players/getCredit', [
-                        "headers" => [
-                            "Accept" => "application/json",
-                            "jwt_token" => session()->get('JWT_TOKEN')
-                        ],
-                        'form_params' =>
-                        $data_deposit
-                    ]);
-
-                    $body3 = $posts_data3->getBody();
-                    $getCredit = json_decode($body3, true);
-
-                    $data_to_respone = [
-                        'deposit' => $obj,
-                        'Turnover' => $Turnover,
-                        'getCredit' => $getCredit,
-                        'code' => 1
-                    ];
-
-                    echo json_encode($data_to_respone);
-                    return;
-                } else {
-                    $re = '{"msg":"ไม่พบรายการ ref "}';
-                    echo json_encode($re);
-                    return;
-                }
             }
         } catch (Exception $e) {
             print_r($e);

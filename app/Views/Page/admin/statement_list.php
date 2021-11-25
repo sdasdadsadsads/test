@@ -132,6 +132,45 @@
         background-color: #10c70075 !important;
         color: #580101 !important;
     }
+    .btn-outline-secondary1 {
+    color: #6c757d !important;
+    /* border-color: #6c757d; */
+}
+.btn1 {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6c757d;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.45rem 0.9rem;
+    font-size: 20px;
+    border-radius: 0.15rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.mdi-18px.mdi-set, .mdi-18px.mdi:before {
+    font-size: 29px;
+}
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.previous1 {
+  background-color: #f1f1f1;
+  color: black;
+}
 </style>
 
 <!-- ============================================================== -->
@@ -178,16 +217,14 @@
                 <div class="card">
                     <div class="card-body">
                         <b class="header-title">รายการธนาคาร</b>
-                        <div class="d-flex flex-row-reverse bd-highlight">
-                            <div class="p-2 bd-highlight">
-                                <!-- <button class="btn btn-info" onClick="add_bank()"><i class="fa fa-plus"></i> เพิ่ม</button> -->
-                            </div>
+                        <div class="d-flex flex-row bd-highlight mb-3 mt-5">
+                        <a href="javascript:history.back()" class="previous1">&laquo; ย้อนกลับ</a>
                         </div>
                         <div class="row d-flex justify-content-center">
                             <div class="col-12 col-md-6 col-lg-2 mr-2 pr-2">
                                 <div class="card border-primary border-2 mb-3">
                                     <div class="card-body text-center py-2" style="border-bottom: 10px solid #ffd700;">
-                                        <img src="http://52.221.50.172/back/assets/images/Bank_show/<?= $bankWeb['bank_short'] ?>.png" alt="user-image" class="me-1 mt-1" height="30">
+                                        <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $bankWeb['bank_short'] ?>.png" alt="user-image" class="me-1 mt-1" height="30">
                                         <p class="m-0 p-0 mt-2">ชื่อบัญชี <span class="text-danger"><?= $bankWeb['name'] ?></span></p>
                                         <p class="m-0 p-0">เลขที่บัญชี <span class="text-danger"><?= $bankWeb['account'] ?></span></p>
                                         <p class="m-0 p-0">ยอดเงินคงเหลือ <span class="text-danger"><?= $bankWeb['balance'] ?></span></p>
@@ -244,15 +281,15 @@
                                         <td><?= $sta['admin_name'] ?></td>
                                         <td><?php
                                             if ($sta['status'] == 1) {
-                                                echo 'รอยืนยัน';
+                                                echo '<span class="badge bg-warning mdi mdi-clock" style="font-size: 1.0em;"> รอยืนยัน</span>';
                                             } else if ($sta['status'] == 2) {
-                                                echo 'สำเร็จ';
+                                                echo '<span class="badge bg-success mdi mdi-checkbox-marked-circle" style="font-size: 1.0em;"> สำเร็จ</span>';
                                             } else if ($sta['status'] == 3) {
-                                                echo 'ระบบ';
+                                                echo '<span class="badge bg-info mdi mdi-credit-card" style="font-size: 1.0em;"> ระบบ</span>';
                                             } else if ($sta['status'] == 4) {
-                                                echo 'ยกเลิก';
+                                                echo '<span class="badge bg-danger mdi mdi-close-circle" style="font-size: 1.0em;"> ยกเลิก</span>';
                                             } else {
-                                                echo 'ปิด';
+                                                echo '<span class="badge bg-danger mdi mdi-close-circle" style="font-size: 1.0em;"> ปิด</span>';
                                             }
                                             ?></td>
                                     </tr>
@@ -295,6 +332,33 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="mb-3 row">
+                                            <label for="message-text" class="col-form-label col-md-3 col-sm-3">ธนาคาร :</label>
+                                            <div class="col-md-9 col-sm-9">
+                                                <select class="form-select" aria-label="Default select example" name="BankName" id="BankName">
+                                                    <option value="KBANK">KBANK-กสิกรไทย</option>
+                                                    <option value="BBL">BBL-กรุงเทพ</option>
+                                                    <option value="BAY">BAY-กรุงศรีอยุธยา</option>
+                                                    <option value="SCB">SCB-ไทยพาณิชย์</option>
+                                                    <option value="KTB">KTB-กรุงไทย</option>
+                                                    <option value="SCIB">SCIB-นครหลวงไทย</option>
+                                                    <option value="UOB">UOB-ยูโอบี</option>
+                                                    <option value="TTB">TTB-ทหารไทยธนชาต</option>
+                                                    <option value="TISCO">TISCO-ทิสโก้</option>
+                                                    <option value="ICBC">ICBC-ไอซีบีซี (ไทย)</option>
+                                                    <option value="Kiatnakin">Kiatnakin-เกียรตินาคิน</option>
+                                                    <option value="TBANK">TBANK-ธนชาต</option>
+                                                    <option value="STANDARD">STANDARD-สแตนดาร์ดชาร์</option>
+                                                    <option value="GHB">GHB-อาคารสงเคราะห</option>
+                                                    <option value="LHBANK">LHBANK-แลนด์ แอนด์ เฮ</option>
+                                                    <option value="GSB">GSB-ออมสิน</option>
+                                                    <option value="BAAC">BAAC-เพื่อการเกษตร</option>
+                                                    <option value="iBank">iBank-อิสลามแห่งประเทศไทย</option>
+                                                    <option value="CIMB">CIMB-ซีไอเอ็มบีไทย</option>
+                                                    <option value="TRUEW">TRUEW-ทรูวอลเล็ท</option>
+                                                </select>
+                                            </div>
+                                        </div>
                         <div class="mb-3 row">
                             <label for="recipient-name" class="col-form-label col-md-3 col-sm-3">วันที่เวลา :</label>
                             <div class="col-md-4 col-sm-9">
@@ -349,6 +413,7 @@
         }
         function create_Statement() {
             var data = $('#form_bank').serializeArray();
+            console.log(data);
             $.ajax({
                         url: '<?php echo base_url('/bank_statement/create_Statement') ?>',
                         type: 'POST',

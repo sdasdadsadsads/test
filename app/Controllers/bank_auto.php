@@ -65,7 +65,6 @@ class bank_auto extends ResourceController
                 'type' =>  $this->request->getPost('type'),
                 'username' =>  $this->request->getPost('username'),
                 'password' =>  $this->request->getPost('password'),
-                'admin_id'  =>  session()->get("id"),
             ];
             $client = service('curlrequest', $this->url);
 

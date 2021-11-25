@@ -114,6 +114,53 @@
         font-size: .7rem;
         /* border-radius: .2rem; */
     }
+  
+.ant-tag-green {
+    color: #4e8d34;
+    background: #f6ffed;
+    border-color: #b7eb8f;
+}
+.ant-tag {
+    box-sizing: border-box;
+    margin: 0 8px 0 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    display: inline-block;
+    height: auto;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #d7ffbe;
+    border: 1px solid #41d900;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .3s;
+}
+.ant-tag-red {
+    color: #cf1322;
+    background: #fff1f0;
+    border-color: #ffa39e;
+}
+.ant-tag-r {
+    box-sizing: border-box;
+    margin: 0 8px 0 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    display: inline-block;
+    height: auto;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .3s;
+}
 </style>
 
 <!-- ============================================================== -->
@@ -179,9 +226,9 @@
                                     <th class="text-dark">password</th> -->
                                     <th class="text-dark">limit</th>
                                     <th class="text-dark">ประเภท</th>
-                                    <th class="text-dark">System</th>
-                                    <th class="text-dark">status System</th>
-                                    <th class="text-dark">สถานะ</th>
+                                    <th class="text-dark">เปิด/ปิด ระบบอัตโนมัติ</th>
+                                    <th class="text-dark">สถานะ ระบบอัตโนมัติ</th>
+                                    <th class="text-dark">สถานะบัญชี</th>
                                     <th class="text-dark">เเก้ไข</th>
                                     <th class="text-dark">ลบ</th>
                                 </tr>
@@ -211,9 +258,9 @@
                                             <td>
                                                 <?php
                                                 if ($bnk['type'] == 1) {
-                                                    echo '<span class="badge bg-success1 " style="font-size: 1.0em;">ฝาก</span>';
+                                                    echo '<span class="badge ant-tag ant-tag-green " style="font-size: 1.0em;">ฝาก</span>';
                                                 } else {
-                                                    echo '<span class="badge bg-danger" style="font-size: 1.0em;">ถอน</span>';
+                                                    echo '<span class="badge ant-tag ant-tag-red" style="font-size: 1.0em;">ถอน</span>';
                                                 }
                                                 ?>
                                             </td>
@@ -233,7 +280,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td><span class="badge bg-success " style="font-size: 0.9em;">START</span></td>
+                                                                <td><span class="badge ant-tag ant-tag-green " style="font-size: 0.9em;">START</span></td>
                                                             <?php } else { ?>
                                                                 <td style="display: flex; align-items: center;justify-content: center;">
                                                                     <div class="btn btn-success rounded-pill btn-sm" id="color<?= $i ?>" onClick="StatusSystem('','<?= $i ?>','<?= $pro['id'] ?>','<?= $pro['status'] ?>','<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>')">
@@ -244,7 +291,7 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td><span class="badge bg-danger " style="font-size: 0.9em;">STOP</span></td>
+                                                                <td><span class="badge ant-tag ant-tag-red " style="font-size: 0.9em;">STOP</span></td>
                                                             <?php } ?>
                                                 <?php }
                                                     }
@@ -257,7 +304,7 @@
                                                             if ($bnk['name_process'] == $pro2['name']) {
                                                                 if ($pro2['status'] == 'online') { ?>
                                                                     <td style="display: flex; align-items: center;justify-content: center;" id="refresh1">
-                                                                        <div class="btn btn-danger rounded-pill btn-sm" id="color<?= $i ?>" onClick="StatusSystem('<?= $bnk['bank_short'] ?>','<?= $i ?>','<?= $pro2['id'] ?>','<?= $pro2['status'] ?>')">
+                                                                        <div class="btn btn-danger rounded-pill btn-sm" id="color<?= $i ?>" onClick="StatusSystem('<?= $bnk['bank_short'] ?>','<?= $i ?>','<?= $pro2['id'] ?>','<?= $pro2['status'] ?>','<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>')">
                                                                             <div class="button1 button--play button--active" id="enable<?= $i ?>">
                                                                                 <div class="button__shape button__shape--one">
                                                                                 </div>
@@ -265,10 +312,10 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td><span class="badge bg-success " style="font-size: 0.9em;">START</span></td>
+                                                                    <td><span class="badge ant-tag ant-tag-green " style="font-size: 0.9em;">START</span></td>
                                                                 <?php } else { ?>
                                                                     <td style="display: flex; align-items: center;justify-content: center;">
-                                                                        <div class="btn btn-success rounded-pill btn-sm" id="color<?= $i ?>" onClick="StatusSystem('<?= $bnk['bank_short'] ?>','<?= $i ?>','<?= $pro2['id'] ?>','<?= $pro2['status'] ?>')">
+                                                                        <div class="btn btn-success rounded-pill btn-sm" id="color<?= $i ?>" onClick="StatusSystem('<?= $bnk['bank_short'] ?>','<?= $i ?>','<?= $pro2['id'] ?>','<?= $pro2['status'] ?>','<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>')">
                                                                             <div class="button1 button--play" id="enable<?= $i ?>">
                                                                                 <div class="button__shape button__shape--one">
                                                                                 </div>
@@ -276,20 +323,22 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    <td><span class="badge bg-danger " style="font-size: 0.9em;">STOP</span></td>
+                                                                    <td><span class="badge ant-tag ant-tag-red " style="font-size: 0.9em;">STOP</span></td>
                                                 <?php }}}}}} ?>
                                             <td>
                                                 <?php if (!empty($bnk['status']) && $bnk['status'] == 1) { ?>
-                                                    <button type="button" class="btn btn-success waves-effect waves-light" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','0')"><i class="mdi mdi-checkbox-marked-circle"></i></button>
+                                                    <span class="badge  ant-tag ant-tag-green " style="font-size: 1.0em; cursor: pointer;" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','0')">เปิด</span>
+                                                    <!-- <button type="button" class="btn btn-success waves-effect waves-light" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','0')"><i class="mdi mdi-checkbox-marked-circle"></i></button> -->
                                                    
                                                 <?php } else if ($bnk['status'] == 0) { ?>
-                                                    <button type="button" class="btn btn-danger waves-effect waves-light" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','1')"><i class="mdi mdi-close-circle"></i></button>
+                                                    <span class="badge  ant-tag ant-tag-red " style="font-size: 1.0em; cursor: pointer;" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','1')">ปิด</span>
+                                                    <!-- <button type="button" class="btn btn-danger waves-effect waves-light" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','1')"><i class="mdi mdi-close-circle"></i></button> -->
                                                   
                                                 <?php } else { ?>
                                                    Error !!
                                                 <?php } ?>
                                             </td>
-                                            <td><button type="button" class="btn btn-info waves-effect waves-light" onClick="editDataBank('<?= $bnk['name'] ?>','<?= $bnk['account'] ?>','<?= $bnk['bankId']; ?>','<?= $bnk['type'] ?>','<?= $bnk['name_process'] ?>')"><i class="mdi mdi-file-document-edit-outline"></i></button></td>
+                                            <td><button type="button" class="btn btn-warning waves-effect waves-light" onClick="editDataBank('<?= $bnk['name'] ?>','<?= $bnk['account'] ?>','<?= $bnk['bankId']; ?>','<?= $bnk['type'] ?>','<?= $bnk['name_process'] ?>')"><i class="mdi mdi-file-document-edit-outline"></i></button></td>
                                             <td>
                                                 <button type="button" class="btn btn-danger waves-effect waves-light" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','4')"><i class="mdi mdi-delete-forever "></i></button>
                                             </td>
@@ -498,9 +547,7 @@
                 dataType: "json",
                 success: function(res) {
                     var re = JSON.parse(res);
-                    console.log(re);
                     if (re.status == true) {
-                        console.log(re.msg);
                         if (playButton.classList[2] == null) {
                             playButton.classList.add('button--active');
                             colorButton.classList.remove('btn-success');

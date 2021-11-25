@@ -59,14 +59,7 @@ class safecode extends ResourceController
 
 		try {
 			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (!in_array(29, $permission)) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
+			
 
 			$data = [
 				'id' =>  $id,
@@ -115,14 +108,6 @@ class safecode extends ResourceController
 
 		try {
 			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (!in_array(29, $permission)) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
 
 			$data = [
 				'id' =>  $id,
@@ -170,15 +155,6 @@ class safecode extends ResourceController
 	{
 
 		try {
-			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (!in_array(29, $permission)) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
 
 			$data = [
 				'id' =>  $id,
@@ -225,16 +201,7 @@ class safecode extends ResourceController
 	{
 
 		try {
-			$session = session();
-			$permission = ($session->get("permissions"));
-
-
-			if (!in_array(29, $permission)) {
-				$re = '{"code": 0 ,"msg":"ไม่มีสิทธิ์ใช้งานในส่วนนี้"}';
-				echo json_encode($re);
-				return;
-			}
-
+		
 			$data = [
 				'id' =>  $id,
 				'adminId' =>  session()->get('id'),

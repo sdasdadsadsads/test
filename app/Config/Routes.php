@@ -237,10 +237,6 @@ $routes->group('withdraw', function ($routes) {
 	$routes->post('reback_withdraw', 'withdraw::reback_withdraw',  ['filter' => 'auth']);
 	$routes->post('checkStatusWithdraw', 'withdraw::checkStatusWithdraw',  ['filter' => 'auth']);
 	$routes->post('filtersWithdraw', 'withdraw::filtersWithdraw',  ['filter' => 'auth']);
-	$routes->get('pending_confirmation', 'withdraw::pending_confirmation',  ['filter' => 'auth']);
-	$routes->get('lists_error', 'withdraw::lists_error',  ['filter' => 'auth']);
-	$routes->get('lists_cancel', 'withdraw::lists_cancel',  ['filter' => 'auth']);
-	$routes->get('transfer_queue', 'withdraw::transfer_queue',  ['filter' => 'auth']);
 	$routes->post('filter', 'withdraw::filter',  ['filter' => 'auth']);
 	$routes->post('csv', 'withdraw::csv',  ['filter' => 'auth']);
 	$routes->get('check_withdrawal', 'withdraw::check_withdrawal',  ['filter' => 'auth']);
@@ -276,6 +272,11 @@ $routes->group('forced_withdraw', function ($routes) {
 	$routes->get('show', 'forced_withdraw::index',  ['filter' => 'auth', 'filter' => 'isPermission:1,3']);
 	$routes->post('filter', 'forced_withdraw::filter',  ['filter' => 'auth']);
 	$routes->post('withdraw', 'forced_withdraw::withdraw',  ['filter' => 'auth']);
+});
+$routes->group('line_notify', function ($routes) {
+	$routes->get('show', 'line_notify::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,17']);
+	$routes->post('change_status', 'line_notify::change_status',  ['filter' => 'auth']); 
+	$routes->post('updateData', 'line_notify::updateData',  ['filter' => 'auth']); 
 });
 
 /*

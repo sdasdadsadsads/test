@@ -31,6 +31,18 @@
 
 
               <form action="#" method="post" id="form">
+
+                <?php if (session()->has('msg_error_login')) : ?>
+                  <div class="mb-2 mt-2">
+                    <div class="alert alert-danger" role="alert">
+                      <h4 class="alert-heading text-center">แจ้งเตือน</h4>
+                      <p class="text-center"><?php echo session()->get('msg_error_login'); ?></p>
+                      <p class="mb-0"></p>
+                    </div>
+                  </div>
+                  <?php session()->remove('msg_error_login'); ?>
+                <?php endif; ?>
+
                 <div class="mb-2 mt-2">
                   <label for="emailaddress" class="form-label">ชื่อผู้ใช้</label>
                   <div class="input-group input-group-merge">
@@ -180,9 +192,7 @@
               document.getElementById("pin").click();
 
             } else if (myObj.scan2FT == false) {
-
               window.location.replace("<?php echo base_url('auth/scan2FT') ?>")
-
             }
 
           }

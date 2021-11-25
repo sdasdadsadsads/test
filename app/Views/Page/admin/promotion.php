@@ -411,13 +411,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-1" class="form-label">Turnover Game <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
+                                    <label for="field-1" class="form-label">Turnover Game (สล็อต ยิงปลา) <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
                                     <input type="number" value="1" name="turnoverGame" id="turnoverGame" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-1" class="form-label">Turnover Trading <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
+                                    <label for="field-1" class="form-label">Turnover Trading (เทรนดิ้ง) <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
                                     <input type="number" value="1" name="turnoverTrading" id="turnoverTrading" class="form-control" placeholder="">
                                 </div>
                             </div>
@@ -442,13 +442,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-1" class="form-label">Turnover Casino <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
+                                    <label for="field-1" class="form-label">Turnover Casino (คาสิโน)<h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
                                     <input type="number" value="1" name="turnoverCasino" id="turnoverCasino" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-2" class="form-label">Turnover Lotto<h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
+                                    <label for="field-2" class="form-label">Turnover Lotto (หวย)<h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
                                     <input type="number" value="1" name="turnoverLotto" id="turnoverLotto" class="form-control" placeholder="">
                                 </div>
                             </div>
@@ -463,7 +463,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-2" class="form-label">Turnover Multiplayer <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
+                                    <label for="field-2" class="form-label">Turnover Multiplayer (ไพ่) <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
                                     <input type="number" value="1" name="turnoverMultiPlayer" id="turnoverMultiPlayer" class="form-control" placeholder="">
                                 </div>
                             </div>
@@ -472,7 +472,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-1" class="form-label">Turnover Keno <h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
+                                    <label for="field-1" class="form-label">Turnover Keno (คีโน่)<h6 class="text-danger"> ตั้ง 1 คือไม่ติดเทิร์น </h6></label>
                                     <input type="number" value="1" name="turnoverKeno" id="turnoverKeno" class="form-control" placeholder="">
                                 </div>
                             </div>
@@ -488,13 +488,13 @@
                             <div class="col-md-6">
 
                                 <div class="mb-2">
-                                    <label for="field-2" class="form-label">Turnover Esport<h6 class="text-danger">กรณีเลือก Esport เป็นประเภท ทำเทิร์นทุกเกมส์ </h6></label>
+                                    <label for="field-2" class="form-label">Turnover Esport (กีฬา)<h6 class="text-danger">กรณีเลือก Esport เป็นประเภท ทำเทิร์นทุกเกมส์ </h6></label>
                                     <input type="number" value="1" name="turnoverEsport" id="turnoverEsport" onchange="set_turnover_all_games(this.value)" class="form-control" placeholder="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="field-1" class="form-label">Turnover Football <h6 class="text-danger"> กรณีเลือก Football เป็นประเภท ทำเทิร์นทุกเกมส์ </h6></label>
+                                    <label for="field-1" class="form-label">Turnover Football (กีฬา)<h6 class="text-danger"> กรณีเลือก Football เป็นประเภท ทำเทิร์นทุกเกมส์ </h6></label>
                                     <input type="number" value="1" name="turnoverFootball" id="turnoverFootball" onchange="set_turnover_all_games(this.value)" class="form-control" placeholder="">
                                 </div>
                             </div>

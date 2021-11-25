@@ -151,6 +151,64 @@
         background-color: #eb0000a1;
         border-color: #eb6565;
     }
+    .ant-tag-green {
+    color: #4e8d34;
+    background: #f6ffed;
+    border-color: #b7eb8f;
+}
+.ant-tag {
+    box-sizing: border-box;
+    margin: 0 8px 0 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    display: inline-block;
+    height: auto;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #d7ffbe;
+    border: 1px solid #41d900;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .3s;
+}
+.ant-tag-k {
+    box-sizing: border-box;
+    margin: 0 8px 0 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    display: inline-block;
+    height: auto;
+    padding: 3px 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #62ff00;
+    border: 1px solid #4ab71b;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .3s;
+}
+.ant-tag-color {
+    color: #000000;
+    background: #80ff00;
+    border-color: #75bd3f;
+
+}
+.ant-tag-red {
+    color: #cf1322;
+    background: #fff1f0;
+    border-color: #ffa39e;
+}
+
+.btn-vip {
+    color: #fff;
+    background-color: #ff7c00;
+    border-color: #d58a07;
+}
 </style>
 
 <!-- ============================================================== -->
@@ -215,28 +273,32 @@
                                             <td class="text-center"><?= $bnk['account'] ?></td>
                                             <td class="text-center"><?= $bnk['bank_short'] . '-' . substr($bnk['bank_th'], 18, 40) ?></td>
                                             <td class="text-center"><?php if ($bnk['type'] == '1') {
-                                                                        echo '<span class="badge bg-success1 " style="font-size: 1.0em;">ฝาก</span>';
+                                                                        echo '<span class="badge ant-tag ant-tag-green " style="font-size: 1.0em; ">ฝาก</span>';
                                                                     } else {
-                                                                        echo 'ถอน';
+                                                                        echo '<span class="badge ant-tag ant-tag-red " style="font-size: 1.0em;">ถอน</span>';
                                                                     } ?></td>
                                             <td class="text-center"><?= date('d/m/y H:i', $bnk['create_time']) ?></td>
                                             <td>
                                                 <?php
                                                 foreach ($bnk['bankgroup'][0] as $group) {
                                                     if ($group['name'] == 'กรุงไทย') {
-                                                        echo ' <span class="btn btn-ktb btn-sm" id="ktb' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color" id="ktb' . $i . '" style="color: #0b2128; background: #00e3ff; border-color: #4dbebf;">' . $group['name'] . '</span>';
                                                     } elseif ($group['name'] == 'กรุงศรี') {
-                                                        echo ' <span class="btn btn-warning text-dark btn-sm" id="bay' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color" id="bay' . $i . '" style="color: #2c1c00; background: #fbbf57; border-color: #ffa200;">' . $group['name'] . '</span>';
                                                     } elseif ($group['name'] == 'ไทยพาณิชย์') {
-                                                        echo ' <span class="btn btn-scb btn-sm" id="scb' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color" id="scb' . $i . '" style="    color: #ffffff; background: #b400ff; border-color: #ac00ff;">' . $group['name'] . '</span>';
                                                     } elseif ($group['name'] == 'กรุงเทพ') {
-                                                        echo ' <span class="btn btn-bbl btn-sm" id="bbl' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color" id="bbl' . $i . '" style="color: #ffffff; background: #0046cf; border-color: #05f;">' . $group['name'] . '</span>';
                                                     } elseif ($group['name'] == 'กสิกรไทย') {
-                                                        echo ' <span class="btn btn-kbank  btn-sm" id="kbank' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color " id="kbank' . $i . '">' . $group['name'] . '</span>';
                                                     } elseif ($group['name'] == 'แบงค์อื่นๆ') {
-                                                        echo ' <span class="btn btn-orther btn-sm" id="bankorther' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color" id="bankorther' . $i . '" style="color: #000000; background: #ebebeb; border-color: #98a6ad;">' . $group['name'] . '</span>';
                                                     } elseif ($group['name'] == 'ทั่วไป') {
-                                                        echo ' <span class="btn btn-general btn-sm" id="bankgeneral' . $i . '">' . $group['name'] . '</span>';
+                                                        echo ' <span class="btn ant-tag ant-tag-red" id="bankgeneral' . $i . '">' . $group['name'] . '</span>';
+                                                    }elseif ($group['name'] == 'VIP') {
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color" id="bankvip' . $i . '" style="color: #000000; background: #eaf724; border-color: #cae311;">' . $group['name'] . '</span>';
+                                                    }elseif ($group['name'] == 'TrueWallet') {
+                                                        echo ' <span class="btn ant-tag-k ant-tag-color"" id="TrueWallet' . $i . '" style="color: #e90000; background: #f79542bd; border-color: #ff9019;">' . $group['name'] . '</span>';
                                                     }
                                                 }
                                                 ?>
@@ -247,14 +309,14 @@
                                             <td class="text-center">
                                                 <?php if (!empty($bnk['status']) && $bnk['status'] == 1) { ?>
                                                     <a href="#" onClick="edit_statusBank('<?= $bnk['id'] ?>','0')" title="ปิด">
-                                                        <i style="color:#3AED33;" class="fa fa-check"></i>
+                                                        <i style="color:#3AED33;" class="mdi mdi-check-circle"></i>
                                                     </a>
                                                 <?php } else if ($bnk['status'] == 3) { ?>
-                                                    <i style="color:#3AED33;" class="fa fa-exchange"> Auto</i>
+                                                    <i style="color:#3AED33;" class="mdi mdi-repeat mdi-18px"> Auto</i>
                                                 <?php } else { ?>
 
                                                     <a href="#" onClick="edit_statusBank('<?= $bnk['id'] ?>','1')" title="เปิด">
-                                                        <i style="color:#F51F23;" class="fa fa-remove"></i>
+                                                      <span class="mdi mdi-close-circle mdi-18px text-danger"></span>
                                                     </a>
                                                 <?php } ?>
                                             </td>
@@ -270,7 +332,7 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title" id="exampleModalLabel">เลือกกลุ่ม<small>(สำหรับพนักงาน)</small></h4>
+                                    <h3 class="modal-title" id="exampleModalLabel">เลือกกลุ่ม<h4>(สำหรับพนักงาน)</h4></h3>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
@@ -279,7 +341,7 @@
                                         <input type="hidden" name="bank_id" id="bankGroup_id" value="">
                                         <div class="col-md-12 col-sm-12  form-group has-feedback">
                                             <div class="form-group row">
-                                                <label class="col-form-label col-md-3 col-sm-3 ">กลุ่ม</label>
+                                                <label class="col-form-label col-md-3 col-sm-3 " style="margin-top:-8px;">กลุ่ม</label>
                                                 <div class="col-md-9 col-sm-9 ">
                                                     <?php if (isset($group_r)) { ?>
                                                         <?php
@@ -327,6 +389,8 @@
             var scb = document.querySelector('#scb' + i);
             var bankorther = document.querySelector('#bankorther' + i);
             var bankgeneral = document.querySelector('#bankgeneral' + i);
+            var bankvip = document.querySelector('#bankvip' + i);
+            var TrueWallet = document.querySelector('#TrueWallet' + i);
             ktb !== null ? document.getElementById("Check6").checked = true : document.getElementById("Check6").checked = false;
             bay !== null ? document.getElementById("Check4").checked = true : document.getElementById("Check4").checked = false;
             kbank !== null ? document.getElementById("Check2").checked = true : document.getElementById("Check2").checked = false;
@@ -334,6 +398,8 @@
             scb !== null ? document.getElementById("Check5").checked = true : document.getElementById("Check5").checked = false;
             bankorther !== null ? document.getElementById("Check7").checked = true : document.getElementById("Check7").checked = false;
             bankgeneral !== null ? document.getElementById("Check1").checked = true : document.getElementById("Check1").checked = false;
+            bankvip !== null ? document.getElementById("Check8").checked = true : document.getElementById("Check8").checked = false;
+            TrueWallet !== null ? document.getElementById("Check21").checked = true : document.getElementById("Check21").checked = false;
             $('#mod_bankGroup').modal('show');
             $('#bankGroup_id').val(id);
         }

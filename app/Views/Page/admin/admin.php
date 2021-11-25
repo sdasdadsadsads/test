@@ -143,7 +143,12 @@ $session = session();
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">Username</label>
-                                                <input type="text" name="username" placeholder="Username" class="form-control" placeholder="Username">
+                                                <div class="input-group">
+                                                    <input type="text" name="username" placeholder="Username" class="form-control" placeholder="Username">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2">@12iwinr</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

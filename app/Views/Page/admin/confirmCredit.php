@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-                        <h4 class="page-title">รายการเดินบัญชี</h4>
+                        <h4 class="page-title">ยอดห้อย</h4>
                     </div>
                 </div>
             </div>
@@ -285,13 +285,13 @@
                                             <?php if (is_array($state_unconfirmed)) { ?>
 
 
-                                                <?php foreach ($state_unconfirmed as $unconfirmed) { ?>
+                                                <?php foreach ($state_unconfirmed as $unconfirmed) { print_r($unconfirmed['from_bank']); ?>
                                                     <tr>
                                                         <td style="width: 36px;">
                                                             <?php if ($unconfirmed['from_bank'] == '  K') { ?>
                                                                 <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
-                                                            <? } else { ?>
-                                                                <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $unconfirmed['from_bank']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
+                                                            <?php } else { ?>
+                                                                <img src="<?php echo base_url();?>/assets/images/Bank_show/<?=$unconfirmed['from_bank'];?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
                                                             <?php } ?>
 
                                                         </td>
@@ -423,7 +423,7 @@
                                                         <td style="width: 36px;">
                                                             <?php if ($confirmed['from_bank'] == '  K') { ?>
                                                                 <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
-                                                            <? } else { ?>
+                                                            <?php } else { ?>
                                                                 <img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $confirmed['from_bank']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
                                                             <?php } ?>
                                                         </td>
@@ -439,7 +439,7 @@
                                                             <h5 class="m-0 fw-normal mt-1">เครดิตก่อนเติม <b>
                                                                     <?= $confirmed['credit_before']; ?> </b></h5>
                                                             <h5 class="m-0 fw-normal mt-1">เวลาเติมสำเร็จ
-                                                                <b><?= date('d-m-y h:i:s', $confirmed['auto_update']) ?></b>
+                                                                <b><?= date('d-m-y h:i:s', $confirmed['created_at']) ?></b>
                                                             </h5>
                                                         </td>
                                                         <td>

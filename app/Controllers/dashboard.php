@@ -47,9 +47,6 @@ class dashboard extends ResourceController
             ]);
 
             $body = $posts_data->getBody();
-            if (isset($body->token)) { // สถานะ JWT TOKEN SERVER
-                session()->destroy();
-            }
             echo json_encode($body);
         } catch (Exception $e) {
             $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';

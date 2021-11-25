@@ -26,6 +26,9 @@ class validatorToken implements FilterInterface
             $body = json_decode($body, true); //  แปลง JSON เป็น Array
             if (isset($body["token"])) { // สถานะ JWT TOKEN SERVER
                 session()->destroy();
+                session()->set([
+                    'msg_error_login' => 'SESSION หมดอายุ โปรดเข้าใช้งานใหม่อีกครั้ง'
+                ]);
                 return redirect()->to(base_url('/'));
             }
         } catch (Exception $err) {

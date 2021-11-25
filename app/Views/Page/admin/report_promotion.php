@@ -628,7 +628,7 @@
     }
 
     async function cancelPromotion(username, isDelBonus, element) {
-        console.log(element);
+        // console.log(element);
         let dialog = await dialog_confirm(`คุณต้องการจะลบโปรโมชั่น ${isDelBonus === 1 ? 'และลบโบนัส':''} ${username} ใช่หรือไม่`);
         if (!dialog) return;
         $.ajax({

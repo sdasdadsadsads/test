@@ -25,6 +25,8 @@ class Filters extends BaseConfig
 		'FetchMenu' => \App\Filters\FetchMenu::class,
 		'isPermission' => \App\Filters\isPermission::class,
 		'validatorToken' => \App\Filters\validatorToken::class,
+		'isAtWorkTime' => \App\Filters\isAtWorkTime::class,
+
 	];
 
 	/**
@@ -39,7 +41,8 @@ class Filters extends BaseConfig
 			'ValidateEmergency' => ['except' => ['emergency']],
 			'FetchMenu' => ['except' => ['emergency']],
 			'csrf'  => ['except' => ['emergency/index', 'auth/auth', 'bank_auto/createBankAuto', 'withdraw/get_bankweb_balanace', 'withdraw/get_bankweb', 'withdraw/confirm_withdraw_auto', 'withdraw/cancel_wd_check', 'withdraw/cancel_withdraw', 'withdraw/remove_withdraw', 'withdraw/reback_withdraw', 'withdraw/see_withdraw', 'withdraw/checkStatusWithdraw', 'withdraw/filtersWithdraw', 'withdraw/check_withdrawal', 'bank_statement/statement_list/$1', 'withdraw/check_status']],
-			'validatorToken' => ['except' => ['emergency', 'auth/auth', 'auth/auth2FT', 'auth/scan_auth2FT', '/', 'auth/logout',]]
+			'validatorToken' => ['except' => ['emergency', 'auth/auth', 'auth/auth2FT', 'auth/scan_auth2FT', '/', 'auth/logout', 'auth/scan2FT']],
+			'isAtWorkTime' => ['except' => ['emergency', 'auth/auth', 'auth/auth2FT', 'auth/scan_auth2FT', '/', 'auth/logout', 'auth/scan2FT']],
 		],
 		'after'  => [
 			'toolbar',

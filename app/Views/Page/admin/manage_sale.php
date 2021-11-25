@@ -181,29 +181,6 @@ $session = session();
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="field-1" class="form-label">เลือกประเภท Team</label>
-                                                <div class="input-group">
-                                                    <select class="form-select" aria-label="Default select example" name="team" id="team">
-                                                        <?php if (isset($teamSaleAll)) : ?>
-                                                            <?php foreach ($teamSaleAll as $element) : ?>
-                                                                <option value="<?php echo $element['id']; ?>">
-                                                                    <?php echo $element['team_name']; ?>
-                                                                </option>
-                                                            <?php endforeach; ?>
-                                                        <?php else : ?>
-                                                            <option value="">การเชื่อมต่อล้มเหลว</option>
-                                                        <?php endif; ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                    ?>
                                 </div>
                             </form>
                             <div class="modal-footer">
@@ -444,19 +421,22 @@ $session = session();
                             let password = document.getElementById('password').value;
                             let fullName = document.getElementById('fullName').value;
                             let nun_tel = document.getElementById('nun_tel').value;
-                            let team = document.getElementById('team').value;
 
                             if (username == '') {
                                 dialogbox_warning('username ห้ามว่าง')
+                                return;
                             }
                             if (password == '') {
                                 dialogbox_warning('password ห้ามว่าง')
+                                return;
                             }
                             if (fullName == '') {
                                 dialogbox_warning('ชื่อ ห้ามว่าง')
+                                return;
                             }
                             if (nun_tel == '') {
                                 dialogbox_warning('เบอร์โทรศัพท์ ห้ามว่าง')
+                                return;
                             }
 
                             try {
@@ -469,7 +449,6 @@ $session = session();
                                             password: password,
                                             fullName: fullName,
                                             num_phone: nun_tel,
-                                            team: team
                                         },
                                         dataType: "JSON",
                                     })

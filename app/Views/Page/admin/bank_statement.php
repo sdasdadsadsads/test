@@ -150,6 +150,52 @@
             transform: rotate(360deg);
         }
     }
+    .ant-tag-green {
+    color: #4e8d34;
+    background: #f6ffed;
+    border-color: #b7eb8f;
+}
+.ant-tag {
+    box-sizing: border-box;
+    margin: 0 8px 0 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    display: inline-block;
+    height: auto;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #d7ffbe;
+    border: 1px solid #41d900;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .3s;
+}
+.ant-tag-red {
+    color: #cf1322;
+    background: #fff1f0;
+    border-color: #ffa39e;
+}
+.ant-tag-r {
+    box-sizing: border-box;
+    margin: 0 8px 0 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    display: inline-block;
+    height: auto;
+    padding: 0 7px;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    background: #fafafa;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    opacity: 1;
+    transition: all .3s;
+}
 </style>
 
 <!-- ============================================================== -->
@@ -228,9 +274,9 @@
                                             <td><img src="<?php echo base_url(); ?>/assets/images/Bank_show/<?= $bnk['bank_short']; ?>.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm"></td>
                                             <td style="text-align:center;"><?php
                                                                             if ($bnk['type'] == '1') {
-                                                                                echo '<span class="badge bg-success1 " style="font-size: 1.0em;">ฝาก</span>';
+                                                                                echo '<span class="badge ant-tag ant-tag-green " style="font-size: 1.0em;">ฝาก</span>';
                                                                             } else {
-                                                                                echo '<span class="badge bg-danger " style="font-size: 1.0em;">ถอน</span>';
+                                                                                echo '<span class="badge ant-tag ant-tag-red " style="font-size: 1.0em;">ถอน</span>';
                                                                             }
                                                                             ?></td>
                                             <td class="bg-successlight text-white">
