@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>• Admin •</title>
+    <title>• Admin - 12iwinR •</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
@@ -94,28 +94,26 @@
                 <ul class="list-unstyled topnav-menu float-end mb-0">
                     <li class="dropdown d-none d-lg-inline-block">
                         <a class="nav-link dropdown-toggle">
-                            <button onclick="getModalEmergencyLock()" data-bs-whatever="@mdo" class="btn btn-danger waves-effect waves-light" type="submit"><i class="fe-alert-octagon"></i>Emergency Lock</button>
+                            <button onclick="getModalEmergencyLock()" data-bs-whatever="@mdo" class="btn btn-danger waves-effect waves-light" type="submit"><i class="fe-alert-octagon"></i> Emergency Lock</button>
                         </a>
                     </li>
 
-                    <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
+                    <!-- <li class="dropdown d-none d-lg-inline-block topbar-dropdown">
                         <a class="nav-link dropdown-toggle arrow-none waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
                             <img src="<?php echo base_url(); ?>/assets/images/flags/thailand.jpg" alt="user-image" height="16">
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
 
-                            <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item">
                                 <img src="<?php echo base_url(); ?>/assets/images/flags/thailand.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">ไทย</span>
                             </a>
 
-                            <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item">
                                 <img src="<?php echo base_url(); ?>/assets/images/flags/us.jpg" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
                             </a>
 
                         </div>
-                    </li>
+                    </li> -->
 
 
                     <li class="dropdown notification-list topbar-dropdown">
@@ -144,8 +142,8 @@
                             <!-- item-->
 
                             <a href="<?= base_url('auth/logout') ?>" class="dropdown-item notify-item">
-                                <i class="fe-log-out"></i>
-                                <span>Logout</span>
+                                <i class="fe-log-out text-danger"></i>
+                                <span class="text-danger">Logout</span>
                             </a>
 
                         </div>
@@ -158,21 +156,19 @@
                 <div class="logo-box">
                     <a href="<?php echo base_url(); ?>/dashboard" class="logo logo-dark text-center">
                         <span class="logo-sm">
-                            <img src="<?php echo base_url(); ?>/assets/images/logo_sm-.png" alt="" height="">
-                            <!-- <span class="logo-lg-text-light">UBold</span> -->
+                            <img src="<?php echo base_url(); ?>/assets/images/logo_sm.png" alt="" height="">
                         </span>
                         <span class="logo-lg">
-                            <img src="<?php echo base_url(); ?>/assets/images/logo-.png" alt="" height="">
-                            <!-- <span class="logo-lg-text-light">U</span> -->
+                            <img src="<?php echo base_url(); ?>/assets/images/logo_lg.png" alt="" height="">
                         </span>
                     </a>
 
                     <a href="?php echo base_url();?>/dashboard" class="logo logo-light text-center">
                         <span class="logo-sm">
-                            <img src="<?php echo base_url(); ?>/assets/images/logo_sm-.png" alt="" height="" width="">
+                            <img src="<?php echo base_url(); ?>/assets/images/logo_sm.png" alt="" height="" width="">
                         </span>
                         <span class="logo-lg">
-                            <img src="<?php echo base_url(); ?>/assets/images/logo-.png" alt="" height="" width="">
+                            <img src="<?php echo base_url(); ?>/assets/images/logo_lg.png" alt="" height="" width="">
                         </span>
                     </a>
                 </div>
@@ -222,7 +218,7 @@
                             </div>
                         </div>
                         <div class="mb">
-                            <label class="h4 text-danger" for=""> *คำเตือน : หากระบบถูกปิด users ที่อยู่ใน กลุ่ม จะไม่สามารถใช้งานได้</label>
+                            <label class="h4 text-danger" for=""> * คำเตือน : หากระบบถูกปิด users ที่อยู่ใน กลุ่ม จะไม่สามารถใช้งานได้</label>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -235,6 +231,9 @@
 
 
 
+
+
+
         <?= $this->include('template/menu') ?>
 
         <?php $this->renderSection('content'); ?>
@@ -243,7 +242,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6">
-                        <script>
+                        2021 - <script>
                             document.write(new Date().getFullYear())
                         </script> &copy; 12iwinR
                     </div>
@@ -317,8 +316,8 @@
     <script src="<?php echo base_url(); ?>/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
     <script src="<?php echo base_url(); ?>/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/libs/pdfmake/build/pdfmake.min.js"></script>
-    <script src="<?php echo base_url(); ?>/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>/assets/libs/pdfmake/build/pdfmake.min.js"></script> -->
+    <!-- <script src="<?php echo base_url(); ?>/assets/libs/pdfmake/build/vfs_fonts.js"></script> -->
     <!-- third party js ends -->
 
     <!-- Datatables init -->

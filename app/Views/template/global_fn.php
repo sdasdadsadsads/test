@@ -10,8 +10,9 @@
                     dataType: "json",
                     url: '<?php echo base_url('/emergency') ?>',
                     success: function(response) {
-                        if (response.status === true) {
-                            var x = document.getElementsByTagName("html")[0].innerHTML = `
+                        if (response) {
+                            if (response.status === true) {
+                                var x = document.getElementsByTagName("html")[0].innerHTML = `
                             <head></head>
                             <body>
                                 <div align="center">
@@ -19,6 +20,7 @@
                                 </div>
                             </body>
                             `
+                            }
                         }
                     }
                 });

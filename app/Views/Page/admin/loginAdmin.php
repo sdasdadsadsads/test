@@ -16,13 +16,13 @@
                 <div class="auth-logo">
                   <a href="" class="logo logo-dark text-center">
                     <span class="logo-lg">
-                      <img src="<?php echo base_url(); ?>/assets/images/logo12.png" alt="" height="50">
+                      <img src="<?php echo base_url(); ?>/assets/images/logo_login.png" alt="">
                     </span>
                   </a>
 
                   <a href="" class="logo logo-light text-center">
                     <span class="logo-lg">
-                      <img src="<?php echo base_url(); ?>/assets/images/logo12.png" alt="" height="50">
+                      <img src="<?php echo base_url(); ?>/assets/images/logo_login.png" alt="">
                     </span>
                   </a>
                 </div>
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="mb-4">
-                  <label for="" class="form-label">SafeCode</label>
+                  <label for="" class="form-label">Safe Code</label>
                   <div class="input-group input-group-merge">
                     <div class="input-group-text">
                       <i class="icon-key"></i>
@@ -80,75 +80,61 @@
                 <div class="text-center d-grid">
                   <button class="btn btn-success" onclick="auth(this , event)"> เข้าสู่ระบบ </button>
                 </div>
-
-
                 <div class="mb-3">
-                  <p class="text-muted mb-4 mt-3" style="text-align:center;">ในกรณีลูกค้าลืมรหัสผ่านหรือไม่สามารถเข้าสู่ระบบได้ <br> ให้ติดต่อพนักงาน</p>
+                  <p class="text-muted mb-4 mt-3" style="text-align:center;">ในกรณีลูกค้าลืมรหัสผ่านหรือไม่สามารถเข้าสู่ระบบได้ <br> กรุณาติดต่อพนักงาน</p>
                 </div>
-
-
-
               </form>
-
-
-
-
-            </div> <!-- end card-body -->
+            </div>
           </div>
-          <!-- end card -->
-
-
-
-        </div> <!-- end col -->
+        </div>
       </div>
-      <!-- end row -->
     </div>
-    <!-- end container -->
   </div>
-  <!-- end page -->
+
+
   <div class="modal fade" id="modal_form" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-body">
           <form action="<?= base_url('auth/auth2FT') ?>" method="post">
             <?= csrf_field() ?>
-
             <input type="hidden" name="username" id="username1" />
             <input type="hidden" name="password" id="password1" />
             <input type="hidden" name="safecode" id="safecode1" />
-
-
-            <div class="mb-2">
+            <div class="mb-3">
               <p class="text-center h3">Two Factor</p>
               <br>
-              <div class="input-group input-group-merge">
-                <div class="input-group-text">
-                  <i class="icon-lock"></i>
+              <div class="row justify-content-center">
+                <div class="col-8">
+                  <div class="input-group input-group-merge">
+                    <div class="input-group-text">
+                      <i class="icon-lock"></i>
+                    </div>
+                    <input class="form-control" autocomplete="off" name="pin" type="number" id="pin">
+                  </div>
                 </div>
-                <input class="form-control" autocomplete="off" name="pin" type="text" id="pin" required="" placeholder="">
               </div>
             </div>
-
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button class="btn btn-primary" type="submit">เข้าสู่ระบบ</button>
+            <div class="d-grid gap-2 d-md-flex justify-content-center">
+              <button class="btn btn-blue" type="submit">ตกลง</button>
             </div>
-
           </form>
         </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+      </div>
+    </div>
   </div>
 
-
-  <footer class="footer footer-alt">
+  <footer class="footer footer-alt text-white">
     2021 - <script>
       document.write(new Date().getFullYear())
     </script> &copy; 12iwinR
   </footer>
 
 
+
   <script type="text/javascript">
     function auth(elem, e) {
+
       e.preventDefault()
 
       sessionStorage.setItem("username", $("#username").val());
@@ -178,8 +164,9 @@
           } else {
 
             if (myObj.scan2FT == true) {
-
               $('#modal_form').modal('show');
+
+
 
               var u = sessionStorage.getItem("username");
               var p = sessionStorage.getItem("password");

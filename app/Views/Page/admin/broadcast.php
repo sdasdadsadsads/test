@@ -208,7 +208,7 @@
                                     <label for="field-1" class="form-label">ชื่อ Broadcast</label>
                                     <input type="text" name="Name" id="Name" class="form-control" placeholder="ชื่อโปรโมชั่น">
                                     <br>
-                                    <label class="form-label mb-2">ปิด / เปิด การใช้งานโปรโมชั่น
+                                    <label class="form-label mb-2">ปิด / เปิด การใช้งาน Broadcast
                                     </label><br>
                                     <label class="switch mb-2">
                                         <input type="checkbox" id="myCheckS" onclick="BroadcastStatus()" checked>

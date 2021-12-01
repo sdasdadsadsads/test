@@ -76,4 +76,30 @@ class manage_sale extends ResourceController
             return;
         }
     }
+
+
+    public function list_member_of_sale()
+    {
+        try {
+            $data = [
+                'saleId' => $this->request->getVar('saleId'),
+                'ipAddress' =>  $this->request->getIPAddress(),
+            ];
+            $response = $this->curlrequest->post("sale/member_of_sale", [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
+                'form_params' =>  $data,
+            ]);
+            $response = $response->getBody();
+            $response = json_decode($response, true); //  แปลง JSON เป็น Array
+            echo json_encode($response);
+            return;
+        } catch (Exception $e) {
+            $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด"}';
+            print_r($e);
+            return;
+        }
+    }
 }

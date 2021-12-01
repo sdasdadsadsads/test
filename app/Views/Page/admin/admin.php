@@ -62,6 +62,7 @@ $session = session();
 
                                 <tbody>
                                     <?php if (isset($admin)) : ?>
+                                        <?php $date = new DateTime(); ?>
                                         <?php foreach ($admin as $admins) { ?>
                                             <tr>
                                                 <td><?php echo $admins['id']; ?></td>
@@ -69,10 +70,11 @@ $session = session();
                                                 <td><?php echo $admins['name']; ?></td>
                                                 <td>
                                                     <?php
+                                                    $date->setTimestamp($admins['last_login']);
                                                     if ($admins['last_login'] == 0) {
                                                         echo "-";
                                                     } else {
-                                                        echo gmdate("d/m/Y  i:m", $admins['last_login']);
+                                                        echo $date->format('d/m/Y H:i:s');
                                                     }
                                                     ?>
                                                 </td>
@@ -176,7 +178,7 @@ $session = session();
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="field-1" class="form-label">office</label>
+                                                <label for="field-1" class="form-label">กลุ่ม</label>
                                                 <?php if (isset($office)) { ?>
                                                     <select id="office" name="office" class="form-select">
                                                         <?php foreach ($office as $offices) { ?>
@@ -344,7 +346,7 @@ $session = session();
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="field-1" class="form-label">office</label>
+                                                <label for="field-1" class="form-label">กลุ่ม</label>
                                                 <?php if (isset($office)) { ?>
                                                     <select id="office2" name="office" class="form-select">
                                                         <?php foreach ($office as $offices) { ?>

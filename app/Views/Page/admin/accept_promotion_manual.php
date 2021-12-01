@@ -51,16 +51,17 @@
                                         <div class="mb-3 col-12 col-md-6 col-lg-4">
                                             <label class="form-label">โปรโมชั่น (เฉพาะ เปิดใช้งาน)</label>
                                             <?php if (isset($data)) : ?>
-                                                <select class="form-select form-select" id="promotion_id" name="promotion_id">
-                                                    <?php foreach ($data as $value) : ?>
-                                                        <option value="<?php echo $value['id']; ?>">
-                                                            <?php echo $value['promotion_name']; ?></option>
-                                                    <?php endforeach; ?>
-                                                </select>
+                                                <?php if (is_array($data)) : ?>
+                                                    <select class="form-select form-select" id="promotion_id" name="promotion_id">
+                                                        <?php foreach ($data as $value) : ?>
+                                                            <option value="<?php echo $value['id']; ?>">
+                                                                <?php echo $value['promotion_name']; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                <?php endif; ?>
                                             <?php else : ?>
                                                 <input type="text" id="" disabled class="form-control mx-1" value='ไม่สามารถเชื่อมต่อ Server ได้' placeholder="">
                                             <?php endif; ?>
-
                                         </div>
                                     </div>
 
@@ -385,17 +386,11 @@
             }
 
             function yesterday() {
-
                 var d1 = new Date(new Date().setDate(new Date().getDate() - 1));
-
-
                 var date1 = d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate()
-
                 document.getElementById("date1").value = date1;
                 document.getElementById("date2").value = date1;
-
                 filter();
-
             }
 
             function filter() {

@@ -647,29 +647,19 @@
                             }, 500);
 
                             function today() {
-
                                 var d1 = new Date();
-
                                 var date1 = d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate()
                                 document.getElementById("date1").value = date1;
                                 document.getElementById("date2").value = date1;
-
                                 filter();
-
                             }
 
                             function yesterday() {
-
                                 var d1 = new Date(new Date().setDate(new Date().getDate() - 1));
-
-
                                 var date1 = d1.getFullYear() + "-" + (d1.getMonth() + 1) + "-" + d1.getDate()
-
                                 document.getElementById("date1").value = date1;
                                 document.getElementById("date2").value = date1;
-
                                 filter();
-
                             }
 
 

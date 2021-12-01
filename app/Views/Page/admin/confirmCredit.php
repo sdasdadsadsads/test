@@ -29,7 +29,7 @@
         width: 100%
     }
 </style>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <div class="content-page">
     <div class="content">
 
@@ -240,7 +240,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-xl-7">
                     <div class="card">
@@ -267,7 +266,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="table-responsive">
                                 <table class="table table-borderless table-hover table-nowrap table-centered m-0">
 
@@ -285,8 +283,8 @@
                                             <?php if (is_array($state_unconfirmed)) { ?>
 
 
-                                                <?php foreach ($state_unconfirmed as $unconfirmed) { print_r($unconfirmed['from_bank']); ?>
-                                                    <tr>
+                                                <?php foreach ($state_unconfirmed as $unconfirmed) {?>
+                                                    <tr id="unconf<?=$unconfirmed['id'];?>">
                                                         <td style="width: 36px;">
                                                             <?php if ($unconfirmed['from_bank'] == '  K') { ?>
                                                                 <img src="<?php echo base_url(); ?>/assets/images/Bank_show/K.png" alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">
@@ -692,6 +690,8 @@
                                             .then((result) => {
                                                 location.reload();
                                             })
+                                        // check_status_change(statement_id);
+                                        // $('#exampleModal1').modal('hide');
                                     }
 
                                 } else {
@@ -956,5 +956,81 @@
                     }, 500)
                 });
         }
+        // var lastId = [];
+        // data_state === '' ? lastId.push(0) : lastId.push(data_state);
+        // setInterval(find_new_items, 10000);
+        // function find_new_items() {
+        //     $.ajax({
+        //                 url: '<?php echo base_url('confirmCredit/find_new_items') ?>',
+        //                 type: 'POST',
+        //                 dataType: 'json',
+        //                 data: {
+        //                 status: status,
+        //                 [csrfName]: csrfHash,
+        //             },
+        //             }).done(function(res) {
+        //                 if(res.status === true){
+        //                      var data = res.data.state_unconfirmed[0];
+        //                      var cause;
+        //                       for (let i = 0; i < data.length; i++) {
+        //                         if (data[i].id > lastId[0]) {
+        //                             lastId.shift();
+        //                             lastId.push(data[i].id);
+        //                             var table = document.getElementById("ShowDatafilterByType");
+        //                             var row = table.insertRow(0); 
+        //                             var cell1 = row.insertCell(0);
+        //                             var cell2 = row.insertCell(1);
+        //                             var cell3 = row.insertCell(2);
+        //                             var cell4 = row.insertCell(3);
+        //                             var cell5 = row.insertCell(4);
+        //                             var cell6 = row.insertCell(5);
+        //                             row.setAttribute('class', 'animate__animated animate__fadeInLeft bg-light');
+        //                             row.setAttribute('id', 'unconf'+data[i].id);
+        //                             console.log(data[i].cause);
+        //                             data[i].cause != null || data[i].cause != ''  ? cause = '<p class="mb-0 text-muted mt-1"><label class="text-danger">**สาเหตุ : '+data[i].cause+'</label></p>' : cause = '';
+        //                             cell1.innerHTML = '<img src="<?php echo base_url(); ?>/assets/images/Bank_show/'+data[i].from_bank+'.png"alt="contact-img" title="contact-img" class="rounded-circle avatar-sm">';
+        //                             cell2.innerHTML = '<h4 class="m-0 fw-normal">' + data[i].note + '</h4> <h5 class="m-0 fw-normal mt-1">' +data[i].name + ' [ ' +data[i].from_bank + ' ]</h5>'
+        //                             +'<p class="mb-0 text-muted mt-1">รับรายการมาแล้ว'+ Math.floor((Math
+        //                                 .floor(new Date().getTime() / 1000) -data[i].auto_update) / 86400 % 7) + " วัน " +
+        //                             Math.floor((Math
+        //                                 .floor(new Date().getTime() / 1000) - data[i].auto_update) / 3600 % 24) + " ชัวโมง " +
+        //                             Math.floor((Math
+        //                                 .floor(new Date().getTime() / 1000) - data[i].auto_update) / 60 % 60) + "  นาที</p>"
+        //                                 +'<h4 class="m-0 fw-normal mt-1">เวลาธนาคาร ' + moment.unix(data[i].auto_update).format("DD-MM-YY HH:mm ") +'</h4> '+cause;
+        //                             cell3.innerHTML = '<span class="text-primary" style="font-size: 1.2em;"><b>DPS' +data[i].id + '</b></span>';
+        //                             cell4.innerHTML = '<span class="badge bg-info" style="font-size: 1.0em;">+'+data[i].deposit + '</span>';
+        //                             cell5.innerHTML =  data[i].from_name;
+        //                             cell6.innerHTML = '<a href="javascript: void(0);" class="btn btn-success" onclick="add_user(' + data[i].user_id + ',' + data[i].id + ',' + data[i].deposit.toFixed(2)+')" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="mdi mdi-plus"></i>เติม</a>'
+        //                             +' <a href="javascript: void(0);" class="btn btn-danger" onclick="hideDepositUnconfirmed(' +data[i].id + ',' + 5 + ',' + data[i].id +')"><i class="mdi mdi-close-circle"></i> ซ่อน</a>';
+        //                             check_status_change(data[i].id);
+        //                       }else{
+        //                           console.log('มีรายการเเสดงเเล้ว');
+        //                       }
+        //                     }
+        //                 }
+        //             });  
+        // }
+        // document.getElementById("unconf23").style.display = "none";
+        // function check_status_change(id) {
+        //            console.log(id);
+        //             var myAction = setInterval(function() {
+        //                 $.ajax({
+        //                     url: '<?php echo base_url('confirmCredit/check_status_change') ?>',
+        //                     type: 'POST',
+        //                     dataType: 'json',
+        //                     data: {id: id,[csrfName]: csrfHash
+        //                     },
+        //                 }).done(function(res) {
+        //                     if(res.status === true){
+        //                         console.log(res);
+        //                         if(res.data.status !== 1 ){
+        //                             document.getElementById("unconf"+res.data.id).style.display = "none";
+        //                             console.log("unconf"+res.data.id);
+        //                         }
+        //                     }
+        //                 });
+        //             }, 3000);
+
+        //         }
     </script>
     <?php $this->endSection(); ?>

@@ -19,15 +19,16 @@ class validatorToken implements FilterInterface
             $posts_data = $client->get("validatorToken", [
                 "headers" => [
                     "Accept" => "application/json",
-                    "jwt_token" => session()->get('JWT_TOKEN')
+                    "jwt_token" => session()->get('JWT_TOKEN'),
+                    // "url" =>  $_SERVER['REQUEST_URI']
                 ]
             ]);
             $body = $posts_data->getBody();
             $body = json_decode($body, true); //  แปลง JSON เป็น Array
-            if (isset($body["token"])) { // สถานะ JWT TOKEN SERVER
-                session()->destroy();
+            if ((isset($body["token"])) === true) { // สถานะ JWT TOKEN SERVER
+                // session()->destroy();
                 session()->set([
-                    'msg_error_login' => 'SESSION หมดอายุ โปรดเข้าใช้งานใหม่อีกครั้ง'
+                    'msg_error_login' => $body["msg"]
                 ]);
                 return redirect()->to(base_url('/'));
             }

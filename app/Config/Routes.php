@@ -72,6 +72,7 @@ $routes->group('admin', function ($routes) {
 $routes->group('manage_sale', function ($routes) {
 	$routes->get('/', 'manage_sale::index',  ['filter' => 'auth']);
 	$routes->post('registration', 'manage_sale::registration',  ['filter' => 'auth']);
+	$routes->post('listMember', 'manage_sale::list_member_of_sale',  ['filter' => 'auth']);
 });
 
 
@@ -99,7 +100,11 @@ $routes->group('confirmCredit', function ($routes) {
 	$routes->post('hideDepositUnconfirmed', 'confirmCredit::hideDepositUnconfirmed', ['filter' => 'auth']);
 	$routes->post('filterTypeStatement', 'confirmCredit::filterTypeStatement', ['filter' => 'auth']);
 	$routes->post('getusername', 'confirmCredit::getusername', ['filter' => 'auth']);
+	$routes->post('find_new_items', 'confirmCredit::find_new_items', ['filter' => 'auth']);
+	$routes->post('check_status_change', 'confirmCredit::check_status_change', ['filter' => 'auth']); 
+	$routes->post('checkStatusNotwait', 'confirmCredit::checkStatusNotwait', ['filter' => 'auth']); 
 });
+
 
 $routes->group('editProblem', function ($routes) {
 
@@ -171,6 +176,7 @@ $routes->group('spin', function ($routes) {
 $routes->group('bank_auto', function ($routes) {
 	$routes->get('show', 'bank_auto::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,6,11']);
 	$routes->post('createBankAuto', 'bank_auto::createBankAuto',  ['filter' => 'auth']);
+	$routes->post('editBankAuto', 'bank_auto::editBankAuto',  ['filter' => 'auth']);
 	$routes->post('changeStatusBank', 'bank_auto::changeStatusBank',  ['filter' => 'auth']);
 	$routes->get('bank_setting', 'bank_auto::bank_setting',  ['filter' => 'auth', 'filter' => 'isPermission:2,6,13']);
 	$routes->post('addgroupByuser', 'bank_auto::addgroupByuser',  ['filter' => 'auth']);
@@ -273,12 +279,26 @@ $routes->group('forced_withdraw', function ($routes) {
 	$routes->post('filter', 'forced_withdraw::filter',  ['filter' => 'auth']);
 	$routes->post('withdraw', 'forced_withdraw::withdraw',  ['filter' => 'auth']);
 });
+
+
 $routes->group('line_notify', function ($routes) {
 	$routes->get('show', 'line_notify::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,17']);
-	$routes->post('change_status', 'line_notify::change_status',  ['filter' => 'auth']); 
-	$routes->post('updateData', 'line_notify::updateData',  ['filter' => 'auth']); 
+	$routes->post('change_status', 'line_notify::change_status',  ['filter' => 'auth']);
+	$routes->post('updateData', 'line_notify::updateData',  ['filter' => 'auth']);
 });
 
+
+$routes->group('turn_off_usersystem', function ($routes) {
+	$routes->get('show', 'turn_off_usersystem::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,13,46']);
+	$routes->post('add_turn_off_usersystem', 'turn_off_usersystem::add_turn_off_usersystem',  ['filter' => 'auth']);
+	$routes->post('edit_turn_off_usersystem', 'turn_off_usersystem::edit_turn_off_usersystem',  ['filter' => 'auth']);
+});
+
+
+$routes->group('blacklist', function ($routes) {
+	$routes->get('show', 'blacklist::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,13,46']);
+	
+});
 /*
  * --------------------------------------------------------------------
  * Additional Routing

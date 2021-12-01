@@ -77,7 +77,12 @@
     .slider.round:before {
         border-radius: 50%;
     }
+
+    .ck-editor__editable_inline {
+        min-height: 150px;
+    }
 </style>
+<script src="https://cdn.ckeditor.com/ckeditor5/31.0.0/classic/ckeditor.js"></script>
 <!-- ============================================================= -->
 <!-- Start Page Content here -->
 <!-- ============================================================== -->
@@ -514,8 +519,8 @@
                             <div class="col-md-6">
                                 <div class="mb-2">
                                     <label for="field-1" class="form-label">รายละเอียด</label>
-                                    <div style="height:500">
-                                        <textarea required name="promoExplainCondition" id="promoExplainCondition" class="form-control"></textarea>
+                                    <div style="height:500" id="editor" id="promoExplainCondition">
+                                        <!-- <textarea required name="promoExplainCondition" id="promoExplainCondition" class="form-control"></textarea> -->
                                     </div>
                                 </div>
                             </div>
@@ -532,7 +537,7 @@
                                 <label class="form-label mb-2">ปิด / เปิด การใช้งานโปรโมชั่น
                                 </label><br>
                                 <label class="switch mb-2">
-                                    <input type="checkbox" id="myCheck2" onclick="promoStatus()">
+                                    <input type="checkbox" id="myCheck2" >
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -567,6 +572,24 @@
         </div> <!-- content -->
     </div>
 </div>
+
+
+
+<script>
+    var YourEditor;
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+            toolbar: {
+                items: ['bold', 'italic', '|', 'comment']
+            },
+        })
+        .then(editor => {
+            YourEditor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
 
 <script>
     var buffer_condition = [];
@@ -955,6 +978,8 @@
         formData.append('isNoLimitTime', get_value_isNolimitTime());
         formData.append('promoStatus', get_value_status());
         formData.append('promoid', promoId);
+        formData.append('promoExplainCondition', get_explain_condition());
+
         return formData;
     }
 
@@ -1247,7 +1272,8 @@
     }
 
     function set_explain_condition(value) {
-        document.getElementById('promoExplainCondition').value = value
+        YourEditor.setData(value)
+        // document.getElementById('promoExplainCondition').value = value
     }
 
     function set_image(value) {
@@ -1314,6 +1340,11 @@
         })
         return list;
     }
+
+    function get_explain_condition() {
+        return YourEditor.getData();
+    }
+
 
     function set_remove_condition(n) {
         let index = buffer_condition.indexOf(n);
@@ -1728,7 +1759,8 @@
     }
 
     function set_default_explain_condition() {
-        document.getElementById('promoExplainCondition').value = null;
+        YourEditor.setData('')
+        // document.getElementById('promoExplainCondition').value = null;
     }
 
     function set_default_status() {

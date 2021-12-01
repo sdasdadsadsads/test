@@ -20,8 +20,9 @@ class broadcast extends ResourceController
     public function index()
     {
         try {
-            $client = service('curlrequest', $this->url);
 
+            $client = service('curlrequest', $this->url);
+            
             $posts_data = $client->get("broadcast/show_all", [
                 "headers" => [
                     "Accept" => "application/json",

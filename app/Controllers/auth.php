@@ -111,16 +111,12 @@ class auth extends ResourceController
 			]);
 
 			$body = $posts_data->getBody();
-
-
-
 			$obj = json_decode($body);
 
 
 			if ($obj->{'isLogin'} == true) {
 				$session = session();
 				$session->stop();
-
 				$session->set([
 					'id' => $obj->{'id'},
 					'name' => $obj->{'name'},

@@ -12,13 +12,13 @@ class dashboard extends ResourceController
 
     private $url;
 
-	public function __construct()
-	{
-		$this->url = [
-			'baseURI' => getenv('API_URL')
-		];
-	}
-    
+    public function __construct()
+    {
+        $this->url = [
+            'baseURI' => getenv('API_URL')
+        ];
+    }
+
     public function index()
     {
         return view('Page/admin/dashboard.php');
@@ -49,6 +49,7 @@ class dashboard extends ResourceController
             $body = $posts_data->getBody();
             echo json_encode($body);
         } catch (Exception $e) {
+            
             $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
             echo json_encode($re);
             return;

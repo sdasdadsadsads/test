@@ -338,7 +338,7 @@
                                                    Error !!
                                                 <?php } ?>
                                             </td>
-                                            <td><button type="button" class="btn btn-warning waves-effect waves-light" onClick="editDataBank('<?= $bnk['name'] ?>','<?= $bnk['account'] ?>','<?= $bnk['bankId']; ?>','<?= $bnk['type'] ?>','<?= $bnk['name_process'] ?>')"><i class="mdi mdi-file-document-edit-outline"></i></button></td>
+                                            <td><button type="button" class="btn btn-warning waves-effect waves-light" onClick="editDataBank('<?= $bnk['bank_web_id'] ?>','<?= $bnk['id'] ?>','<?= $bnk['name'] ?>','<?= $bnk['account'] ?>','<?= $bnk['bankId']; ?>','<?= $bnk['type'] ?>','<?= $bnk['name_process'] ?>')"><i class="mdi mdi-file-document-edit-outline"></i></button></td>
                                             <td>
                                                 <button type="button" class="btn btn-danger waves-effect waves-light" onClick="edit_statusBank('<?= $bnk['id'] ?>','<?= $bnk['bank_web_id'] ?>','4')"><i class="mdi mdi-delete-forever "></i></button>
                                             </td>
@@ -425,10 +425,11 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="form_bank">
+                                    <form id="Editform_bank">
                                         <div class="mb-3 row">
                                             <label for="recipient-name" class="col-form-label col-md-3 col-sm-3">ชื่อบัญชี :</label>
                                             <div class="col-md-9 col-sm-9">
+                                                 <input type="hidden" class="form-control" id="editid" name="editid">
                                                 <input type="text" class="form-control" id="editname" name="editname">
                                             </div>
                                         </div>
@@ -468,13 +469,13 @@
                                         <div class="mb-3 row">
                                             <label for="recipient-name" class="col-form-label col-md-3 col-sm-3">username :</label>
                                             <div class="col-md-9 col-sm-9">
-                                                <input type="text" class="form-control" id="username" name="username" disabled>
+                                                <input type="text" class="form-control" id="username" name="username" value="xxxxxxxxxx" disabled>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
                                             <label for="recipient-name" class="col-form-label col-md-3 col-sm-3">password :</label>
                                             <div class="col-md-9 col-sm-9">
-                                                <input type="text" class="form-control" id="password" name="password" disabled>
+                                                <input type="text" class="form-control" id="password" name="password"  value="xxxxxxxxxx" disabled>
                                             </div>
                                         </div>
                                         <div class="mb-3 row">
@@ -490,13 +491,14 @@
                                             <label for="recipient-name" class="col-form-label col-md-3 col-sm-3">name in pm2 :</label>
                                             <div class="col-md-9 col-sm-9">
                                                 <input type="text" class="form-control" id="name_processlist" name="name_processlist">
+                                                <input type="hidden" class="form-control" id="bank_web_id" name="bank_web_id">
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" onClick="form_editBank()">Save</button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onClick="form_editBank()">ยืนยัน</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">ยกเลิก</button>
                                 </div>
                             </div>
                         </div>
@@ -520,16 +522,50 @@
 
       
 
-        function editDataBank(name, acc, bank, type, name_process) {
+        function editDataBank(bank_web_id,id,name, acc, bank, type, name_process) {
             $('#editDatabank').modal('show');
             $('#editname').val(name);
             $('#editaccount').val(acc);
             $('#edittype').val(type);
             $('#editbank_id').val(bank);
+            $('#bank_web_id').val(bank_web_id);
+            $('#editid').val(id);
             $('#name_processlist').val(name_process);
 
         }
-
+        function form_editBank(){
+           var data =  $('#Editform_bank').serializeArray();
+           $.ajax({
+                    url: '<?php echo base_url('/bank_auto/editBankAuto') ?>',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {data:data ,[csrfName]: csrfHash},
+                }).done(function(res) {
+                    console.log(res);
+                    var re = JSON.parse(res);
+                    if(re.status == true){
+                        ModalBox(re.msg,"success");
+                        setTimeout((function() {
+                        window.location.reload();
+                        }), 500);
+                    }else{
+                        ModalBox(re.msg,"error");
+                        setTimeout((function() {
+                        window.location.reload();
+                        }), 500);
+                    }
+                })
+                .fail(function() {
+                    ModalBox("เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาแจ้งเจ้าหน้าที่","error");
+                });
+        }
+        function ModalBox(msg,icon){
+                 Swal.fire({
+                            icon: icon,
+                            title: msg,
+                            showConfirmButton: false,
+                        });
+        }
         function StatusSystem(bank_short, i, id, status, id_acc, bank_web_id) {
             const playButton = document.querySelector('#enable' + i);
             const colorButton = document.querySelector('#color' + i);

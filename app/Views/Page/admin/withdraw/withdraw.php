@@ -1109,12 +1109,16 @@
                         })
                         .done(function(body) {
                             const res = JSON.parse(body);
-                            if (res.withdrawData.length !== 0) {
+                            
+                            if (res.withdrawData !== false && res.withdrawData.length !== 0) {
                                 data_id.shift();
                                 data_id.push(res.withdrawData[0].id);
-                            } else {
+                            } else if(res.lastId !== false){
                                 data_id.shift();
                                 data_id.push(res.lastId[0].id);
+                            }else{
+                                data_id.shift();
+                                data_id.push(0);
                             }
 
                             var date11 = document.getElementById('date1').value;

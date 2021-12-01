@@ -22,6 +22,170 @@
 $session = session();
 ?>
 
+
+
+
+<div id="D_W_Modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 id="details" class="modal-title"></h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+
+                <input type="hidden" value="" name="user_id_dw" id="user_id_dw">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="field-1" class="form-label">วันที่เริ่มต้น</label>
+                            <input type="text" name="startDate_dw" id="date_dw1" class="basic-datepicker form-control" placeholder="วันที่เริ่มต้น">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="field-2" class="form-label">เวลาเริ่มต้น</label>
+                            <input type="text" name="startTime_dw" id="time_dw1" class="24hours-timepicker form-control" placeholder="เวลาเริ่มต้น">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="field-2" class="form-label">ถึงวันที่</label>
+                            <input type="text" name="endDate_dw" id="date_dw2" class="basic-datepicker form-control" placeholder="ถึงวันที่">
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="field-2" class="form-label">เวลาสิ้นสุด</label>
+                            <input type="text" name="endTime_dw" id="time_dw2" class="24hours-timepicker form-control" placeholder="เวลาสิ้นสุด">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 " id="D_S">
+                        <div class="mb-3">
+                            <label class="form-label"></label><br>
+                            <button type="button" onClick="filter_deposit_id()" class="btn btn-blue waves-effect waves-light ">
+                                ค้นหา
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 " id="W_S">
+                        <div class="mb-3">
+                            <label class="form-label"></label><br>
+                            <button type="button" onClick="filter_withdraw_id()" class="btn btn-blue waves-effect waves-light ">
+                                ค้นหา
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h4 id="todate_dw" class="header-title mb-4"></h4>
+                <div id="D" class="row" style="display: none;">
+                    <div class="table-responsive">
+
+                        <table id="table_deposit" style="width:100%; height:100%;">
+                            <thead class="bg-info text-white" style="width:100%; height:100%;">
+                                <tr>
+                                    <th>ลำดับ</th>
+                                    <th>ธนาคาร</th>
+                                    <th>ฝาก</th>
+                                    <th>เครดิตก่อน<br>เติม</th>
+                                    <th>โบนัส</th>
+                                    <th>เครดิตหลัง<br>เติม</th>
+                                    <th>เวลาทำ<br>รายการ</th>
+                                    <th>เวลาธนาคาร</th>
+                                    <th>ทำโดย</th>
+                                    <th>สถานะ</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div id="W" class="row" style="display: none;">
+                    <div class="table-responsive">
+                        <table id="table_withdraw" style="width:100%; height:100%;">
+                            <thead class="bg-info text-white" style="width:100%; height:100%;">
+                                <tr>
+                                    <th id="num">ลำดับ</th>
+                                    <th id="myCheck">ธนาคาร</th>
+                                    <th>Username</th>
+                                    <th>ยอดเงินถอน</th>
+                                    <th>สถานะ</th>
+                                    <th>ผู้ตรวจสอบ</th>
+                                    <th>ผู้โอน</th>
+                                    <th>วันที่เข้าระบบ</th>
+                                    <th>วันที่ยืนยัน</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+
+
+
+        </div>
+    </div> <!-- container -->
+</div> <!-- content -->
+</div>
+
+
+<!-- Modal List Memeber of Sale -->
+<div id="list-member-sale" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div div class="modal-content">
+            <div class="modal-header bg-light">
+                <h4 id="details" class="modal-title">
+                    สมาชิกภายใต้เซลล์
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <h4 id="todate_dw" class="header-title mb-4"></h4>
+                <div id="D" class="row" style="display: block;">
+                    <div class="table-responsive">
+                        <table id="table_memble_sale" style="width:100%; height:100%;">
+                            <thead class="bg-info text-white" style="width:100%; height:100%;">
+                                <tr>
+                                    <th>No</th>
+                                    <th>username</th>
+                                    <th>จำนวน Affiliate</th>
+                                    <th>จำนวนเงินเติมทั้งหมด</th>
+                                    <th>วันที่สมัคร</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+            </div>
+
+
+
+        </div>
+    </div> <!-- container -->
+</div>
+
+
+
 <div class="content-page">
     <div class="content">
 
@@ -84,6 +248,7 @@ $session = session();
                                                 <?php endif; ?>
                                                 <th><?php echo gmdate("d/m/Y  i:m:s", $element['created_at']); ?></th>
                                                 <th>
+                                                    <button onClick="show_member('<?php echo $element['id']; ?>')" data-bs-toggle="modal" data-bs-target="#list-member-sale" class="btn btn-secondary btn-sm waves-effect" title="สิทธิ์"> สมาชิก </button>
                                                     <button onClick="show_link('<?php echo $element['token_register']; ?>')" data-bs-toggle="modal" data-bs-target="#link-register" class="btn btn-info btn-sm waves-effect" title="สิทธิ์"> Link </button>
 
                                                     <?php if ($element['status'] === 1) : ?>
@@ -386,6 +551,8 @@ $session = session();
                     <script src="./assets/qrcodejs/qrcode.js" defer></script>
                     <script>
                         const url_frontend = "<?php echo getenv('frontend'); ?>"
+                        // const csrfName = '<?= csrf_token() ?>';
+                        // const csrfHash = '<?= csrf_hash() ?>';
 
                         function dialogbox_warning(msg) {
                             Swal.fire({
@@ -414,6 +581,84 @@ $session = session();
                             })
                             QR_CODE.makeCode(url_frontend + "form_regisPhoneNo?token=" + token);
                             document.getElementById('text-qrcode').value = url_frontend + "form_regisPhoneNo?token=" + token;
+                        }
+
+                        async function fetch_member_of_sale_and_sort_datable(saleId) {
+                            await $.ajax({
+                                    url: '<?php echo base_url('manage_sale/listMember') ?>',
+                                    type: "POST",
+                                    data: {
+                                        [csrfName]: csrfHash,
+                                        saleId: saleId
+                                    },
+                                    dataType: "json",
+                                })
+                                .done(async function(res) {
+                                    if (res.status === true) {
+                                        $('#table_memble_sale').DataTable({
+                                            data: res.usersData,
+                                            destroy: true,
+                                            processing: true,
+                                            deferRender: true,
+                                            paging: false,
+                                            language: {
+                                                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><span class="sr-only">Loading...</span> ',
+                                                paginate: {
+                                                    previous: "<i class='mdi mdi-chevron-left'>",
+                                                    next: "<i class='mdi mdi-chevron-right'>",
+                                                },
+                                            },
+                                            drawCallback: function() {
+                                                $(".dataTables_paginate > .pagination").addClass("pagination-rounded");
+                                            },
+                                            columns: [{
+                                                    data: "row_num",
+                                                    render: function(data) {
+                                                        return '<td><p>' + data + '</p></td>'
+                                                    }
+                                                },
+                                                {
+                                                    data: "agent_username",
+                                                    render: function(data) {
+                                                        return ' <td>' + data + '</td>'
+                                                    }
+                                                },
+                                                {
+                                                    data: "num_of_invite",
+                                                    render: function(data) {
+                                                        return ' <td>' + data + '</td>'
+                                                    }
+                                                },
+                                                {
+                                                    data: "sum_deposit",
+                                                    render: function(data) {
+                                                        if (data == null || data == 'null') data = 0;
+                                                        return ' <td>' + data + '</td>'
+                                                    }
+                                                },
+                                                {
+                                                    data: "create_time",
+                                                    render: function(data) {
+                                                        let date = new Date(data * 1000);
+                                                        const date_format = date.toLocaleDateString('th-TH', {
+                                                            year: 'numeric',
+                                                            month: 'numeric',
+                                                            day: 'numeric',
+                                                            hour: '2-digit',
+                                                            minute: '2-digit'
+                                                        });
+                                                        return ' <td>' + date_format + '</td>'
+                                                    }
+                                                }
+                                            ]
+                                        })
+                                    }
+                                })
+                        }
+
+                        async function show_member(saleId) {
+                            await fetch_member_of_sale_and_sort_datable(saleId);
+                            $('list-member-sale').modal('show');
                         }
 
                         function create_sale() {
@@ -457,7 +702,7 @@ $session = session();
                                             document.getElementById('container-sale').style.display = 'none';
                                             document.getElementById('container-register').style.display = 'block';
                                             document.getElementById('fullName-success').innerHTML = fullName;
-                                            document.getElementById('username-success').innerHTML = username;
+                                            document.getElementById('username-success').innerHTML = username + ".sale@12iwinr";
                                             document.getElementById('password-success').innerHTML = password;
                                             document.getElementById('tel-success').innerHTML = nun_tel;
                                             $("#m_creAdmin").modal('hide')

@@ -84,7 +84,38 @@ class bank_auto extends ResourceController
             return;
         }
     }
+    public function editBankAuto(){
+        try {
+            $session = session();
+            $data = [
+                "admin_id" => $session->get('id'),
+                'id' =>  $this->request->getPost('data')[0]['value'],
+                'name' =>  $this->request->getPost('data')[1]['value'],
+                'account' =>  $this->request->getPost('data')[2]['value'],
+                'bank_id' =>  $this->request->getPost('data')[3]['value'],
+                'type' =>  $this->request->getPost('data')[4]['value'],
+                'name_processlist' =>  $this->request->getPost('data')[5]['value'],
+                'bank_web_id' =>  $this->request->getPost('data')[6]['value']
+            ];
+            $client = service('curlrequest', $this->url);
 
+            $posts_data = $client->post('bank/editBankAuto', [
+                "headers" => [
+                    "Accept" => "application/json",
+                    "jwt_token" => session()->get('JWT_TOKEN')
+                ],
+                'form_params' =>
+                $data
+            ]);
+            $body = $posts_data->getBody();
+            echo json_encode($body);
+        } catch (Exception $e) {
+            $re = '{"code": 0 , "msg":"เกิดข้อผิดพลาด กรุณาแจ้งเจ้าหน้าที่"}';
+            echo json_encode($re);
+            return;
+        }
+    }
+    
     public function changeStatusBank()
     {
         try {

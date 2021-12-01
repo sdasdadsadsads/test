@@ -169,7 +169,7 @@ class confirmCredit extends ResourceController
 				$state_unconfirmed = 'เขื่อมต่อล้มเหลว';
 				$state_confirmed = 'เขื่อมต่อล้มเหลว';
 			}
-
+            
 			$data = array(
 				'state_unconfirmed' => $state_unconfirmed,
 				'state_confirmed' => $state_confirmed,
@@ -184,7 +184,7 @@ class confirmCredit extends ResourceController
 				'state_undefindUsersAll' => $countUndefindUsersAll
 			);
 			// echo '<pre>';
-			// print_r($data);
+			// print_r($state_unconfirmed[0]['id']);
 			// die;
 			return view('Page/admin/confirmCredit.php', $data);
 		} catch (Exception $e) {
@@ -349,6 +349,79 @@ class confirmCredit extends ResourceController
 		$body = $posts_data->getBody();
 		$body = json_decode($body, true); // แปลง JSON เป็น Array
 		echo json_encode($body);
+	}
+	public function find_new_items(){
+		try {
+			$session = session();
+
+			$client = service('curlrequest', $this->url);
+			$data = [
+				"user" => $this->request->getPost('user'),
+				"status" =>  $session->get('id'),
+			];
+			$posts_data = $client->post('deposit/find_new_items', [
+				"headers" => [
+					"Accept" => "application/json",
+					"jwt_token" => session()->get('JWT_TOKEN')
+				],
+				'form_params' => $data
+			]);
+
+			$body = $posts_data->getBody();
+			$body = json_decode($body, true); // แปลง JSON เป็น Array
+			echo json_encode($body);
+		} catch (Exception $e) {
+			echo json_encode(false);
+		}
+	}
+	public function check_status_change(){
+		try {
+			$session = session();
+
+			$client = service('curlrequest', $this->url);
+			$data = [
+				"id" => $this->request->getPost('id'),
+				"admin_id" =>  $session->get('id'),
+			];
+			$posts_data = $client->post('deposit/check_status_change', [
+				"headers" => [
+					"Accept" => "application/json",
+					"jwt_token" => session()->get('JWT_TOKEN')
+				],
+				'form_params' => $data
+			]);
+
+			$body = $posts_data->getBody();
+			$body = json_decode($body, true); // แปลง JSON เป็น Array
+			echo json_encode($body);
+		} catch (Exception $e) {
+			echo json_encode(false);
+		}
+	}
+	public function checkStatusNotwait()
+	{
+		try {
+			$session = session();
+
+			$client = service('curlrequest', $this->url);
+			$data = [
+				"id" => $this->request->getPost('id'),
+				"admin_id" =>  $session->get('id'),
+			];
+			$posts_data = $client->post('deposit/checkStatusNotwait', [
+				"headers" => [
+					"Accept" => "application/json",
+					"jwt_token" => session()->get('JWT_TOKEN')
+				],
+				'form_params' => $data
+			]);
+
+			$body = $posts_data->getBody();
+			$body = json_decode($body, true); // แปลง JSON เป็น Array
+			echo json_encode($body);
+		} catch (Exception $e) {
+			echo json_encode(false);
+		}
 	}
 }
 

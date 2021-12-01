@@ -397,7 +397,7 @@
 <script>
     var time1 = "00:00";
     var time2 = "23:59";
-  
+
     document.getElementById("time1").value = time1;
     document.getElementById("time2").value = time2;
 
@@ -423,13 +423,13 @@
                 url: '<?php echo base_url('dashboard/filter') ?>',
                 type: "POST",
                 data: $('#form_dashboard').serialize(),
-                dataType: "JSON",
+                dataType: "json",
             })
             .done(function(body) {
-
+                // console.log(body);
+                // return;
                 $("#loader").hide();
                 const res = JSON.parse(body);
-                console.log(res);
                 if (res.code == 0) {
                     Swal.fire({
                         icon: "error",
@@ -499,8 +499,6 @@
                     document.getElementById("sumiPadMacData").innerHTML = "-";
                     document.getElementById("sumTabletAndroidData").innerHTML = "-";
                 } else {
-                    console.log(res.depositData);
-
                     var sumuserData = new Intl.NumberFormat().format(res.sumuserData[0].sum);
                     var sumfirststatementuserData = new Intl.NumberFormat().format(res.sumfirststatementuserData[0].sum);
                     var sumsuserData = new Intl.NumberFormat().format(res.sumsuserData[0].sum);
@@ -541,7 +539,7 @@
                     document.getElementById("sumiPadMacData").innerHTML = sumiPadMacData;
                     document.getElementById("sumTabletAndroidData").innerHTML = sumTabletAndroidData;
 
-                    
+
                     $('#table').DataTable({
                         data: res.depositData,
                         lengthChange: false,
@@ -658,7 +656,6 @@
 
             })
             .fail(function(err) {
-                // console.log(err);
                 Swal.fire({
                     icon: "error",
                     title: "เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาแจ้งเจ้าหน้าที่",

@@ -174,7 +174,7 @@ class App extends BaseConfig
 	 *
 	 * @var integer
 	 */
-	public $sessionExpiration = 14000;
+	public $sessionExpiration = 200000;
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -218,7 +218,7 @@ class App extends BaseConfig
 	 *
 	 * @var integer
 	 */
-	public $sessionTimeToUpdate = 300;
+	public $sessionTimeToUpdate = 200000;
 
 	/**
 	 * --------------------------------------------------------------------------
