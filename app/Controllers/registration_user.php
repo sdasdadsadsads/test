@@ -45,7 +45,7 @@ class registration_user extends ResourceController
     public function create()
     {
         try {
-            if ($this->request->getPost('account') && $this->request->getPost('bankId') && $this->request->getPost('username') && $this->request->getPost('getBonus')) {
+            if ($this->request->getPost('account') && $this->request->getPost('bankId') && $this->request->getPost('username') ) {
                 $rules = [
                     'username'      => 'required|min_length[10]|max_length[10]',
                 ];

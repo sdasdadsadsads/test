@@ -122,14 +122,14 @@
                                             <tr>
                                                 <th>รูปภาพ</th>
                                                 <th>ชื่อ แจ้งเตือน</th>
-                                                <th>ผู้เพิ่ม แจ้งเตือน</th>
-                                                <th>วันที่สร้าง</th>
+                                                <th>ทำงานอัตโนมัติ</th>
+                                                <th>วันที่ (อัตโนมัติ)</th>
+                                                <th>เวลาเริ่มต้น (อัตโนมัติ)</th>
+                                                <th>เวลาสิ้นสุด (อัตโนมัติ)</th>
                                                 <th>วันที่อัพเดท</th>
-                                                <th>ประเภท auto</th>
-                                                <th>วัันที่</th>
-                                                <th>เวลาเริ่มต้น</th>
-                                                <th>เวลาสิ้นสุด</th>
-                                                <th>สถาน ใข้งาน</th>
+                                                <th>วันที่สร้าง</th>
+                                                <th>สร้างโดย</th>
+                                                <th>สถาน ใช้งาน</th>
                                                 <th>แก้ไข</th>
                                             </tr>
                                         </thead>
@@ -144,16 +144,13 @@
                                                         </td>
 
                                                         <td><?php echo $takeoffusersystemtDatas['take_off_name']; ?></td>
-                                                        <td><?php echo $takeoffusersystemtDatas['username']; ?></td>
-                                                        <td><?php echo date('d/m/Y H:i:s', $takeoffusersystemtDatas['create_at']); ?></td>
-                                                        <td><?php echo date('d/m/Y H:i:s', $takeoffusersystemtDatas['update_at']); ?></td>
                                                         <?php if ($takeoffusersystemtDatas['is_run_auto'] === "auto") { ?>
                                                             <td>
-                                                                <h3><span class="badge bg-success text-white">เปิดใช้งาน</span></h3>
+                                                                <h3><span class="badge bg-success text-white">เปิด</span></h3>
                                                             </td>
                                                         <?php } else if ($takeoffusersystemtDatas['is_run_auto'] === "no") { ?>
                                                             <td>
-                                                                <h3><span class="badge bg-danger text-white">ปิดใช้งาน</span></h3>
+                                                                <h3><span class="badge bg-danger text-white">ปิด</span></h3>
                                                             </td>
                                                         <?php } ?>
 
@@ -186,14 +183,17 @@
                                                                 -
                                                             </td>
                                                         <?php } ?>
+                                                        <td><?php echo date('d/m/Y H:i:s', $takeoffusersystemtDatas['update_at']); ?></td>
+                                                        <td><?php echo date('d/m/Y H:i:s', $takeoffusersystemtDatas['create_at']); ?></td>
+                                                        <td><?php echo $takeoffusersystemtDatas['username']; ?></td>
 
                                                         <?php if ($takeoffusersystemtDatas['status'] === "open") { ?>
                                                             <td>
-                                                                <h3><span class="badge bg-success text-white">เปิดใช้งาน</span></h3>
+                                                                <h3><span class="badge bg-success text-white">เปิด</span></h3>
                                                             </td>
                                                         <?php } else if ($takeoffusersystemtDatas['status'] === "close") { ?>
                                                             <td>
-                                                                <h3><span class="badge bg-danger text-white">ปิดใช้งาน</span></h3>
+                                                                <h3><span class="badge bg-danger text-white">ปิด</span></h3>
                                                             </td>
                                                         <?php } ?>
 
@@ -252,7 +252,7 @@
                                     <label for="field-1" class="form-label">ชื่อ แจ้งเตือน</label>
                                     <input type="text" name="take_off_name" id="take_off_name" class="form-control" placeholder="ชื่อแจ้งเตือน">
                                     <br>
-                                    <label class="form-label mb-2">ปิด / เปิด การใช้งาน auto
+                                    <label class="form-label mb-2">ทำงานอัตโนมัติ
                                     </label><br>
                                     <label class="switch mb-2">
                                         <input type="checkbox" id="myauto" onclick="turnoffusersystemauto()" checked>
@@ -269,25 +269,12 @@
                             </div>
 
 
-                            <div class="col-md-6" id='startTime_none'>
-                                <div class="mb-3">
-                                    <label for="field-2" class="form-label">เวลาเริ่มต้น</label>
-                                    <input type="text" name="start_time" id="start_time" class="24hours-timepicker form-control" placeholder="เวลาเริ่มต้น">
 
-                                </div>
-                            </div>
-
-                            <div class="col-md-6" id='endTime_none'>
-                                <div class="mb-3">
-                                    <label for="field-2" class="form-label">เวลาสิ้นสุด</label>
-                                    <input type="text" name="end_time" id="end_time" class="24hours-timepicker form-control" placeholder="เวลาสิ้นสุด">
-                                </div>
-                            </div>
 
                             <div class="col-md-6" id='take_off_day_none'>
-                                <label class="form-label">วันที่จะแจ้งเตือน</label>
+                                <label class="form-label">วันเริ่มปิดระบบ (ทำงานอัตโนมัติ)</label>
                                 <select id="take_off_day" name="take_off_day" class="form-select">
-                                    <option selected value="">กรุณาเลือก</option>
+                                    <option value="" selected>กรุณาเลือก</option>
                                     <option value="Sunday">วันอาทิตย์</option>
                                     <option value="Monday">วันจันทร์</option>
                                     <option value="Tuesday">วันอังคาร</option>
@@ -298,14 +285,35 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label mb-2">ปิด / เปิด การใช้งานแจ้งเตือน
-                                </label><br>
-                                <label class="switch mb-2">
-                                    <input type="checkbox" id="mystatus" onclick="turnoffusersystemStatus()" checked>
-                                    <span class="slider round"></span>
-                                </label>
+                            <div class="row">
+                                <div class="col-md-6" id='startTime_none'>
+                                    <div class="mb-3">
+                                        <label for="field-2" class="form-label">เวลาเริ่มต้น (ทำงานอัตโนมัติ)</label>
+                                        <input type="text" name="start_time" id="start_time" class="24hours-timepicker form-control" placeholder="เวลาเริ่มต้น">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" id='endTime_none'>
+                                    <div class="mb-3">
+                                        <label for="field-2" class="form-label">เวลาสิ้นสุด (ทำงานอัตโนมัติ)</label>
+                                        <input type="text" name="end_time" id="end_time" class="24hours-timepicker form-control" placeholder="เวลาสิ้นสุด">
+                                    </div>
+                                </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label mb-2">เปิด - ปิด ใช้งาน
+                                    </label><br>
+                                    <label class="switch mb-2">
+                                        <input type="checkbox" id="mystatus" onclick="turnoffusersystemStatus()" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+
 
 
                         </div>
@@ -376,7 +384,7 @@
         $('#addandeditturnoffusersystem').modal('show');
         document.getElementById("details").innerHTML = "แก้ไข Broadcast"
 
-       
+
 
         var parsed = parseInt(id);
         var promo = <?php echo json_encode($takeoffusersystemtData); ?>;

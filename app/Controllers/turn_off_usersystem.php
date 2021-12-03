@@ -95,7 +95,7 @@ class turn_off_usersystem extends ResourceController
 
                     $client = service('curlrequest', $this->url);
 
-                    $posts_data = $client->post('take_off_user_system/clear', [
+                    $posts_data = $client->post('take_off_user_system/create', [
                         "headers" => [
                             "Accept" => "application/json",
                             "jwt_token" => session()->get('JWT_TOKEN')

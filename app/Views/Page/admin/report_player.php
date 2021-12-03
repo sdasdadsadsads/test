@@ -225,7 +225,7 @@
                                                         <th>ธนาคาร</th>
                                                         <th>username</th>
                                                         <th>agent username</th>
-                                                        <th>วัน/เดือน/ปี </th>
+                                                        <th>วัน/เดือน/ปี ที่สร้าง</th>
                                                         <th>ฝาก</th>
                                                         <th>ถอน</th>
                                                         <th>เปลี่ยนรหัส</th>
@@ -775,10 +775,18 @@
 
                                                             const dateObject = new Date(milliseconds)
 
-                                                            const humanDateFormat = dateObject.toLocaleDateString("es-MX")
+                                                            const humanDateFormat = dateObject.toLocaleDateString("th-TH", {
+                                                                year: 'numeric',
+                                                                month: 'long',
+                                                                day: 'numeric',
+                                                                weekday: 'long',
+                                                                hour: 'numeric',
+                                                                minute: 'numeric',
+                                                                second: 'numeric'
+                                                            })
 
 
-                                                            return '<td> ' + humanDateFormat + ' ' + dateObject.getHours() + ":" + dateObject.getMinutes() + ' </td>'
+                                                            return '<td> ' + humanDateFormat + ' </td>'
 
                                                         }
                                                     },
@@ -1049,8 +1057,8 @@
 
                                                             const dateObject = new Date(milliseconds)
 
-                                                            const humanDateFormat = dateObject.toLocaleDateString("es-MX")
-                                                            const humanDateFormat2 = dateObject.toLocaleTimeString("es-MX")
+                                                            const humanDateFormat = dateObject.toLocaleDateString("th-TH")
+                                                            const humanDateFormat2 = dateObject.toLocaleTimeString("th-TH")
 
                                                             return '<td> ' + humanDateFormat + ' <br>' + humanDateFormat2 + '</td>'
 
@@ -1066,8 +1074,8 @@
 
                                                             const dateObject = new Date(milliseconds)
 
-                                                            const humanDateFormat = dateObject.toLocaleDateString("es-MX")
-                                                            const humanDateFormat2 = dateObject.toLocaleTimeString("es-MX")
+                                                            const humanDateFormat = dateObject.toLocaleDateString("th-TH")
+                                                            const humanDateFormat2 = dateObject.toLocaleTimeString("th-TH")
 
                                                             return '<td> ' + humanDateFormat + ' <br>' + humanDateFormat2 + '</td>'
 

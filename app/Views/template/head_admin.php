@@ -73,7 +73,7 @@
 <style>
     * {
         font-family: 'Prompt', sans-serif;
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .page-title {

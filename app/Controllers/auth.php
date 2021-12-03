@@ -138,7 +138,7 @@ class auth extends ResourceController
 				]);
 
 				$session->setFlashdata('auth', 'เข้าระบบสำเร็จ');
-				return redirect()->to(base_url('dashboard/show'));
+				return redirect()->to(base_url('news/show'));
 			} else {
 				$session = session();
 				$session->setFlashdata('error', 'รหัส Twofactor ไม่ถูกต้อง');

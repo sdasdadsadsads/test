@@ -63,9 +63,9 @@ $session = session();
                                 <tbody>
                                     <?php if (isset($admin)) : ?>
                                         <?php $date = new DateTime(); ?>
-                                        <?php foreach ($admin as $admins) { ?>
+                                        <?php  $i = 1; foreach ($admin as $admins) { ?>
                                             <tr>
-                                                <td><?php echo $admins['id']; ?></td>
+                                                <td><?= $i ?></td>
                                                 <td><?php echo $admins['username']; ?></td>
                                                 <td><?php echo $admins['name']; ?></td>
                                                 <td>
@@ -101,7 +101,7 @@ $session = session();
                                                     <!-- <button onClick="delete_admin('<?= $admins['id'] ?>')" class="btn btn-danger btn-sm waves-effect" title="ลบ"><i class="fas fa-trash-alt"></i></button> -->
                                                 </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php $i++; }  ?>
                                     <?php endif; ?>
 
                                 </tbody>
@@ -305,6 +305,7 @@ $session = session();
                             <form class="form-label-left input_mask" id="form_editAdmin">
                                 <?= csrf_field() ?>
                                 <input type="hidden" value="" name="id" id="edit_admin_id">
+                                <input type="hidden" value="" name="username" id="username3">
                                 <div class="modal-body p-4">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -324,7 +325,7 @@ $session = session();
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label for="field-1" class="form-label">Username</label>
-                                                <input type="text" id="username2" name="username" placeholder="Username" class="form-control" placeholder="Username">
+                                                <input type="text" id="username2"  class="form-control bg-light" placeholder="Username" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -652,6 +653,7 @@ $session = session();
                                         $('#rounds2').val(res.data.rounds);
                                         $('#tel2').val(res.data.tel);
                                         $('#username2').val(res.data.username);
+                                        $('#username3').val(res.data.username);
                                         // toggle_update_permission(res.data.class)
                                     }
 

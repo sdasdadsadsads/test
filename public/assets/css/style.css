@@ -1,63 +1,49 @@
 table tr {
-    text-align: center;
-    font-size: 12px;
-  }
-  
-  * {
-    font-family: "Prompt", sans-serif;
-    font-size: 16px;
-  }
-  
-  .bg-infolight {
-    background-color: #4fc6e194 !important;
-    color: #013158 !important;
-  }
-  
-  .bg-dangerlight {
-    background-color: #f1556c75 !important;
-    color: #580101 !important;
-  }
+  text-align: center;
+  font-size: 12px;
+}
 
-  .bg-greenlight2 {
-    background-color: #54ee8275 !important;
-    color: #26b84a !important;
-  }
+* {
+  font-family: "Prompt", sans-serif;
+  font-size: 16px;
+}
 
-  .bg-yellowlight2 {
-    background-color: #e5f13875 !important;
-    color: #ffd700 !important;
-  }
+.text-bold {
+  font-weight: bold;
+}
 
-  .bg-dangerlight2 {
-    background-color: #462279 !important;
-    color: white !important; 
-    border-right: 10px solid #ffd700 !important;
-  }
+.bg-infolight {
+  background-color: #4fc6e194 !important;
+  color: #013158 !important;
+}
 
- 
-  
-  span.dot1 {
-    height: 25px;
-    width: 25px;
-    background-color: #fd7e14;
-    border-radius: 50%;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  }
-  
-  span.dot2 {
-    height: 25px;
-    width: 25px;
-    background-color: #10c469;
-    border-radius: 50%;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  }
-  
-  #badge1 {
-    background-color: #fd7e14;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  }
-  
-  #badge2 {
-    background-color: #10c469;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-  }
+.bg-dangerlight {
+  background-color: #f1556c75 !important;
+  color: #580101 !important;
+}
+
+span.dot1 {
+  height: 25px;
+  width: 25px;
+  background-color: #fd7e14;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+span.dot2 {
+  height: 25px;
+  width: 25px;
+  background-color: #10c469;
+  border-radius: 50%;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#badge1 {
+  background-color: #fd7e14;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+#badge2 {
+  background-color: #10c469;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}

@@ -537,7 +537,7 @@
                                 <label class="form-label mb-2">ปิด / เปิด การใช้งานโปรโมชั่น
                                 </label><br>
                                 <label class="switch mb-2">
-                                    <input type="checkbox" id="myCheck2" >
+                                    <input type="checkbox" id="myCheck2">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -580,7 +580,7 @@
     ClassicEditor
         .create(document.querySelector('#editor'), {
             toolbar: {
-                items: ['bold', 'italic', '|', 'comment']
+                items: ['italic', 'heading', '|', 'comment']
             },
         })
         .then(editor => {

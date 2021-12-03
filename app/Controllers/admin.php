@@ -89,6 +89,7 @@ class admin extends ResourceController
 				'tel'  =>  $this->request->getPost('tel'),
 				'rounds'  =>  $this->request->getPost('rounds'),
 				'office'  =>  $this->request->getPost('office'),
+				'class'  =>  $this->request->getPost('class'),
 				'id'  =>  $session->get("id"),
 			];
 

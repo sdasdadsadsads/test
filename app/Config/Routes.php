@@ -296,8 +296,13 @@ $routes->group('turn_off_usersystem', function ($routes) {
 
 
 $routes->group('blacklist', function ($routes) {
-	$routes->get('show', 'blacklist::index',  ['filter' => 'auth', 'filter' => 'isPermission:2,13,46']);
-	
+	$routes->get('show', 'blacklist::index',  ['filter' => 'auth', 'filter' => 'isPermission:1,18']);
+	$routes->post('add_blacklist', 'blacklist::add_blacklist',  ['filter' => 'auth']);
+});
+
+
+$routes->group('news', function ($routes) {
+	$routes->get('show', 'news::index',  ['filter' => 'auth', 'filter' => 'isPermission:1,18']);
 });
 /*
  * --------------------------------------------------------------------

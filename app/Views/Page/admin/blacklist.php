@@ -125,9 +125,31 @@
                                                 <th>ธนาคาร</th>
                                                 <th>เลขที่บัญชี</th>
                                                 <th>หมายเหตุ</th>
+                                                <th>ผู้เพิ่ม</th>
+                                                <th>เวลา</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                            <?php if (isset($BlacklistData)) : ?>
+                                                <?php   $i = 1; foreach ($BlacklistData as $BlacklistDatas) : ?>
 
+                                                    <tr>
+                                                        <td><?= $i ?></td>
+                                                        <td><?php echo $BlacklistDatas['blacklist_name']; ?></td>
+                                                        <td class="p-0 m-0"> <img src="<?php echo base_url() ?>/assets/images/Bank_show/<?=$BlacklistDatas['bank_short']?>.png"  alt="user-image" class="me-1 mt-1"> <br> <p class="mt-2 text-blue"><?=$BlacklistDatas['bank_short']?></p></td>
+                                                        <td><?php echo $BlacklistDatas['account']; ?></td>
+                                                        <td><?php echo $BlacklistDatas['note']; ?></td>
+                                                        <td><?php echo $BlacklistDatas['username']; ?></td>
+                                                        <td><?php echo date('d/m/Y H:i:s', $BlacklistDatas['created_at']); ?></td>
+                                                    </tr>
+
+                                                <?php $i++; endforeach; ?>
+                                            <?php endif; ?>
+
+
+
+
+                                        </tbody>
 
                                     </table>
                                 </div> <!-- end card body-->
@@ -153,7 +175,7 @@
 <!-- ============================================================================================================================================= -->
 
 <div class="col-xl-12">
-    <div id="addandeditturnoffusersystem" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div id="addBlacklistt" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-light">
@@ -162,24 +184,21 @@
                 </div>
                 <div class="modal-body p-4 ">
 
-                    <form id="form_takeoffusersystemt" enctype="multipart/form-data">
+                    <form id="form_Blacklistt" enctype="multipart/form-data">
                         <?= csrf_field() ?>
-                        <input type="hidden" name="id" id="id">
-                        <input type="hidden" name="is_run_auto" id="is_run_auto">
-                        <input type="hidden" name="status" id="status">
-                        <input type="hidden" name="take_off_image" id="take_off_image">
+                    
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-2">
                                     <label for="field-1" class="form-label">ชื่อมิจฉาชีพ</label>
-                                    <input type="text" name="take_off_name" id="take_off_name" class="form-control" placeholder="ชื่อมิจฉาชีพ">
+                                    <input type="text" name="blacklist_name" id="blacklist_name" class="form-control" placeholder="ชื่อมิจฉาชีพ">
                                 </div>
                             </div>
 
                             <div class="col-md-6" id='take_off_day_none'>
                                 <label for="" class="form-label">ธนาคาร (ตามสมุดบัญชี)<span class="text-danger"> *</span></label>
                                 <?php if (isset($bankCategory)) { ?>
-                                    <select id="bankId" name="bankId" class="form-select">
+                                    <select id="bank_id" name="bank_id" class="form-select">
                                         <?php foreach ($bankCategory as $bankCategorys) { ?>
                                             <option value="<?php echo $bankCategorys['id']; ?>"><?php echo $bankCategorys['bank_th']; ?></option>
                                         <?php } ?>
@@ -192,7 +211,15 @@
                             <div class="col-md-6">
                                 <div class="mb-2">
                                     <label for="field-1" class="form-label">เลขที่บัญชี</label>
-                                    <input type="text" name="take_off_name" id="take_off_name" class="form-control" placeholder="ชื่อโปรโมชั่น">
+                                    <input type="text" name="account" id="account" class="form-control" placeholder="ชื่อโปรโมชั่น">
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <label for="field-1" class="form-label">หมายเหตุ</label>
+                                    <textarea class="form-control" name="note" id="note" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -220,9 +247,54 @@
 <script>
     function clearData() {
 
-        $('#addandeditturnoffusersystem').modal('show');
+        $('#addBlacklistt').modal('show');
         document.getElementById("details").innerHTML = "เพิ่ม รายชื่อมิจฉาชีพ"
     }
+
+
+    function add() {
+        var formData = new FormData($('#form_Blacklistt')[0]);
+        $.ajax({
+                url: '<?php echo base_url('blacklist/add_blacklist') ?>',
+                type: "POST",
+                data: formData,
+                dataType: "JSON",
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                cache: false,
+            })
+            .done(function(re) {
+
+                const res = JSON.parse(re);
+
+                if (res.code == 1) {
+                    Swal.fire({
+                        icon: "success",
+                        title: res.msg,
+                        showConfirmButton: false,
+                    });
+                    window.setTimeout(function() {
+                        location.reload()
+                    }, 500)
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: res.msg,
+                        showConfirmButton: false,
+                    });
+                }
+
+            })
+            .fail(function(err) {
+                Swal.fire({
+                    icon: "error",
+                    title: "เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาแจ้งเจ้าหน้าที่",
+                    showConfirmButton: false,
+                });
+            });
+    }
+
 </script>
 
 <?php $this->endSection(); ?>
